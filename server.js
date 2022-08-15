@@ -32,6 +32,8 @@ app.get("/", (req, res) => {
 app.get("/write", (req, res) => {
   res.render("write");
 });
+var date = new Date();
+console.log(date);
 
 app.post("/add", (req, res) => {
   db.collection("counter").findOne({ name: "postNum" }, (err, result) => {
@@ -41,6 +43,8 @@ app.post("/add", (req, res) => {
         _id: totalPetitions + 1,
         청원제목: req.body.title,
         청원내용: req.body.markdown,
+        status: "start",
+        청원기간: new Date(),
       },
       () => {
         console.log("저장완료");
@@ -56,5 +60,90 @@ app.post("/add", (req, res) => {
         );
       }
     );
+  });
+});
+
+app.get("/detail/:id", (req, res) => {
+  db.collection("petitions").findOne(
+    { _id: parseInt(req.params.id) },
+    (err, result) => {
+      console.log(result);
+      res.render("detail", { data: result });
+    }
+  );
+
+});
+app.get("/", (req, rep) => {
+  rep.render("main.ejs");
+});
+
+app.get("/login", (req, rep) => {
+  rep.render("login.ejs");
+});
+app.get("/petition", (req, rep) => {
+  rep.render("home.ejs");
+});
+app.get("/register", (req, rep) => {
+  rep.render("register.ejs");
+  for (var i = 0; i < 10; i++) {
+    console.log(i);
+  }
+});
+
+app.post("/register", (req, rep) => {
+  rep.render("main.ejs");
+  db.collection("counter").findOne({ name: "countacc" }, (err, result) => {
+    try {
+      var accNum = result.totalacc;
+      const hashedPass = bcrypt.hash(req.body.password, 10);
+
+      console.log("mail:", req.body.mail);
+      console.log("password:", hashedPass);
+
+      db.collection("acc").insertOne(
+        {
+          _id: accNum + 1,
+          name: req.body.name,
+          mail: req.body.mail,
+          pass: hashedPass,
+        },
+        () => {
+          db.collection("counter").updateOne(
+            { name: "countacc" },
+            { $inc: { totalacc: 1 } },
+            (err, result) => {
+              if (err) return console.log(error);
+            }
+          );
+        }
+      );
+    } catch {
+      rep.redirect("/register");
+    }
+  });
+});
+
+// app.post('/add', (req,rep)  =>{
+//   rep.sendFile(__dirname + ('/site/main.html'))
+//   console.log("메일:" , req.body)
+// })
+
+app.post("/login", (req, rep) => {
+  db.collection("counter").findOne({ name: "countacc" }, (err, result) => {
+    console.log("1차 진입");
+    for (var i = 1; i <= result.totalacc; i++) {
+      console.log("2차 진입");
+      db.collection("acc").findOne({ _id: i }, (err, result) => {
+        console.log("3차 진입");
+        console.log(result.mail);
+        console.log(req.body.loginmail);
+        if (result.mail == req.body.loginmail) {
+          if (bcrypt.compare(req.body.loginpassword, result.pass)) {
+            rep.render("main.ejs");
+            console.log("login success");
+          }
+        }
+      });
+    }
   });
 });

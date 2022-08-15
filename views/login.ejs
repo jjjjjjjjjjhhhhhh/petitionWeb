@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+</head>
+<body>
+    
+
+<div class="dropdown-menu">
+    <form class="px-4 py-3" action="/login" method="POST" >
+      <div class="form-group">
+        <label for="exampleDropdownFormEmail1">Email address</label>
+        <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="년도_학번@kshcm.net" name="loginmail">
+      </div>
+      <div class="form-group">
+        <label for="exampleDropdownFormPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="비밀번호" name="loginpassword">
+      </div>
+      <!-- <div class="form-check">
+        <form action="/add" method ="POST"></form>
+        <input type="checkbox" class="form-check-input" id="dropdownCheck">
+        <label class="form-check-label" for="dropdownCheck">
+          Remember me
+        </label>
+      </div> -->
+      <button type="submit" class="btn btn-primary">Sign in</button>
+    </form>
+    <div class="dropdown-divider"></div>
+    <a class="dropdown-item" href="/register">회원가입하기</a>
+    <a class="dropdown-item" href="/findPass">비밀번호를 잊으셨나요?</a>
+  </div>
+</body>
+</html>
