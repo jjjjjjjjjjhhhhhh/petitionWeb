@@ -1,36 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>로그인</title>
+    <link rel="stylesheet" href="../login.css">
+    <link rel="stylesheet" href="../defalt.css">
 </head>
-<body>
-    
+<header>
+    <ul class="topnav"  style="border-bottom: 1px solid #000">
+        <li><a href="Page2.html" style="margin-right: 90px">회원가입</a></li>
 
-<div class="dropdown-menu">
-    <form class="px-4 py-3" action="/login" method="POST" >
-      <div class="form-group">
-        <label for="exampleDropdownFormEmail1">Email address</label>
-        <input type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="년도_학번@kshcm.net" name="loginmail">
-      </div>
-      <div class="form-group">
-        <label for="exampleDropdownFormPassword1">Password</label>
-        <input type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="비밀번호" name="loginpassword">
-      </div>
-      <!-- <div class="form-check">
-        <form action="/add" method ="POST"></form>
-        <input type="checkbox" class="form-check-input" id="dropdownCheck">
-        <label class="form-check-label" for="dropdownCheck">
-          Remember me
-        </label>
-      </div> -->
-      <button type="submit" class="btn btn-primary">Sign in</button>
+        <li class="left" style="padding-left: 0px;">
+            <h2 href="/">
+            <div >
+                <img class="logo-image" src="../img/school_logo_1.png" alt ="호치민시한국국제학교 로고">
+            </div>
+            </h2>
+        </li>
+    </ul>
+</header>
+<body>
+    <p class="mx-auto title" style="font-size: 18px; padding-top: 100px; font-weight: 550;">
+        로그인 
+    </p>
+    <hr class = "mx-auto" id ="line" style="width: 400px;"> </hr>
+
+    <div class="round_box mx-auto dis_table log_in">
+        <div class="aa" style="padding-top: 35px;">
+            <form class="px-4 py-3" action="/login" method="POST" >
+            <div class="form-group">
+                <label for="exampleDropdownFormEmail1" style="padding-left: 10px;">학교이메일</label>
+                <div class="input-data">
+                   <input required type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="@kshcm.net" name="loginmail">
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 30px;">
+                <label for="exampleDropdownFormPassword1" style="padding-left: 10px;">비밀번호</label>
+                <div class="input-data">
+                   <input required type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="비밀번호" name="loginpassword">
+                </div>
+            </div>
+        </div>
+       
+    <div style="height:30px; line-height:29px;"
+                    <span style="float:right; padding:0 10px; font-size:8px; color:#dbdbdb">|</span> <span style="float:right;"><a href="/register" style="font-weight:100; color:#777;">회원 가입하기</a></span>
+                    <span style="float:right; padding:0 10px; font-size:8px; color:#dbdbdb">|</span> <span style="float:right;"><a href="/findPassword" style="font-weight:100; color:#777;">비밀번호 찾기</a></span>
+                </div>
+    <div class="mx-auto text-center"> 
+        <button type="submit" class = btn style ="margin-top: 80px;"> 로그인</button>
+    </div>
     </form>
-    <div class="dropdown-divider"></div>
-    <a class="dropdown-item" href="/register">회원가입하기</a>
-    <a class="dropdown-item" href="/findPass">비밀번호를 잊으셨나요?</a>
-  </div>
+    
 </body>
 </html>

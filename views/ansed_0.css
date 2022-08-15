@@ -1,0 +1,21 @@
+.box{ 
+    transition: all 0.2s ease;
+    padding: 30px 30px;
+    box-shadow: 2.12px 2.12px 4px rgb(50 50 50 / 0%);
+    border-width: 0px;
+    border-radius: 10px;
+    /* width: fit-content;
+    block-size: fit-content;  */
+    background: rgba(255, 255, 255, 0);
+    border: 1px solid #000000;
+    list-style: none;
+    float: left;  
+    margin: 10px;
+    min-width: 210px; 
+    max-width: 500px;
+    font-weight: bold;
+    text-align: center;
+    /* transform: translate(-30%); */
+    box-shadow: 1px 1px 1px 1px #888888;
+    
+}

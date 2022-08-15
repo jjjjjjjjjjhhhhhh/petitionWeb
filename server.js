@@ -32,8 +32,7 @@ app.get("/", (req, res) => {
 app.get("/write", (req, res) => {
   res.render("write");
 });
-var date = new Date();
-console.log(date);
+let date = new Date().toLocaleDateString();
 
 app.post("/add", (req, res) => {
   db.collection("counter").findOne({ name: "postNum" }, (err, result) => {
@@ -44,7 +43,7 @@ app.post("/add", (req, res) => {
         청원제목: req.body.title,
         청원내용: req.body.markdown,
         status: "start",
-        청원기간: new Date(),
+        청원기간: date,
       },
       () => {
         console.log("저장완료");
@@ -71,27 +70,25 @@ app.get("/detail/:id", (req, res) => {
       res.render("detail", { data: result });
     }
   );
-
 });
 app.get("/", (req, rep) => {
   rep.render("main.ejs");
 });
 
 app.get("/login", (req, rep) => {
-  rep.render("login.ejs");
+  rep.render("login");
 });
 app.get("/petition", (req, rep) => {
-  rep.render("home.ejs");
+  rep.render("home");
 });
 app.get("/register", (req, rep) => {
-  rep.render("register.ejs");
-  for (var i = 0; i < 10; i++) {
-    console.log(i);
-  }
+  rep.render("register");
 });
 
 app.post("/register", (req, rep) => {
-  rep.render("main.ejs");
+  rep.send(
+    '<script>alert("회원가입이 완료되었습니다");window.location="/"</script>'
+  );
   db.collection("counter").findOne({ name: "countacc" }, (err, result) => {
     try {
       var accNum = result.totalacc;
@@ -130,17 +127,18 @@ app.post("/register", (req, rep) => {
 
 app.post("/login", (req, rep) => {
   db.collection("counter").findOne({ name: "countacc" }, (err, result) => {
-    console.log("1차 진입");
+    //console.log("1차 진입");
     for (var i = 1; i <= result.totalacc; i++) {
-      console.log("2차 진입");
+      //console.log("2차 진입");
       db.collection("acc").findOne({ _id: i }, (err, result) => {
-        console.log("3차 진입");
+        //console.log("3차 진입");
         console.log(result.mail);
         console.log(req.body.loginmail);
         if (result.mail == req.body.loginmail) {
           if (bcrypt.compare(req.body.loginpassword, result.pass)) {
-            rep.render("main.ejs");
-            console.log("login success");
+            rep.send(
+              '<script>alert("로그인이 성공적으로 되었습니다");window.location="/"</script>'
+            );
           }
         }
       });
