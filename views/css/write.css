@@ -1,0 +1,129 @@
+.title {
+	height: 50px;
+	line-height: 50px;
+    font-weight: bold;
+    text-align: center;
+    
+}
+.titles{ 
+    border-top: 2px solid #000;
+}
+
+.discript{
+    width:100%; 
+    background-color: #f4f4f4;
+    height: 350px;
+    display: flex;
+    justify-content: center;
+}
+.list {
+	height: 40px;
+	line-height: 40px;
+}
+.b_line{border-bottom:solid 2px #000000}
+ul li {list-style:none; white-space: nowrap; }
+.pad_t_b_15{ padding-top: 15px; padding-bottom: 15px;}
+.lt_line {border-bottom:solid 1px black;}
+
+.vl_inBox {
+    border-left: 1px solid #000000;
+    height: 210px;
+    top: 0;
+  }
+.box_NoB{ 
+    transition: all 0.2s ease;
+    box-shadow: 2.12px 2.12px 4px rgb(50 50 50 / 0%);
+    border-width: 0px;
+    border-radius: 10px;
+    /* width: fit-content;
+    block-size: fit-content;  */
+    background: rgba(255, 255, 255, 0);
+    list-style: none;
+    float: left;  
+    margin: 10px;
+    min-width: 300px; 
+
+    font-weight: bold;
+    text-align: center;
+    /* transform: translate(-30%); */
+    
+}
+
+#lns{
+    margin-left: 50px;
+    float: none; 
+}
+.notion{
+    margin-top:400px;
+    padding-top: 5%; 
+}
+.write{
+    border-top: 1px #000;
+    border-top: 1px #000;
+}
+.boards {width: 1335px; }
+input.defaltCheckbox {
+    width: 40px;
+    height: 40px;
+}
+.pad_t_b_30{ padding-top: 30px; padding-bottom: 30px;}
+.pad_t_b_50{ padding-top: 30px; padding-bottom: 51px;}
+.pad_t_b_70{ padding-top: 30px; padding-bottom: 481px;}
+.mid_line{border-bottom:solid 1px #C4c4c4}
+.input{
+    width: 1015px; 
+    height: 39px;
+    font-size:15px; 
+    padding-top: 5px; 
+    padding-bottom: 5px;
+    padding-left: 20px;
+}
+.pad_t_b_10{
+    padding-top: 14px; padding-bottom: 14px;
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #C4c4c4;
+  }
+textarea {
+    width: 100%;
+    height: 500px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 1px solid #000;
+    border-radius: 4px;
+    font-size: 23px; 
+    resize: none;
+  }
+
+  .btn{ 
+    font-size: 25px; 
+    background: #fff;
+    padding: 15px;
+    height: 80px; 
+    width: 300px;   
+    text-align: center; 
+    text-decoration: none; 
+    color:#000; 
+    border-radius: 100px; 
+    cursor: pointer; 
+    border-color: #c4c4c4;
+    font-weight: 530;
+    margin-right: 50px;
+
+}
+  .btns{ 
+    font-size: 25px; 
+    background: #264BB1;
+    padding: 15px;
+    height: 80px; 
+    width: 300px;   
+    text-align: center; 
+    text-decoration: none; 
+    color:#fff; 
+    border-radius: 100px; 
+    cursor: pointer; 
+    border-color: #264BB1;
+}
+textarea::placeholder {
+    color: #c4c4c4;  
+  }

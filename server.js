@@ -1,12 +1,13 @@
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
+const crypto = require("crypto")
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(express.static("views"));
 
 const MongoClient = require("mongodb").MongoClient;
-
+var login_states
 var db;
 MongoClient.connect(
   "mongodb+srv://Tfadmin:qwerty1111@tfteam.aqtsspy.mongodb.net/?retryWrites=true&w=majority",
@@ -15,7 +16,7 @@ MongoClient.connect(
     db = client.db("petitionWeb");
 
     app.listen(8080, () => {
-      console.log("Connected");
+      console.log("http://localhost:8080");
     });
   }
 );
@@ -25,13 +26,14 @@ app.get("/", (req, res) => {
     .find()
     .toArray(function (err, result) {
       console.log(result);
-      res.render("home", { posts: result });
+      res.render("home", { posts: result, login_state: login_states });
     });
 });
 
 app.get("/write", (req, res) => {
   res.render("write");
 });
+
 let date = new Date().toLocaleDateString();
 
 app.post("/add", (req, res) => {
@@ -71,9 +73,9 @@ app.get("/detail/:id", (req, res) => {
     }
   );
 });
-app.get("/", (req, rep) => {
-  rep.render("main.ejs");
-});
+// app.get("/", (req, rep) => {
+//   rep.render("main.ejs");
+// });
 
 app.get("/login", (req, rep) => {
   rep.render("login");
@@ -84,64 +86,112 @@ app.get("/petition", (req, rep) => {
 app.get("/register", (req, rep) => {
   rep.render("register");
 });
-
-app.post("/register", (req, rep) => {
-  rep.send(
-    '<script>alert("회원가입이 완료되었습니다");window.location="/"</script>'
-  );
-  db.collection("counter").findOne({ name: "countacc" }, (err, result) => {
-    try {
-      var accNum = result.totalacc;
-      const hashedPass = bcrypt.hash(req.body.password, 10);
-
-      console.log("mail:", req.body.mail);
-      console.log("password:", hashedPass);
-
-      db.collection("acc").insertOne(
-        {
-          _id: accNum + 1,
-          name: req.body.name,
-          mail: req.body.mail,
-          pass: hashedPass,
-        },
-        () => {
-          db.collection("counter").updateOne(
-            { name: "countacc" },
-            { $inc: { totalacc: 1 } },
-            (err, result) => {
-              if (err) return console.log(error);
-            }
-          );
-        }
-      );
-    } catch {
-      rep.redirect("/register");
-    }
-  });
+app.get("/done", (req, res) => {
+  res.render("done");
 });
 
-// app.post('/add', (req,rep)  =>{
-//   rep.sendFile(__dirname + ('/site/main.html'))
-//   console.log("메일:" , req.body)
-// })
+app.post("/register", (req, rep) => {
+  db.collection("acc").findOne({ mail: req.body.mail }, (err, result) => {
+    if (result != null) {
+      rep.send(
+        '<script>alert("이미 존재하는 계정입니다");window.location="/"</script>'
+      )
+
+    } else {
+      rep.send(
+        '<script>alert("회원가입이 완료되었습니다");window.location="/"</script>'
+      );
+      db.collection("counter").findOne({ name: "countacc" }, (err, result) => {
+
+        try {
+          var accNum = result.totalacc;
+          let hashedPass = crypto.createHash("sha256").update(req.body.password).digest("base64")
+          console.log(hashedPass)
+          console.log("mail:", req.body.mail);
+          console.log("password:", hashedPass);
+
+          db.collection("acc").insertOne(
+            {
+              _id: accNum + 1,
+              name: req.body.name,
+              mail: req.body.mail,
+              pass: hashedPass,
+            },
+            () => {
+              db.collection("counter").updateOne(
+                { name: "countacc" },
+                { $inc: { totalacc: 1 } },
+                (err, result) => {
+                  if (err) return console.log(error);
+                }
+              );
+            }
+          )
+        } catch {
+          rep.redirect("/register");
+        }
+      })
+    }
+  })
+
+});
 
 app.post("/login", (req, rep) => {
   db.collection("counter").findOne({ name: "countacc" }, (err, result) => {
-    //console.log("1차 진입");
-    for (var i = 1; i <= result.totalacc; i++) {
-      //console.log("2차 진입");
-      db.collection("acc").findOne({ _id: i }, (err, result) => {
-        //console.log("3차 진입");
-        console.log(result.mail);
-        console.log(req.body.loginmail);
-        if (result.mail == req.body.loginmail) {
-          if (bcrypt.compare(req.body.loginpassword, result.pass)) {
+
+    db.collection("acc").findOne({ mail: req.body.loginmail }, (err, res) => {
+
+      if (res == null) {
+        console.log('mail incorrectly directed')
+        rep.send(
+          '<script>alert("존재하지 않는 계정입니다");window.location="/"</script>'
+        );
+        rep.render('register')
+
+      } else {
+
+        console.log(res)
+        console.log(req.body.loginmail)
+        let inputPass = crypto.createHash("sha256").update(req.body.loginpassword).digest("base64")
+        console.log(inputPass)
+
+        if ((req.body.loginmail) == (res.mail)) {
+          console.log("mail correctly directed")
+
+          if (inputPass == res.pass) {
+            console.log("password correctly directed")
+            login_states = req.body.loginmail
             rep.send(
-              '<script>alert("로그인이 성공적으로 되었습니다");window.location="/"</script>'
+              '<script>alert("로그인이 완료되었습니다");window.location="/"</script>'
             );
+            rep.render('main')
+          } else {
+            console.log("password incorrectly directed")
+            rep.send(
+              '<script>alert("메일 혹은 비밀번호가 올바르지 않습니다");window.location="/"</script>'
+            );
+
+
           }
+        } else {
+          console.log("mail incorrectly directed")
+          rep.send(
+            '<script>alert("메일 혹은 비밀번호가 올바르지 않습니다");window.location="/"</script>'
+          );
+
+
         }
-      });
-    }
-  });
-});
+      }
+
+
+    })
+
+
+  })
+})
+
+app.get('/test', (rep, req) => {
+  let digest2 = crypto.createHash("sha256").update("anggi").digest("base64")
+  console.log(digest2)
+
+})

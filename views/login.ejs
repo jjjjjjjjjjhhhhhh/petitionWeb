@@ -5,22 +5,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>로그인</title>
-    <link rel="stylesheet" href="../login.css">
-    <link rel="stylesheet" href="../defalt.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/defalt.css">
 </head>
-<header>
-    <ul class="topnav"  style="border-bottom: 1px solid #000">
-        <li><a href="Page2.html" style="margin-right: 90px">회원가입</a></li>
-
-        <li class="left" style="padding-left: 0px;">
-            <h2 href="/">
-            <div >
+<header style="padding-top: 40px; padding-bottom: 10px; border-bottom: 1px solid;">
+    <ul class="topnav">
+        <li class="right"><a href="/register">회원가입</a></li><a href="/">
+        <li class="left">
+            
+            <div>
                 <img class="logo-image" src="../img/school_logo_1.png" alt ="호치민시한국국제학교 로고">
             </div>
-            </h2>
+        </li>
+        </a>
+        <li class="left" style="padding-left: 50px;  padding-top:20px;" > 
+            <div class="vl_inBox fl" style="height: 40px; margin:0px;"> </div>
+        </li>
+        <li class="left" style="padding-left: 35px; font-size: 25px; font-weight: 700; padding-top: 4px;">
+            <p>학생청원 2022</p>
         </li>
     </ul>
 </header>
+
 <body>
     <p class="mx-auto title" style="font-size: 18px; padding-top: 100px; font-weight: 550;">
         로그인 
@@ -29,30 +35,25 @@
 
     <div class="round_box mx-auto dis_table log_in">
         <div class="aa" style="padding-top: 35px;">
-            <form class="px-4 py-3" action="/login" method="POST" >
-            <div class="form-group">
-                <label for="exampleDropdownFormEmail1" style="padding-left: 10px;">학교이메일</label>
+            <form class="mx-1 mx-md-4" action="/login" method="POST">
+            <div class="wrapper">
+                <label style="padding-left: 10px;">학교이메일</label>
                 <div class="input-data">
-                   <input required type="email" class="form-control" id="exampleDropdownFormEmail1" placeholder="@kshcm.net" name="loginmail">
+                   <input type="text" required ="required" placeholder="@kshcm.net" name="loginmail">
                 </div>
             </div>
 
-            <div class="form-group" style="margin-top: 30px;">
-                <label for="exampleDropdownFormPassword1" style="padding-left: 10px;">비밀번호</label>
+            <div class="wrapper" style="margin-top: 30px;">
+                <label style="padding-left: 10px;">비밀번호</label>
                 <div class="input-data">
-                   <input required type="password" class="form-control" id="exampleDropdownFormPassword1" placeholder="비밀번호" name="loginpassword">
+                   <input type="password" required ="required" name="loginpassword">
                 </div>
             </div>
         </div>
-       
-    <div style="height:30px; line-height:29px;"
-                    <span style="float:right; padding:0 10px; font-size:8px; color:#dbdbdb">|</span> <span style="float:right;"><a href="/register" style="font-weight:100; color:#777;">회원 가입하기</a></span>
-                    <span style="float:right; padding:0 10px; font-size:8px; color:#dbdbdb">|</span> <span style="float:right;"><a href="/findPassword" style="font-weight:100; color:#777;">비밀번호 찾기</a></span>
-                </div>
-    <div class="mx-auto text-center"> 
-        <button type="submit" class = btn style ="margin-top: 80px;"> 로그인</button>
+
     </div>
-    </form>
-    
+    <div class="mx-auto text-center"> 
+        <button href="" class = btn style ="margin-top: 80px;"> 로그인</button>
+    </div>
 </body>
 </html>

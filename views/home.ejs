@@ -1,18 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
+
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="../styles.css">
-    
+    <title>홈</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/defalt.css">
+    <script>
+        (function(d) {
+          var config = {
+            kitId: 'jpv6fkl',
+            scriptTimeout: 3000,
+            async: true
+          },
+          h=d.documentElement,t=setTimeout(function(){h.className=h.className.replace(/\bwf-loading\b/g,"")+" wf-inactive";},config.scriptTimeout),tk=d.createElement("script"),f=false,s=d.getElementsByTagName("script")[0],a;h.className+=" wf-loading";tk.src='https://use.typekit.net/%27+config.kitId+%27.js%27;tk.async=true;tk.onload=tk.onreadystatechange=function()%7Ba=this.readyState;if(f%7C%7Ca&&a!=%22complete%22&&a!=%22loaded%22)return;f=true;clearTimeout(t);try%7BTypekit.load(config)%7Dcatch(e)%7B%7D%7D;s.parentNode.insertBefore(tk,s)'
+        })(document);
+      </script>
 </head>
-      <%- include('topBar') %>  
-      <div class="mx-auto text-center"> 
-                <a href="/write" class = "btn"  style ="margin-top: 100px;"> 학생 청원 글 게시하기</a>
-            </div>    
+
+<div class = "wrapper"> 
+    <header style="padding-top: 40px; padding-bottom: 10px;">
+        <ul class="topnav">
+            
+            <% if(login_state == null){ %>
+
+                <li class=" right"><a href="/login">로그인</a></li>
+                <li><a href="/register">회원가입</a></li>
+                <% }else{ %>
+                    <li class=" right">로그인된 계정: <%= login_state %></a></li>
+                    
+                <% } %> 
+
+            <li class="left">
+                <h2 href="/">
+                <div>
+                    <img class="logo-image" src="../img/school_logo_1.png" alt ="호치민시한국국제학교 로고">
+                </div>
+                </h2>
+            </li>
+            <li class="left" style="padding-left: 50px;  padding-top:20px;" > 
+                <div class="vl_inBox fl" style="height: 40px;"> </div>
+            </li>
+            <li class="left" style="padding-left: 35px; font-size: 25px; font-weight: 700; padding-top: 4px;">
+                <p>학생청원 2022</p>
+            </li>
+        </ul>
+    </header>
+    <body style="margin: 0px;">
+        <div class =" mx-auto text-center" id = 'banner'>
+            <div>
+                <img src="../img/학물학답.png" id = "banner-img"> 
+                        </div>    
+        </div>
+        
+            <div class="middle">
+                <p class="bold title f38" style="margin-top: 5%; padding-top: 100px; "> 
+                    학생청원 절차 
+                </p>
+                <div class="flex-container">
+                    <div class="box fst-box">
+                        <img src="../img/BAM-Free_Illustration_kit-V1.0/Computer.png" style = "padding:20px; width:140px; ";id = ""> 
+                        
+                        <h4>
+                            1. 로그인 하여 청원 등록하기 
+                        </h4>
+                        <p class="f8" style="color: #707070; text-align: left">
+                            *본교에 재학중인 학생은 누구나 로그인 후 청원 게시판 글을 등록할 수 있습니다.
+                        </p>
+                    </div>
+                    <div class="box fst-box">
+                        <img src="../img/BAM-Free_Illustration_kit-V1.0/Message.png" style = "padding:20px; width:140px; ";id = ""> 
+                        
+                        <h4>
+                            1. 로그인 하여 청원 등록하기 
+                        </h4>
+                        <p class="f8" style="color: #707070; text-align: left">
+                            *본교에 재학중인 학생은 누구나 로그인 후 청원 게시판 글을 등록할 수 있습니다.
+                        </p>
+                    </div>
+                    <div class="box fst-box">
+                        <img src="../img/BAM-Free_Illustration_kit-V1.0/Warning.png" style = "padding:20px; width:140px; transform: rotate(32deg);";id = ""> 
+                        
+                        <h4>
+                            1. 로그인 하여 청원 등록하기 
+                        </h4>
+                        <p class="f8" style="color: #707070; text-align: left">
+                            *본교에 재학중인 학생은 누구나 로그인 후 청원 게시판 글을 등록할 수 있습니다.
+                        </p>
+                    </div>
+                    <div class="box fst-box">
+                        <img src="../img/BAM-Free_Illustration_kit-V1.0/Calendar.png" style = "padding:20px; width:140px; ";id = ""> 
+                        
+                        <h4>
+                            1. 로그인 하여 청원 등록하기 
+                        </h4>
+                        <p class="f8" style="color: #707070; text-align: left">
+                            *본교에 재학중인 학생은 누구나 로그인 후 청원 게시판 글을 등록할 수 있습니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <p class="bold title f38" style="margin-top: 100px;margin-bottom: 3px;"> 
+                안내 및 주의사항
+            </p>
+            <p class="title" style="color:#c4c4c4;font-size: 18px;margin-top: 0px;" > 
+                사이트 이용 전 필독 하여 주십시오.
+            </p>
+            <div class="discript">
+                <div class="box_NoB f30 ">
+                    <p>숨김 처리 및 삭제 사유 </p>
+                    <div class="fl tl dis">
+                      <p> <p class="red">명예훼손, 비속어 표현, 불건전한 내용, 취지에 맞지 않는 내용</p>
+                      <p> 등을 담은 게시물은 권리자에 의해 숨김처리 또는 삭제될 수 있습니다. </p></p>
+                    </div>
+                </div>
+                <div class="box_NoB fl f30">
+                    <p>중복과 도배 방지 정책</p>
+                    <div class="fl tl dis">
+                        <p>동일 이용자에 의해 동일한 내용으로 중복 게시된 청원은 </p>
+                        <p>최초 1개만 남기고 숨은처리 또는 삭제될 수 있습니다. </p>
+                    </div>
+                </div>
+                <div class="box_NoB fl f30">
+                    <p> 익명성 보장 </p>
+                    <div class="fl tl dis">
+                        <p> 본 사이트는 청원 글 게시와 동의에 대해 학생들의 익명성을 보장합니다. </p>
+                    </div>
+                </div>
+            </div>
+            <div class="mx-auto text-center"> 
+                <a href="/write"><button href="" class = btn style ="margin-top: 100px;"> 학생 청원 글 게시하기</button></a>
+            </div>
             <div class ="sub-title">
                 <div class="vl"></div>
                 <div class="sub-title-text" > <a> 답변된 청원</a> </div>  
@@ -81,7 +201,7 @@
             </div>
             <div class="thd-main">
                 <div class="thd_main"> 
-                    <li class= "thd_box fst"> 
+                    <li class= "thd_box fst mx-auto"> 
                         <div class="box_NoB">
                             <div>
                                 참여인원 
@@ -110,7 +230,7 @@
                                 최근 학교 급식 메뉴에 밀가루 음식이 대부분입니다. 
                             </P>
                             <P class="f8">
-                                건강하고 맜있는 .. 
+                                건강하고 맛있는 .. 
 
                             </P>
                             <div class = "text_right" href="#"> 
@@ -119,10 +239,10 @@
                             </div>
                         </div>
                     </li>
-                    <li class= "thd_box fst">
+                    <li class= "thd_box mx-auto fst">
                         <div class="box_NoB">
                             <div>
-                                참여인원 
+                                참여인원
                             </div>
                             <div >
                             <p class="f60 m10" style= "color: #2962FF;">138명</p> 
@@ -148,7 +268,7 @@
                                 최근 학교 급식 메뉴에 밀가루 음식이 대부분입니다. 
                             </P>
                             <P class="f8">
-                                건강하고 맜있는 .. 
+                                건강하고 맛있는 .. 
 
                             </P>
                             <div class = "text_right" href="#"> 
@@ -157,7 +277,7 @@
                             </div>
                         </div> 
                     </li>
-                    <li class= "thd_box fst">
+                    <li class= "thd_box mx-auto fst">
                         <div class="box_NoB">
                             <div>
                                 참여인원 
@@ -186,7 +306,7 @@
                                 최근 학교 급식 메뉴에 밀가루 음식이 대부분입니다. 
                             </P>
                             <P class="f8">
-                                건강하고 맜있는 .. 
+                                건강하고 맛있는 .. 
 
                             </P>
                             <div class = "text_right" href="#"> 
@@ -201,7 +321,8 @@
                 <div class="vl"></div>
                 <div class="sub-title-text" > <a> 답변 대기 중인 청원 </a> </div> 
             </div>
-            <div class="frth-main">
+            
+            <div class="frth-main mx-auto">
                 <div class="petition_waiting"> 
                     <ul class="board">
                         <li class="pad_t_b_15 fl tc w70 title b_line">번호</li>
@@ -255,39 +376,56 @@
                     <a class ="pge" href="#" id="next2">&#8250;&#8250;</a>
                 </div>
             </div> 
-
-            <div class="sub-title">
-  <div class="vl"></div>
-  <div class="sub-title-text"><a> 청원 목록 </a></div>
-</div>
-<div class="frth-main">
-  <div class="petition_waiting">
-    <ul class="board">
-      <li class="pad_t_b_15 fl tc w70 title b_line">번호</li>
-      <li class="pad_t_b_15 fl tc w120 title b_line">진행상태</li>
-      <li class="pad_t_b_15 fl tc w500 title b_line">제목</li>
-      <li class="pad_t_b_15 fl tc w100 title b_line">청원기간</li>
-      <li class="pad_t_b_15 fl tc w100 title b_line">참여인원</li>
-    </ul>
-    <!--- 리스트 --->
-
-    <% for (var i = 0; i < posts.length; i ++) { %>
-    <ul class="board">
-      <li class="pad_t_b_15 fl tc w70 title b_line">번호</li>
-      <li class="pad_t_b_15 fl tc w120 title b_line">진행상태</li>
-      <li class="pad_t_b_15 fl tc w120 title b_line">
-        <a href="/detail/">청원 제목 : <%= posts[i].청원제목 %></a>
-      </li>
-      <li class="pad_t_b_15 fl tc w100 title b_line">
-        청원 기간 : <%= posts[i].청원기간 %>
-      </li>
-      <li class="pad_t_b_15 fl tc w100 title b_line">참여인원</li>
-    </ul>
-    <% } %>
-  </div>
-</div>
-
-
+            <div class ="sub-title">
+                <div class="vl"></div>
+                <div class="sub-title-text" > <a> 청원 목록 </a> </div> 
+            </div>
+            <div class="frth-main mx-auto">
+                <div class="petition_waiting"> 
+                    <ul class="board">
+                        <li class="pad_t_b_15 fl tc w70 title b_line">번호</li>
+                        <li class="pad_t_b_15 fl tc w120 title b_line">진행상태</li>
+                        <li class="pad_t_b_15 fl tc w500 title b_line">제목</li>
+                        <li class="pad_t_b_15 fl tc w100 title b_line">청원기간</li>
+                        <li class="pad_t_b_15 fl tc w100 title b_line">참여인원</li>
+                    </ul>
+                    <!--- 리스트 --->
+                    <ul class="board">
+                        <li class="pad_t_b_15 fl tc w70 list lt_line">5</li>
+                        <li class="pad_t_b_15 fl tc w120 list lt_line blue">답변대기</li>
+                        <li class="pad_t_b_15 fl tc w500 list lt_line">제목</li>
+                        <li class="pad_t_b_15 fl tc w100 list lt_line">2019-02-11</li>
+                        <li class="pad_t_b_15 fl tc w100 list  lt_line blue">1</li>
+                    </ul>
+                    <ul class="board">
+                        <li class="pad_t_b_15 fl tc w70 list lt_line">4</li>
+                        <li class="pad_t_b_15 fl tc w120 list lt_line blue">답변대기</li>
+                        <li class="pad_t_b_15 fl tc w500 list lt_line">제목</li>
+                        <li class="pad_t_b_15 fl tc w100 list lt_line">2019-02-11</li>
+                        <li class="pad_t_b_15 fl tc w100 list  lt_line blue">1</li>
+                    </ul>
+                    <ul class="board">
+                        <li class="pad_t_b_15 fl tc w70 list lt_line">3</li>
+                        <li class="pad_t_b_15 fl tc w120 list lt_line blue">답변대기</li>
+                        <li class="pad_t_b_15 fl tc w500 list lt_line">제목</li>
+                        <li class="pad_t_b_15 fl tc w100 list lt_line">2019-02-11</li>
+                        <li class="pad_t_b_15 fl tc w100 list  lt_line blue">1</li>
+                    </ul>
+                    <ul class="board">
+                        <li class="pad_t_b_15 fl tc w70 list lt_line">2</li>
+                        <li class="pad_t_b_15 fl tc w120 list lt_line blue">답변대기</li>
+                        <li class="pad_t_b_15 fl tc w500 list lt_line">제목</li>
+                        <li class="pad_t_b_15 fl tc w100 list lt_line">2019-02-11</li>
+                        <li class="pad_t_b_15 fl tc w100 list  lt_line blue">1</li>
+                    </ul>
+                    <ul class="board">
+                        <li class="pad_t_b_15 fl tc w70 list b_line">1</li>
+                        <li class="pad_t_b_15 fl tc w120 list b_line blue">답변대기</li>
+                        <li class="pad_t_b_15 fl tc w500 list b_line">제목</li>
+                        <li class="pad_t_b_15 fl tc w100 list b_line">2019-02-11</li>
+                        <li class="pad_t_b_15 fl tc w100 list  b_line blue">1</li>
+                    </ul>
+                </div>
                 <div class="l">
                     <a class ="pge" href="#" id="previous2">&#8249;&#8249;</a>
                     <a class ="pge" href="#" id="previous2">&#8249;</a>

@@ -4,26 +4,36 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>로그인</title>
-    <link rel="stylesheet" href="../login.css">
-    <link rel="stylesheet" href="../defalt.css">
+    <title>회원가입</title>
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/defalt.css">
 </head>
-<header>
-    <ul class="topnav"  style="border-bottom: 1px solid #000">
-        <li><a href="Page2.html" style="margin-right: 90px">회원가입</a></li>
-
-        <li class="left" style="padding-left: 0px;">
+<header style="padding-top: 40px; padding-bottom: 10px; margin: 0; border-bottom: 1px solid;">
+    <ul class="topnav">
+        <li class=" right"><a href="/login">로그인</a></li><a href="/">
+        
+        <li class="left" >
             <h2 href="/">
+            
             <div >
-                <img class="logo-image" src="../school_logo_1.png" alt ="호치민시한국국제학교 로고">
+                <img class="logo-image" src="../img/school_logo_1.png" alt ="호치민시한국국제학교 로고">
             </div>
+            
             </h2>
+            
+        </li>
+        </a>
+        <li class="left" style="padding-left: 50px;  padding-top:20px;" > 
+            <div class="vl_inBox fl" style="height: 40px; margin:0px;"> </div>
+        </li>
+        <li class="left" style="padding-left: 35px; font-size: 25px; font-weight: 700; padding-top: 4px;">
+            <p>학생청원 2022</p>
         </li>
     </ul>
 </header>
 <body>
     <p class="mx-auto title" style="font-size: 18px; padding-top: 100px; font-weight: 550;">
-        회원가입  
+        회원가입 
     </p>
     <hr class = "mx-auto" id ="line" style="width: 400px;"> </hr>
 
@@ -31,49 +41,35 @@
         <div class="aa" style="padding-top: 35px;">
             <form class="mx-1 mx-md-4" action="/register" method="POST">
             <div class="wrapper">
-                <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                <label  class="form-label" for="form3Example1c" style="padding-left: 10px;">이름</label>
+                <label style="padding-left: 10px;">학교이메일</label>
                 <div class="input-data">
-                   <input type="text" id="form3Example1c" class="form-control" name="name" required ="required" >
+                   <input type="text" required ="required" placeholder="@kshcm.net" name="mail">
                 </div>
             </div>
 
-            <div class="wrapper">
-                <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                <label  class="form-label" for="form3Example1c" style="padding-left: 10px;">학교 이메일</label>
+            <div class="wrapper" style="margin-top: 30px;">
+                <label style="padding-left: 10px;">비밀번호</label>
                 <div class="input-data">
-                   <input type="email" id="form3Example3c" class="form-control" placeholder="년도_학번@kshcm.net" name="mail" required ="required" >
+                   <input type="password" required ="required" name="password">
                 </div>
             </div>
-
-            <div class="wrapper">
-                <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                <label  class="form-label" for="form3Example1c" style="padding-left: 10px;">비밀번호</label>
+            <div class="wrapper" style="margin-top: 30px;">
+                <label style="padding-left: 10px;">비밀번호 확인</label>
                 <div class="input-data">
-                   <input type="password" id="form3Example4cd" class="form-control" placeholder="비밀번호" name="password" required ="required" >
+                   <input type="password" required ="required">
                 </div>
             </div>
-
-            <div class="wrapper">
-                <i class="fas fa-user fa-lg me-3 fa-fw"></i>
-                <label  class="form-label" for="form3Example1c" style="padding-left: 10px;">비밀번호 재확인</label>
+            <div class="wrapper" style="margin-top: 30px;">
+                <label style="padding-left: 10px;">닉네임</label>
                 <div class="input-data">
-                   <input type="password" id="form3Example4cd" class="form-control" placeholder="비밀번호 재확인" required ="required" >
+                   <input type="text" required ="required" name="name" >
                 </div>
             </div>
-            <div class="form-check d-flex justify-content-center mb-5">
-                          <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
-                          <label class="form-check-label" for="form2Example3">
-                           <a href="#!"> 이용약관에 대하여 동의합니다</a>
-                          </label>
-                        </div>
-                        
         </div>
 
     </div>
     <div class="mx-auto text-center"> 
-        <button type="submit" class = btn style ="margin-top: 80px;"> 회원가입</button>
+        <button href="" class = btn style ="margin-top: 80px;" type="submit"> 로그인</button>
     </div>
-    </form>
 </body>
 </html>

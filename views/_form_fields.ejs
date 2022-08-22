@@ -1,11 +1,32 @@
-<div class="form-group">
-  <label for="title">청원 제목</label>
-  <input required type="text" name="title" id="title" class="form-control" />
-</div>
-<div class="form-group">
-  <label for="markdown">청원 내용</label>
-  <textarea name="markdown" id="markdown" class="form-control"> </textarea>
-</div>
-
-<a href="/" class="btn btn-secondary">작성 취소</a>
-<button type="submit" class="btn btn-primary">청원 등록하기</button>
+<ul class="boards">
+    <li class="pad_t_b_50 fl tc w200 titles mid_line"></li>
+    <li class="pad_t_b_30 fl w250 titles mid_line">
+        <input type="checkbox" checked="checked" class="defaultCheckbox">
+        <label class="container"> 익명(닉네임)
+            <span class="checkmark"></span>
+        </label>
+    </li>
+    <li class="pad_t_b_30 fl w800 titles mid_line">
+        <input type="checkbox" class="defaultCheckbox">
+        <label class="container"> 실명(학교이메일주소)
+            <span class="checkmark"></span>
+        </label>
+    </li>
+</ul>
+<!--- 리스트 --->
+<ul class="boards">
+    <li class="pad_t_b_30 fl w200 mid_line" style="padding-left: 10px;"> 청원 제목</li>
+    <li class="pad_t_b_10 fl w1040 mid_line">
+        <div class="input-data">
+            <input name="title" id="title" class="input" type="text" required="required" placeholder="청원 제목을 입력해주세요.">
+        </div>
+    </li>
+</ul>
+<ul class="boards">
+    <li class="pad_t_b_70 fl w200 mid_line" style="padding-left: 10px;"> 청원 내용</li>
+    <li class="pad_t_b_10 fl w1040 mid_line">
+        <div class="input-data">
+            <textarea name="markdown" id="markdown" placeholder="청원 내용을 입력해주세요."> </textarea>
+        </div>
+    </li>
+</ul>
