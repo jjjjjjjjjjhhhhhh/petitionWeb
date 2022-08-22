@@ -6,8 +6,12 @@ app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(express.static("views"));
 
-const MongoClient = require("mongodb").MongoClient;
+
 var login_states
+var login_status = false;
+
+const MongoClient = require("mongodb").MongoClient;
+const e = require('express');
 var db;
 MongoClient.connect(
   "mongodb+srv://Tfadmin:qwerty1111@tfteam.aqtsspy.mongodb.net/?retryWrites=true&w=majority",
@@ -26,12 +30,20 @@ app.get("/", (req, res) => {
     .find()
     .toArray(function (err, result) {
       console.log(result);
+      console.log(login_status)
       res.render("home", { posts: result, login_state: login_states });
     });
 });
 
 app.get("/write", (req, res) => {
-  res.render("write");
+  if (login_status == true) {
+    res.render("write");
+  }
+  else{
+  res.send(
+    '<script>alert("로그인을 먼저 해주세요");window.location="/"</script>'
+  );
+  }
 });
 
 let date = new Date().toLocaleDateString();
@@ -46,6 +58,7 @@ app.post("/add", (req, res) => {
         청원내용: req.body.markdown,
         status: "start",
         청원기간: date,
+        익명여부: req.body.anonymous
       },
       () => {
         console.log("저장완료");
@@ -69,10 +82,12 @@ app.get("/detail/:id", (req, res) => {
     { _id: parseInt(req.params.id) },
     (err, result) => {
       console.log(result);
-      res.render("detail", { data: result });
+      res.render("detail", { data: result, login_state: login_states})
     }
   );
 });
+
+
 // app.get("/", (req, rep) => {
 //   rep.render("main.ejs");
 // });
@@ -144,9 +159,8 @@ app.post("/login", (req, rep) => {
       if (res == null) {
         console.log('mail incorrectly directed')
         rep.send(
-          '<script>alert("존재하지 않는 계정입니다");window.location="/"</script>'
+          '<script>alert("존재하지 않는 계정입니다");window.location="/register"</script>'
         );
-        rep.render('register')
 
       } else {
 
@@ -161,14 +175,14 @@ app.post("/login", (req, rep) => {
           if (inputPass == res.pass) {
             console.log("password correctly directed")
             login_states = req.body.loginmail
+            login_status = true;
             rep.send(
               '<script>alert("로그인이 완료되었습니다");window.location="/"</script>'
             );
-            rep.render('main')
           } else {
             console.log("password incorrectly directed")
             rep.send(
-              '<script>alert("메일 혹은 비밀번호가 올바르지 않습니다");window.location="/"</script>'
+              '<script>alert("메일 혹은 비밀번호가 올바르지 않습니다");window.location="/login"</script>'
             );
 
 
@@ -176,7 +190,7 @@ app.post("/login", (req, rep) => {
         } else {
           console.log("mail incorrectly directed")
           rep.send(
-            '<script>alert("메일 혹은 비밀번호가 올바르지 않습니다");window.location="/"</script>'
+            '<script>alert("메일 혹은 비밀번호가 올바르지 않습니다");window.location="/login"</script>'
           );
 
 
