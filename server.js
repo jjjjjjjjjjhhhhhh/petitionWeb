@@ -6,12 +6,13 @@ app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(express.static("views"));
 
-
+var bool = false;
 var login_states
 var login_status = false;
 
 const MongoClient = require("mongodb").MongoClient;
 const e = require('express');
+const { runInNewContext } = require('vm');
 var db;
 MongoClient.connect(
   "mongodb+srv://Tfadmin:qwerty1111@tfteam.aqtsspy.mongodb.net/?retryWrites=true&w=majority",
@@ -39,10 +40,10 @@ app.get("/write", (req, res) => {
   if (login_status == true) {
     res.render("write");
   }
-  else{
-  res.send(
-    '<script>alert("로그인을 먼저 해주세요");window.location="/"</script>'
-  );
+  else {
+    res.send(
+      '<script>alert("로그인을 먼저 해주세요");window.location="/"</script>'
+    );
   }
 });
 
@@ -58,7 +59,8 @@ app.post("/add", (req, res) => {
         청원내용: req.body.markdown,
         status: "start",
         청원기간: date,
-        익명여부: req.body.anonymous
+        익명여부: req.body.anonymous,
+        liked: 0
       },
       () => {
         console.log("저장완료");
@@ -82,11 +84,54 @@ app.get("/detail/:id", (req, res) => {
     { _id: parseInt(req.params.id) },
     (err, result) => {
       console.log(result);
-      res.render("detail", { data: result, login_state: login_states})
+      res.render("detail", { data: result, login_state: login_states })
     }
   );
 });
 
+app.post("/vote/:id", (req, res) => {
+  if (login_status == true) {
+    console.log(req.params.id)
+    db.collection("acc").findOne({ mail: login_states }, (err, result) => {
+      for (const object in result.likedId) {
+        if (object == req.params.id) {
+          bool = true;
+        }
+        else {
+          bool = false;
+        }
+      }
+      if (bool == true) {
+        bool = false;
+        res.send(
+          '<script>alert("이미 동의하신 청원입니다");window.location="/"</script>'
+        );
+
+      }
+      else {
+        db.collection("acc").updateOne(
+          { mail: login_states },
+          { $push: { likedId: req.params.id } }, (err, result) => {
+            db.collection("petitions").updateOne(
+              { _id: parseInt(req.params.id) },
+              { $inc: { liked: 1 } }, (err, result) => {
+                console.log("voted")
+                res.send(
+                  '<script>alert("동의해주셔서 감사합니다");window.location="/"</script>'
+                );
+              }
+            );
+          }
+        )
+      }
+    })
+  }
+  else {
+    res.send(
+      '<script>alert("로그인 이후 사용해 주세요");window.location="/"</script>'
+    );
+  }
+})
 
 // app.get("/", (req, rep) => {
 //   rep.render("main.ejs");

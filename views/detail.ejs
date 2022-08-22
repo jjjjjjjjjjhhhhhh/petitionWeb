@@ -22,14 +22,16 @@
       <div class="card" style="width: 100%">
         <div class="card-body">
           <div class="mx-auto text-center">
-            <h4>청원 내용</h4>
+            <h4>
+              <%- data.청원제목 %>
+            </h4>
           </div>
           <h6 class="card-subtitle mb-2 text-muted">
             <%- data.청원내용 %>
           </h6>
           <div class="mx-auto text-center">
-            <form action="/add" method="POST"> 
-            <a class="btn" style="margin-top: 100px">동의하기</a>
+            <form action="/vote/<%- data._id %>" method="POST">
+              <button class="btn" style="margin-top: 100px" type="submit"><a>동의하기</a></button>
             </form>
           </div>
         </div>
