@@ -47,7 +47,48 @@ app.get("/write", (req, res) => {
   }
 });
 
-let date = new Date().toLocaleDateString();
+let localDate = new Date().toLocaleDateString();
+
+
+function changeDate(localDate){
+  var year = parseInt(localDate.substring(0, 4))
+  var month = parseInt(localDate.substring(6, 7))
+  var date = parseInt(localDate.substring(9,11))
+  if(month == 2){
+    if(date + 14 > 29){
+      month ++;
+      date = date + 14 - 29;
+    }
+    else{
+      date += 14;
+    }
+  }
+  else if(month == 1 || month == 3 || month ==5 || month ==7 || month ==8 || month ==10 || month ==12 ){
+    if(date + 14 > 31){
+      
+      date = date + 14 - 31;
+      if(month == 12){
+        month = 1;
+      }
+      else{
+        month++;
+      }
+    }
+    else{
+      date += 14;
+    }
+  }
+  else{
+    if(date + 14 > 30){
+      month ++;
+      date = date + 14 - 30;
+    }
+    else{
+      date += 14;
+    }
+  }
+  return (year*10000+ month*100 + date);
+}
 
 app.post("/add", (req, res) => {
   db.collection("counter").findOne({ name: "postNum" }, (err, result) => {
@@ -58,7 +99,7 @@ app.post("/add", (req, res) => {
         청원제목: req.body.title,
         청원내용: req.body.markdown,
         status: "start",
-        청원기간: date,
+        청원기간: changeDate(localDate),
         익명여부: req.body.anonymous,
         liked: 0
       },
