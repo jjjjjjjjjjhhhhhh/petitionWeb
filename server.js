@@ -50,44 +50,44 @@ app.get("/write", (req, res) => {
 let localDate = new Date().toLocaleDateString();
 
 
-function changeDate(localDate){
+function changeDate(localDate) {
   var year = parseInt(localDate.substring(0, 4))
   var month = parseInt(localDate.substring(6, 7))
-  var date = parseInt(localDate.substring(9,11))
-  if(month == 2){
-    if(date + 14 > 29){
-      month ++;
+  var date = parseInt(localDate.substring(9, 11))
+  if (month == 2) {
+    if (date + 14 > 29) {
+      month++;
       date = date + 14 - 29;
     }
-    else{
+    else {
       date += 14;
     }
   }
-  else if(month == 1 || month == 3 || month ==5 || month ==7 || month ==8 || month ==10 || month ==12 ){
-    if(date + 14 > 31){
-      
+  else if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 || month == 10 || month == 12) {
+    if (date + 14 > 31) {
+
       date = date + 14 - 31;
-      if(month == 12){
+      if (month == 12) {
         month = 1;
       }
-      else{
+      else {
         month++;
       }
     }
-    else{
+    else {
       date += 14;
     }
   }
-  else{
-    if(date + 14 > 30){
-      month ++;
+  else {
+    if (date + 14 > 30) {
+      month++;
       date = date + 14 - 30;
     }
-    else{
+    else {
       date += 14;
     }
   }
-  return (year*10000+ month*100 + date);
+  return (year * 10000 + month * 100 + date);
 }
 
 app.post("/add", (req, res) => {
@@ -101,7 +101,8 @@ app.post("/add", (req, res) => {
         status: "start",
         청원기간: changeDate(localDate),
         익명여부: req.body.anonymous,
-        liked: 0
+        liked: 0,
+        author: login_states
       },
       () => {
         console.log("저장완료");
@@ -137,9 +138,6 @@ app.post("/vote/:id", (req, res) => {
       for (const object in result.likedId) {
         if (object == req.params.id) {
           bool = true;
-        }
-        else {
-          bool = false;
         }
       }
       if (bool == true) {
