@@ -9,6 +9,7 @@ app.use(express.static("views"));
 var bool = false;
 var login_states
 var login_status = false;
+var login_mail
 
 const MongoClient = require("mongodb").MongoClient;
 const e = require('express');
@@ -38,7 +39,7 @@ app.get("/", (req, res) => {
 
 app.get("/write", (req, res) => {
   if (login_status == true) {
-    res.render("write");
+    res.render("write", { login_state: login_states });
   }
   else {
     res.send(
@@ -113,9 +114,7 @@ app.post("/add", (req, res) => {
             if (err) return console.log(error);
           }
         );
-        res.send(
-          '<script>alert("청원이 등록되었습니다");window.location="/"</script>'
-        );
+        res.render('done', { login_state: login_states })
       }
     );
   });
@@ -131,25 +130,38 @@ app.get("/detail/:id", (req, res) => {
   );
 });
 
+app.get("/listpetition", (res, rep) => {
+  db.collection("petitions")
+    .find()
+    .toArray(function (err, result) {
+
+      db.collection("counter").findOne({ name: "postNum" }, (err, rez) => {
+        console.log(result)
+        console.log(rez.totalPost)
+
+        rep.render("petitionlist", { login_state: login_states, lengthpetition: rez.totalPost, array: result })
+      })
+    })
+
+
+})
+
+
+
+
+
 app.post("/vote/:id", (req, res) => {
   if (login_status == true) {
-    console.log(req.params.id)
-    db.collection("acc").findOne({ mail: login_states }, (err, result) => {
-      for (const object in result.likedId) {
+    db.collection("acc").findOne({ mail: login_mail }, (err, result) => {
+      console.log(req.params.id)
+      for (var object in result.likedId) {
         if (object == req.params.id) {
           bool = true;
         }
       }
-      if (bool == true) {
-        bool = false;
-        res.send(
-          '<script>alert("이미 동의하신 청원입니다");window.location="/"</script>'
-        );
-
-      }
-      else {
+      if (bool == false) {
         db.collection("acc").updateOne(
-          { mail: login_states },
+          { mail: login_mail },
           { $push: { likedId: req.params.id } }, (err, result) => {
             db.collection("petitions").updateOne(
               { _id: parseInt(req.params.id) },
@@ -162,6 +174,13 @@ app.post("/vote/:id", (req, res) => {
             );
           }
         )
+
+      }
+      else if (bool == true) {
+        res.send(
+          '<script>alert("이미 동의하신 청원입니다");window.location="/"</script>'
+        );
+        bool = false;
       }
     })
   }
@@ -177,16 +196,16 @@ app.post("/vote/:id", (req, res) => {
 // });
 
 app.get("/login", (req, rep) => {
-  rep.render("login");
+  rep.render("login", { login_state: login_states });
 });
 app.get("/petition", (req, rep) => {
-  rep.render("home");
+  rep.render("home", { login_state: login_states });
 });
 app.get("/register", (req, rep) => {
-  rep.render("register");
+  rep.render("register", { login_state: login_states });
 });
 app.get("/done", (req, res) => {
-  res.render("done");
+  res.render("done", { login_state: login_states });
 });
 
 app.post("/register", (req, rep) => {
@@ -258,7 +277,9 @@ app.post("/login", (req, rep) => {
 
           if (inputPass == res.pass) {
             console.log("password correctly directed")
-            login_states = req.body.loginmail
+            console.log(req.body.loginmail)
+            login_mail = req.body.loginmail
+            login_states = res.name
             login_status = true;
             rep.send(
               '<script>alert("로그인이 완료되었습니다");window.location="/"</script>'
@@ -291,5 +312,7 @@ app.post("/login", (req, rep) => {
 app.get('/test', (rep, req) => {
   let digest2 = crypto.createHash("sha256").update("anggi").digest("base64")
   console.log(digest2)
-
+  db.collection("acc").findOne({ pass: bcrypt.hash("asd", 10) }, (err, result) => {
+    console.log(result)
+  })
 })

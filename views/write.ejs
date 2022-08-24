@@ -10,34 +10,42 @@
     <link rel="stylesheet" href="../css/write.css">
 
 </head>
-<header style="padding-top: 40px; padding-bottom: 10px; margin: 0;">
-    <ul class="topnav">
-        <li class=" right"><a href="/login">로그인</a></li>
-        <li><a href="/register">회원가입</a></li><a href="/">
-            <li class="left">
-                <h2 href="/">
-                    <div>
-                        <img class="logo-image" src="../img/school_logo_1.png" alt="호치민시한국국제학교 로고">
-                    </div>
-                </h2>
+<div class="wrapper">
+    <header style="padding-top: 40px; padding-bottom: 10px;">
+        <ul class="topnav">
 
-            </li>
-        </a>
-        <li class="left" style="padding-left: 50px;  padding-top:20px;">
-            <div class="vl_inBox fl" style="height: 40px; margin:0px;"> </div>
-        </li>
-        <li class="left" style="padding-left: 35px; font-size: 25px; font-weight: 700; padding-top: 4px;">
-            <p>학생청원 2022</p>
-        </li>
-    </ul>
-</header>
+            <% if(login_state==null){ %>
 
-<body>
-    <div class=" mx-auto text-center" id='banner'>
-        <div>
-            <img src="../img/청게.png" id="banner-img">
+                <li class=" right"><a href="/login">로그인</a></li>
+                <li><a href="/register">회원가입</a></li>
+                <% }else{ %>
+                    <li class=" right">로그인된 계정: <%= login_state %></a></li>
+
+                    <% } %>
+
+                        <li class="left">
+                            <h2 href="/">
+                                <div>
+                                    <img class="logo-image" src="../img/school_logo_1.png" alt="호치민시한국국제학교 로고">
+                                </div>
+                            </h2>
+                        </li>
+                        <li class="left" style="padding-left: 50px;  padding-top:20px;">
+                            <div class="vl_inBox fl" style="height: 40px;"> </div>
+                        </li>
+                        <li class="left"
+                            style="padding-left: 35px; font-size: 25px; font-weight: 700; padding-top: 4px;">
+                            <p>학생청원 2022</p>
+                        </li>
+        </ul>
+    </header>
+
+    <body style="margin: 0px;">
+        <div class=" mx-auto text-center" id='banner'>
+            <div>
+                <img src="../img/학물학답.png" id="banner-img">
+            </div>
         </div>
-    </div>
     <div class="notion">
         <p class="bold title f38" style="margin-top: 100px;margin-bottom: 3px; font-size: 38px;">
             안내 및 주의사항
@@ -90,7 +98,7 @@
             </div>
             <div class="mx-auto text-center">
                 <a href="/"><button href="" class=btn style="margin-top: 80px;"> 작성 최소</button></a>
-                <a href="done"><button type="submit" href="done" class=btns style="margin-top: 80px;"> 청원
+                <a href="/done"><button type="submit" href="/done" class=btns style="margin-top: 80px;"> 청원
                         등록하기</button></a>
             </div>
     </div>

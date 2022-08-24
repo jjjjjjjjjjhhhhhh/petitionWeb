@@ -9,27 +9,42 @@
     <link rel="stylesheet" href="../css/petition_list.css">
 </head>
 <body>
-    
     <div class="wrapper">
-        <header style="padding-top: 40px; padding-bottom: 10px; margin: 0;">
+        <header style="padding-top: 40px; padding-bottom: 10px;">
             <ul class="topnav">
-                <li class=" right"><a href="Page1.html">로그인</a></li>
-                <li><a href="Page2.html">회원가입</a></li>
-                <li class="left" >
-                    <h2 href="/">
-                    <div >
-                        <img class="logo-image" src="../img/school_logo_1.png" alt ="호치민시한국국제학교 로고">
-                    </div>
-                    </h2>
-                </li>
-                <li class="left" style="padding-left: 50px;  padding-top:20px;" > 
-                    <div class="vl_inBox fl" style="height: 40px; margin:0px;"> </div>
-                </li>
-                <li class="left" style="padding-left: 35px; font-size: 25px; font-weight: 700; padding-top: 4px;">
-                    <p>학생청원 2022</p>
-                </li>
+    
+                <% if(login_state==null){ %>
+    
+                    <li class=" right"><a href="/login">로그인</a></li>
+                    <li><a href="/register">회원가입</a></li>
+                    <% }else{ %>
+                        <li class=" right">로그인된 계정: <%= login_state %></a></li>
+    
+                        <% } %>
+    
+                            <li class="left">
+                                <h2 href="/">
+                                    <div>
+                                        <img class="logo-image" src="../img/school_logo_1.png" alt="호치민시한국국제학교 로고">
+                                    </div>
+                                </h2>
+                            </li>
+                            <li class="left" style="padding-left: 50px;  padding-top:20px;">
+                                <div class="vl_inBox fl" style="height: 40px;"> </div>
+                            </li>
+                            <li class="left"
+                                style="padding-left: 35px; font-size: 25px; font-weight: 700; padding-top: 4px;">
+                                <p>학생청원 2022</p>
+                            </li>
             </ul>
         </header>
+    
+        <body style="margin: 0px;">
+            <div class=" mx-auto text-center" id='banner'>
+                <div>
+                    <img src="../img/학물학답.png" id="banner-img">
+                </div>
+            </div>
     
         <div class =" mx-auto text-center" id = 'banner'>
             <div>
