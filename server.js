@@ -115,9 +115,9 @@ app.post("/done", (req, res) => {
           { $inc: { totalPost: 1 } },
           (err, result) => {
             if (err) return console.log(error);
+            res.render('done', { login_state: login_states })
           }
         );
-        res.render('done', { login_state: login_states })
       }
     );
   });
@@ -219,37 +219,47 @@ app.post("/register", (req, rep) => {
       )
 
     } else {
-      rep.send(
-        '<script>alert("회원가입이 완료되었습니다");window.location="/"</script>'
-      );
-      db.collection("counter").findOne({ name: "countacc" }, (err, result) => {
-
-        try {
-          var accNum = result.totalacc;
-          let hashedPass = crypto.createHash("sha256").update(req.body.password).digest("base64")
-          console.log(hashedPass)
-          console.log("mail:", req.body.mail);
-          console.log("password:", hashedPass);
-
-          db.collection("acc").insertOne(
-            {
-              _id: accNum + 1,
-              name: req.body.name,
-              mail: req.body.mail,
-              pass: hashedPass,
-            },
-            () => {
-              db.collection("counter").updateOne(
-                { name: "countacc" },
-                { $inc: { totalacc: 1 } },
-                (err, result) => {
-                  if (err) return console.log(error);
-                }
-              );
-            }
+      db.collection("acc").findOne({ name: req.body.name }, (err, result) => {
+        if (result != null) {
+          rep.send(
+            '<script>alert("이미 존재하는 닉네임입니다");window.location="/"</script>'
           )
-        } catch {
-          rep.redirect("/register");
+
+        } else {
+          rep.send(
+            '<script>alert("회원가입이 완료되었습니다");window.location="/"</script>'
+          );
+          db.collection("counter").findOne({ name: "countacc" }, (err, result) => {
+
+            try {
+              var accNum = result.totalacc;
+              let hashedPass = crypto.createHash("sha256").update(req.body.password).digest("base64")
+              console.log(hashedPass)
+              console.log("mail:", req.body.mail);
+              console.log("password:", hashedPass);
+
+              db.collection("acc").insertOne(
+                {
+                  _id: accNum + 1,
+                  name: req.body.name,
+                  mail: req.body.mail,
+                  pass: hashedPass,
+                },
+                () => {
+                  db.collection("counter").updateOne(
+                    { name: "countacc" },
+                    { $inc: { totalacc: 1 } },
+                    (err, result) => {
+                      if (err) return console.log(error);
+                    }
+                  );
+                }
+              )
+            } catch {
+              rep.redirect("/register");
+            }
+          })
+
         }
       })
     }
@@ -310,6 +320,12 @@ app.post("/login", (req, rep) => {
 
 
   })
+})
+
+app.get("/logout", (req, res) => {
+  login_states = null;
+  console.log(login_states)
+  res.redirect('/')
 })
 
 app.get('/test', (rep, req) => {

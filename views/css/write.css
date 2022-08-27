@@ -50,8 +50,10 @@ ul li {list-style:none; white-space: nowrap; }
 }
 
 #lns{
-    margin-left: 50px;
+    margin-left: 200px;
     float: none; 
+    text-align: left;
+    margin-top: 100px;
 }
 .notion{
     margin-top:400px;

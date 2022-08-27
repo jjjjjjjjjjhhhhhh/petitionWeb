@@ -43,67 +43,66 @@
     <body style="margin: 0px;">
         <div class=" mx-auto text-center" id='banner'>
             <div>
-                <img src="../img/학물학답.png" id="banner-img">
+                <img src="../img/mainBanner.png" id="banner-img">
             </div>
         </div>
-    <div class="notion">
-        <p class="bold title f38" style="margin-top: 100px;margin-bottom: 3px; font-size: 38px;">
-            안내 및 주의사항
-        </p>
-        <p class="title" style="color:#c4c4c4;font-size: 18px;margin-top: 0px;">
-            서이트 이용 전 필독 하여 주십시오.
-        </p>
-        <div class="discript">
-            <div class="box_NoB ">
-                <p>숨김 처리 및 삭제 사유 </p>
-                <div class="fl tl dis">
-                    <p>
-                    <p class="red">명예훼손, 비속어 표현, 불건전한 내용, 취지에 맞지 않는 내용</p>
-                    <p> 등을 담은 게시물은 권리자에 의해 숨김처리 또는 삭제될 수 있습니다. </p>
-                    </p>
+        <div class="notion">
+            <p class="bold title f38" style="margin-top: 100px;margin-bottom: 3px; font-size: 38px;">
+                안내 및 주의사항
+            </p>
+            <p class="title" style="color:#c4c4c4;font-size: 18px;margin-top: 0px;">
+                서이트 이용 전 필독 하여 주십시오.
+            </p>
+            <div class="discript">
+                <div class="box_NoB f30 mar30">
+                    <p style="padding-top:40px; font-size: 30px;">숨김 처리 및 삭제 사유 </p>
+                    <div class="fl tl dis">
+
+                        <p class="red inline">명예훼손, 비속어 표현, 불건전한 내용, 취지에 맞지 않는 내용</p>
+                        <p class="inline"> 등을 담은 게시물은 권리자에 의해 숨김처리 또는 삭제될 수 있습니다. </p>
+
+                    </div>
+                </div>
+                <div class="box_NoB fl f30 mar30">
+                    <p style="padding-top:40px; font-size: 30px;">중복과 도배 방지 정책</p>
+                    <div class="fl tl dis">
+                        <p class="inline">동일 이용자에 의해 동일한 내용으로 중복 게시된 청원은 </p>
+                        <p class="inline">최초 1개만 남기고 숨은처리 또는 삭제될 수 있습니다. </p>
+                    </div>
+                </div>
+                <div class="box_NoB fl f30 mar30">
+                    <p style="padding-top:40px; font-size: 30px;"> 익명성 보장 </p>
+                    <div class="fl tl dis">
+                        <p class="inline"> 본 사이트는 청원 글 게시와 동의에 대해 학생들의 익명성을 보장합니다. </p>
+                    </div>
                 </div>
             </div>
-            <div class="box_NoB fl">
-                <p>중복과 도배 방지 정책</p>
-                <div class="fl tl dis">
-                    <p>동일 이용자에 의해 동일한 내용으로 중복 게시된 청원은 </p>
-                    <p>최초 1개만 남기고 숨은처리 또는 삭제될 수 있습니다. </p>
-                </div>
+            <div class="box_NoB" id="lns">
+                <p style="margin-bottom: 30px; font-size:19px;">호치민시한국국제학교 학생청원은 아래와 같이 진행됩니다.</p>
+                <p style="color: #707070;">1. 본교에 재학 중안 학생은 누구나 로그인 후 '학생 청원 글 게시하기'를 통해 청원 게시판 글을 등록할 수 잇습니다. </p>
+                <p style="color: #707070;">2. 게시 후 2주(14일)안에 본교에 재학 중인 학생 200명 이상의 동의를얻은 청원 게시글은 학생회에 전달됩니다. </p>
+                <p style="color: #707070;">3. 검토 절차를 거친 후 학생회의 답변을 받을 수 있으며, 답변이 완료된 청원은 학교 언론 보도를 통해 전교생에게 전달됩니다. </p>
+                <p style="color: #707070;">4. 학생회 추가 회의 진행을 통해 대응 방향을 결정합니다. </p>
             </div>
-            <div class="box_NoB tl">
-                <p> 익명성 보장 </p>
-                <div class="fl tl dis">
-                    <p> 본 사이트는 청원 글 게시와 동이에 대해 학생들의 익명성을 보장합니다. </p>
-                </div>
+            <div>
+                <form action="/done" method="POST">
+                    <div class=" title" style="font-size: 38px; margin-top:100px; margin-bottom: 70px;">
+                        청원글 작성
+                    </div>
+                    <div class="mx-auto" style="width: 1500px; height: 700px; padding-left: 4.5cm;">
+
+                        <%- include('_form_fields')%>
+
+
+                    </div>
+                    <div class="mx-auto text-center">
+                        <a href="/"> <button class=btn style="margin-top: 80px;"> 작성 최소</button></a>
+                        <a href="/done"><button type="submit" class=btns style="margin-top: 80px;"> 청원
+                                등록하기</button></a>
+                    </div>
             </div>
+            </form>
         </div>
-    </div>
-    <div class="box_NoB" id="lns">
-        <p>호치민시한국국제학교 학생청원은 아래와 같이 진행됩니다.</p>
-        <p>1. 본교에 재학 중안 학생은 누구나 로그인 후 '학생 청원 글 게시하기'를 통해 청원 게시판 글을 등록할 수 잇습니다. </p>
-        <p>1. 본교에 재학 중안 학생은 누구나 로그인 후 '학생 청원 글 게시하기'를 통해 청원 게시판 글을 등록할 수 잇습니다. </p>
-        <p>1. 본교에 재학 중안 학생은 누구나 로그인 후 '학생 청원 글 게시하기'를 통해 청원 게시판 글을 등록할 수 잇습니다. </p>
-        <p>1. 본교에 재학 중안 학생은 누구나 로그인 후 '학생 청원 글 게시하기'를 통해 청원 게시판 글을 등록할 수 잇습니다. </p>
-    </div>
-    <div>
-        <form action="/done" method="POST">
-            <div class=" title" style="font-size: 38px; margin-top:100px; margin-bottom: 70px;">
-                청원글 작성
-            </div>
-            <div class="mx-auto" style="width: 1500px; height: 700px; padding-left: 4.5cm;">
-
-                <%- include('_form_fields')%>
-
-
-            </div>
-            <div class="mx-auto text-center">
-                <a href="/"><button href="" class=btn style="margin-top: 80px;"> 작성 최소</button></a>
-                <a href="/done"><button type="submit" href="/done" class=btns style="margin-top: 80px;"> 청원
-                        등록하기</button></a>
-            </div>
-    </div>
-    </form>
-    </div>
-</body>
+    </body>
 
 </html>

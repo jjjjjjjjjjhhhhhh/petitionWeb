@@ -1,4 +1,8 @@
 /*navbar */ 
+.pointer{
+  cursor:pointer;
+}
+
 ul.topnav {
     list-style-type: none;
     margin: 0;

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-    
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,8 +9,9 @@
     <link rel="stylesheet" href="../css/defalt.css">
     <link rel="stylesheet" href="../css/done.css">
 
-</head><div class="wrapper">
-    <header style="padding-top: 40px; padding-bottom: 10px;">
+</head>
+<div class="wrapper">
+    <header style="padding-top: 40px; padding-bottom: 10px; border-bottom: 1px solid; ">
         <ul class="topnav">
 
             <% if(login_state==null){ %>
@@ -40,16 +41,21 @@
     </header>
 
     <body style="margin: 0px;">
-        <div class=" mx-auto text-center" id='banner'>
-            <div>
-                <img src="../img/학물학답.png" id="banner-img">
-            </div>
+
+        <div>
+            <p class="title" style="font-weight:500; font-size: 17px; margin-bottom: 0px;"> 알림 </p>
         </div>
-    <div> <p class="title" style="font-weight:500; font-size: 17px; margin-bottom: 0px;"> 알림 </p></div>
-    <div> <p class="mx-auto" style="width: 35%; margin-top: -5px;" id="line"></p> </div>
-    <div> <p class="title" style="font-weight:bold; letter-spacing: 0.000001cm; font-size: 50px; margin-top: 250px;  margin-bottom: 0px;"> 청원이 등록되었습니다. </p></div>
-    <div class="mx-auto text-center"> 
-        <button href="/" class = btn style ="margin-top: 260px;"> 메인화면으로 돌아가기 </button>
-    </div>
-</body>
+        <div>
+            <p class="mx-auto" style="width: 35%; margin-top: -5px;" id="line"></p>
+        </div>
+        <div>
+            <p class="title"
+                style="font-weight:bold; letter-spacing: 0.000001cm; font-size: 50px; margin-top: 250px;  margin-bottom: 0px;">
+                청원이 등록되었습니다. </p>
+        </div>
+        <div class="mx-auto text-center">
+            <a href="/"><button class=btn style="margin-top: 260px;"> 메인화면으로 돌아가기 </button></a>
+        </div>
+    </body>
+
 </html>
