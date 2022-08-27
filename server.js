@@ -27,6 +27,9 @@ MongoClient.connect(
   }
 );
 
+
+
+
 app.get("/", (req, res) => {
   db.collection("petitions")
     .find()
@@ -91,7 +94,7 @@ function changeDate(localDate) {
   return (year * 10000 + month * 100 + date);
 }
 
-app.post("/add", (req, res) => {
+app.post("/done", (req, res) => {
   db.collection("counter").findOne({ name: "postNum" }, (err, result) => {
     var totalPetitions = result.totalPost;
     db.collection("petitions").insertOne(

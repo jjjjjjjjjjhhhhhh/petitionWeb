@@ -109,7 +109,7 @@ textarea {
     border-color: #c4c4c4;
     font-weight: 530;
     margin-right: 50px;
-
+    font-weight: bold;
 }
   .btns{ 
     font-size: 25px; 
@@ -123,6 +123,7 @@ textarea {
     border-radius: 100px; 
     cursor: pointer; 
     border-color: #264BB1;
+    font-weight: bold;
 }
 textarea::placeholder {
     color: #c4c4c4;  

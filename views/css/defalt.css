@@ -12,6 +12,9 @@ ul.topnav {
     height: 72px; 
 
   }
+.space4{
+  letter-spacing: -0.4ch;
+}
   ul.topnav li {float: right;}
   ul.topnav li a {
     display: block;
@@ -36,7 +39,7 @@ ul.topnav {
   }
   ul.topnav li.left {
     float: left;
-    padding-left: 5%;
+    padding-left: 3%;
   }
  
   .red{ 
@@ -67,8 +70,8 @@ ul.topnav {
 .f20{
   font-size: 20px;
 }
-.f30{ font-size: 30px;}
 .f38{ font-size: 38px;}
+.f31{ font-size: 31px;}
 .f60{ 
     font-size: 60px;
 }
@@ -94,7 +97,11 @@ ul.topnav {
 .b_line{border-bottom:solid 2px #000000}
 .pad_t_b_15{ padding-top: 15px; padding-bottom: 15px;}
 
-
+.mar30{
+  margin-left: 30px;
+  margin-right: 30px
+}
+.inline{display: inline; font-size: 25px;}
 .sub-title{ 
   float: left;
   display: flex; 

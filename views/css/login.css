@@ -8,8 +8,8 @@
 }
 .log_in{
     margin-top: 50px; 
-    width: 642px; 
-    height: 362px; 
+    width: 550px; 
+    height: 330px; 
     background-color:  #FBFCFF;
     font-size: 'Poppins', sans-serif;
     box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5); }
@@ -29,8 +29,13 @@ input{
     padding:20px; 
 }
 
+.vl_inBox{
+    border-right: 1px solid #707070;
+}
+
 .btn{ 
-    font-size: 14px; 
+    font-size: 20px; 
+    font-weight: bold;
     background: #264BB1;
     padding: 15px;
     height: 70px; 
