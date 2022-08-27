@@ -48,7 +48,11 @@ ul.topnav {
 .blue{ 
     color: blue; 
 }
+.fon-707070{
+  color:#707070;
+}
 .w30{width:30px; }
+.w50 {width:50px; }
 .w70 {width:70px; }
 .w500 {width: 650px; }
 .w120 {width:120px; }
@@ -154,6 +158,7 @@ ul.topnav {
 #banner-img{ 
   max-width: 1600px;
   width: 80%; 
+  min-width: 1000px;
   
 } 
 .pad_300{

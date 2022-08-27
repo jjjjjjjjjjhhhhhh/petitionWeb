@@ -197,14 +197,10 @@
     box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.5); 
 }
 #to-see-spe{ 
-    width: 120px; 
-    list-style: none; 
-    border-radius: 250px;
-    min-width: 10px; 
-    min-width: 70px;
-    width: 70px;
-    height: 70px; 
-    background-color: #2962FF;
+    display: inline-block;
+    margin-top: 15px;
+    margin-right: 10px;
+    font-size: 18px;
 }
 
 .round{ 
@@ -274,7 +270,7 @@ ul li {list-style:none; white-space: nowrap; }
 }
 
 .l{ 
-    margin-left: 435px; 
+    margin-left: 494px; 
 }
 
 
