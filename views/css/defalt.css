@@ -2,7 +2,10 @@
 .pointer{
   cursor:pointer;
 }
-
+.wrapper{
+  overflow: hidden;
+}
+.ofh{overflow: hidden;}
 ul.topnav {
     list-style-type: none;
     margin: 0;
@@ -72,22 +75,26 @@ ul.topnav {
 .w1000{width: 1000px;}
 .w1040{width: 1040px;}
 .w1100{width: 1100px;}
-.f8{ 
-    font-size: 8px;
-}
-.f20{
-  font-size: 20px;
+.f8{ font-size: 8px;}
+.f12{ font-size: 12px;}
+.f20{font-size: 20px;}
+footer {
+  height: 131px;
+  background: #4D4D4D;
+  color:#fff;
+  position: relative; 
+  margin-top: -131px;
 }
 .f38{ font-size: 38px;}
 .f31{ font-size: 31px;}
-.f60{ 
-    font-size: 60px;
-}
+.f60{ font-size: 60px;}
 .fl {float:left; }
 .fr {float:right; }
 .tc {text-align:center; }
 .tl {text-align:left; }
 #tl {text-align:left; }
+.f707070{color: #707070;}
+.fc4c4c4{color: #c4c4c4;}
 .dis{
   font-size: 30px; 
   color: #707070;
