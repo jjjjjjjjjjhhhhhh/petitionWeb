@@ -186,15 +186,8 @@ max-width: 350px;
 #to-see-all{ 
     width: 120px; 
     list-style: none; 
-    border-radius: 250px;
-    min-width: 10px; 
-    min-width: 70px;
-    width: 70px;
-    height: 70px; 
-    margin-top: 50px; 
-    background-color: #D5E0FF;
     margin-left: 30px;
-    box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.5); 
+
 }
 #to-see-spe{ 
     display: inline-block;
@@ -283,13 +276,7 @@ main:after {
     display: block;
     height: 100px;
 }
-footer {
-    height: 100px;
-    background: #333;
-    color:#fff;
-    position: relative; 
-    margin-top: -100px;
-}
+
 
 .arrow-right{
     height: 120px;
