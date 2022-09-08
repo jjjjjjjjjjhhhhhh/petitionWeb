@@ -27,12 +27,12 @@ const e = require("express");
 const { runInNewContext } = require("vm");
 var db;
 MongoClient.connect(
-  process.env.DB_URL,
+  "mongodb+srv://Tfadmin:qwerty1111@tfteam.aqtsspy.mongodb.net/?retryWrites=true&w=majority",
   (err, client) => {
     if (err) return console.log(err);
     db = client.db("petitionWeb");
 
-    app.listen(process.env.PORT, () => {
+    app.listen(8080, () => {
       console.log("http://localhost:8080");
     });
   }
@@ -55,6 +55,21 @@ app.get("/", (req, res) => {
     });
 });
 
+app.get('/myPage', loginStat, (req, res) => {
+
+  db.collection('petitions').find({ author: req.user.name }).toArray((err, result) => {
+    res.render('delete', { info: req.user, posts: result })
+    console.log(result)
+  })
+
+})
+
+app.post('/delete/:id', (req, res) => {
+  db.collection("petitions").deleteOne({ _id: parseInt(req.params.id) }, (err, result) => {
+    
+  })
+})
+
 app.get("/ansed/:id", (req, res) => {
   res.render("ansed", { info: req.user });
   db.collection("petitions").findOne(
@@ -63,7 +78,6 @@ app.get("/ansed/:id", (req, res) => {
       if (result.대답 == true) {
         res.render("ansed", { data: result, info: req.user, });
       } else {
-
         redirect("/");
       }
     }

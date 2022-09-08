@@ -36,7 +36,7 @@
                 <li class=" right"><a class="text" href="/login">로그인</a></li>
                 <li><a class="text" href="/register">회원가입</a></li>
                 <% }else{ %>
-                    <li class=" right"><a class="text">로그인된 계정: <%= info.name %></a></li>
+                    <li class=" right"><a href="/myPage" class="text">로그인된 계정: <%= info.name %></a></li>
                     <li><a class="text" href="/logout">로그아웃</a></li>
 
                     <% } %>
@@ -76,10 +76,10 @@
                         style="width:280px; margin-bottom: 14px;" ;id="">
 
                     <p class="f31">
-                        1. 로그인 하여 청원 등록하기
+                        1. 로그인하여 청원 등록하기
                     </p>
                     <p class="f20" style="color: #707070; text-align: left">
-                        *본교에 재학중인 학생은 누구나 로그인 후 청원 게시판 글을 등록할 수 있습니다.
+                        본교에 재학중인 학생은 누구나 로그인 후 청원 게시판 글을 등록할 수 있습니다.
                     </p>
                 </div>
                 <div class="box fst-box">
@@ -88,7 +88,7 @@
                         2. 청원글 전달
                     </p>
                     <p class="f20" style="color: #707070; text-align: left">
-                        청원 글 게시 후 14알 이내에 본교 재학중인 학생들에게 200명 이상의 동의를 얻은 청원 게시글은 학생회에 전달됩니다.
+                        청원 글 게시 후 14일 이내에 본교 재학중인 학생들에게 200명 이상의 동의를 얻은 청원 게시글은 학생회에 전달됩니다.
                     </p>
                 </div>
                 <div class="box fst-box">
@@ -106,10 +106,10 @@
                         style=" width:250px; margin-bottom: 44px;" ;id="">
 
                     <p class="f31">
-                        4. 학생회 추가 회의 진행
+                        4. 학생회 추가회의 진행
                     </p>
                     <p class="f20" style="color: #707070; text-align: left">
-                        학생회 추가 회의를 통해 대응 방향을 결정합니다.
+                        학생회 추가회의를 통해 대응 방향을 결정합니다.
                     </p>
                 </div>
             </div>
@@ -118,7 +118,7 @@
             안내 및 주의사항
         </p>
         <p class="title" style="color:#c4c4c4;font-size: 18px;margin-top: 0px;">
-            사이트 이용 전 필독 하여 주십시오.
+            사이트 이용 전 필독하여 주십시오.
         </p>
         <div class="discript jcun os">
             <div class="box_NoB f30 mar30">
@@ -313,10 +313,13 @@
                         <li class="pad_t_b_1 fl tc w100 title b_line">참여인원</li>
                     </ul>
                     <!--- 리스트 --->
-                    <% for(var i=0 ;i < posts.length; i++){ %>
+
+                    <% for(var i=posts.length -1 ;i>= 0; i--){ %>
+
+
                         <ul class="board">
                             <li class="pad_t_b_15 fl tc w70 list lt_line">
-                                <%= i+1 %>
+                                <%= posts.length - i %>
                             </li>
                             <li class="pad_t_b_15 fl tc w120 list lt_line blue">답변대기</li>
                             <li class="pad_t_b_15 fl tc w500 list lt_line">
@@ -332,9 +335,10 @@
                                 <%= posts[i].liked%>
                             </li>
                         </ul>
-                        <% if(i==5) { %>
+                        <% if(posts.length - 5==i) { %>
                             <% break %>
                                 <%}%>
+
                                     <% } %>
 
                 </div>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="../css/defalt.css">
+    <title>petitionList</title>
+
+
+</head>
+<div class="wrapper">
+    <header style="padding-top: 40px; padding-bottom: 10px;">
+        <ul class="topnav">
+
+            <% if(info==null){ %>
+
+                <li class=" right"><a href="/login">로그인</a></li>
+                <li><a href="/register">회원가입</a></li>
+                <% }else{ %>
+                    <li class=" right">로그인된 계정: <%= info.name %></a></li>
+
+                    <% } %>
+
+                        <li class="left">
+                            <h2 href="/">
+                                <div>
+                                    <img class="logo-image" src="../img/school_logo_1.png" alt="호치민시한국국제학교 로고">
+                                </div>
+                            </h2>
+                        </li>
+                        <li class="left" style="padding-left: 50px;  padding-top:20px;">
+                            <div class="vl_inBox fl" style="height: 40px;"> </div>
+                        </li>
+                        <li class="left"
+                            style="padding-left: 35px; font-size: 25px; font-weight: 700; padding-top: 4px;">
+                            <p>학생청원 2022</p>
+                        </li>
+        </ul>
+    </header>
+
+    <body style="margin: 0px;">
+
+
+
+</div>
+<div class="frth-main mx-auto">
+
+    <div class="petition_waiting">
+        <ul class="board">
+            <li class="pad_t_b_15 fl tc w70 title b_line"></li>
+            <li class="pad_t_b_15 fl tc w120 title b_line"></li>
+            <li class="pad_t_b_15 fl tc w500 title b_line">청원 목록</li>
+            <li class="pad_t_b_15 fl tc w100 title b_line"></li>
+            <li class="pad_t_b_15 fl tc w100 title b_line"></li>
+        </ul>
+        <ul class="board">
+            <li class="pad_t_b_15 fl tc w70 title b_line">번호</li>
+            <li class="pad_t_b_15 fl tc w120 title b_line">진행상태</li>
+            <li class="pad_t_b_15 fl tc w500 title b_line">제목</li>
+            <li class="pad_t_b_15 fl tc w100 title b_line">청원기간</li>
+            <li class="pad_t_b_15 fl tc w100 title b_line">참여인원</li>
+        </ul>
+        <% for(var i=0 ; i< posts.length ; i++){ %>
+
+            <ul class="board">
+                <li class="pad_t_b_15 fl tc w70 list lt_line">
+                    <%= i+1 %>
+                </li>
+                <li class="pad_t_b_15 fl tc w120 list lt_line blue">답변대기</li>
+                <li class="pad_t_b_15 fl tc w500 list lt_line">
+                    <a href="/detail/<%= posts[i]._id %>">
+
+                        <%= posts[i].청원제목%>
+                    </a>
+                </li>
+
+                <li class="pad_t_b_15 fl tc w100 list lt_line">
+
+                    <%= posts[i].청원시작%>~<%= posts[i].청원마감%>
+                </li>
+                <li class="pad_t_b_15 fl tc w100 list  lt_line blue">
+                    <form action="/delete/<%- posts[i]._id %>" method="POST">
+                        <a onClick="document.location.reload(true)" type="submit"><button "></button></a>
+                    </form>
+                </li>
+
+            </ul>
+
+            <% } %>
+
+    </div>
+</div>
+</body>
+
+</html>
