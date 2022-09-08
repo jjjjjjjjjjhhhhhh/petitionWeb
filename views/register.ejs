@@ -11,13 +11,13 @@
 </head>
 <header style="padding-top: 40px; padding-bottom: 10px; margin: 0; border-bottom: 1px solid;">
     <ul class="topnav">
-        <li class=" right"><a href="/login">로그인</a></li><a href="/">
+        <li class=" right"><a class="text" href="/login">로그인</a></li><a href="/">
 
             <li class="left">
                 <h2 href="/">
 
                     <div>
-                        <img class="logo-image" src="../img/school_logo_1.png" alt="호치민시한국국제학교 로고">
+                        <a href="/"><img class="logo-image" src="../img/school_logo_1.png" alt="호치민시한국국제학교 로고"></a>
                     </div>
 
                 </h2>
@@ -32,6 +32,8 @@
         </li>
     </ul>
 </header>
+<div class="wrapper">
+
 
 <body>
     <p class="mx-auto title" style="font-size: 18px; padding-top: 100px; font-weight: 550;">
@@ -43,26 +45,26 @@
     <div class="round_box mx-auto dis_table log_in">
         <div class="aa" style="padding-top: 35px;">
             <form class="mx-1 mx-md-4" action="/register" method="POST">
-                <div class="wrapper">
+                <div >
                     <label style="padding-left: 10px;">학교이메일</label>
                     <div class="input-data">
                         <input type="text" required="required" placeholder="@kshcm.net" name="mail">
                     </div>
                 </div>
 
-                <div class="wrapper" style="margin-top: 30px;">
+                <div  style="margin-top: 30px;">
                     <label style="padding-left: 10px;">비밀번호</label>
                     <div class="input-data">
                         <input type="password" required="required" name="password">
                     </div>
                 </div>
-                <div class="wrapper" style="margin-top: 30px;">
+                <div style="margin-top: 30px;">
                     <label style="padding-left: 10px;">비밀번호 확인</label>
                     <div class="input-data">
                         <input type="password" required="required">
                     </div>
                 </div>
-                <div class="wrapper" style="margin-top: 30px;">
+                <div style="margin-top: 30px;">
                     <label style="padding-left: 10px;">닉네임</label>
                     <div class="input-data">
                         <input type="text" required="required" name="name">
@@ -72,14 +74,16 @@
 
     </div>
     <div class="mx-auto text-center">
-        <button href="" class=btn style="margin-top: 80px;" type="submit"> 회원가입</button>
+        <button href="" class=btn style="margin-bottom:300px; margin-top: 80px;" type="submit"> 회원가입</button>
     </div>
 </body>
-<footer>
-    <div class="fr f12 tr" style=" margin: 15px 30px 15px 15px;" >
-    <p>청원 시스템 제작 TF팀 </p>
-    <p class="fc4c4c4">이서현 이상효 장준혁 곽범준 </p>
-    <p class="fc4c4c4"> 차세연 최지철  </p>
 </div>
-  </footer> 
+<footer>
+    <div class="fr f12 tr" style=" margin: 15px 30px 15px 15px;">
+        <p>청원 시스템 제작 TF팀 </p>
+        <p class="fc4c4c4">이서현 이상효 장준혁 곽범준 </p>
+        <p class="fc4c4c4"> 차세연 최지철 </p>
+    </div>
+</footer>
+
 </html>

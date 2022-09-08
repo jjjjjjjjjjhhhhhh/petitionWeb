@@ -8,25 +8,28 @@
     <title>청원글 게시하기</title>
     <link rel="stylesheet" href="../css/defalt.css">
     <link rel="stylesheet" href="../css/write.css">
+    
 
 </head>
 <div class="wrapper">
     <header style="padding-top: 40px; padding-bottom: 10px;">
         <ul class="topnav">
 
-            <% if(login_state==null){ %>
+            <% if(info==null){ %>
 
-                <li class=" right"><a href="/login">로그인</a></li>
-                <li><a href="/register">회원가입</a></li>
+                <li class=" right"><a class="text" href="/login">로그인</a></li>
+                <li><a class="text" href="/register">회원가입</a></li>
                 <% }else{ %>
-                    <li class=" right">로그인된 계정: <%= login_state %></a></li>
+                    <li class=" right"><a class="text">로그인된 계정: <%= info.name %></a></li>
+                    <li><a class="text" href="/logout">로그아웃</a></li>
 
                     <% } %>
 
                         <li class="left">
                             <h2 href="/">
                                 <div>
-                                    <img class="logo-image" src="../img/school_logo_1.png" alt="호치민시한국국제학교 로고">
+                                    <a href="/"><img class="logo-image" src="../img/school_logo_1.png"
+                                            alt="호치민시한국국제학교 로고"></a>
                                 </div>
                             </h2>
                         </li>
@@ -42,9 +45,9 @@
 
     <body style="margin: 0px;">
         <div class=" mx-auto text-center" id='banner'>
-            <div>
+            
                 <img src="../img/mainBanner.png" id="banner-img">
-            </div>
+            
         </div>
         <div class="notion">
             <p class="bold title f38" style="margin-top: 100px;margin-bottom: 3px; font-size: 38px;">
@@ -89,7 +92,7 @@
                     <div class=" title" style="font-size: 38px; margin-top:100px; margin-bottom: 70px;">
                         청원글 작성
                     </div>
-                    <div class="mx-auto" style="width: 1500px; height: 700px; padding-left: 4.5cm;">
+                    <div class="mx-auto" style="width: 1500px; height: 700px; " id="aaa">
 
                         <%- include('_form_fields')%>
 
@@ -114,4 +117,5 @@
         <p class="fc4c4c4"> 차세연 최지철  </p>
     </div>
       </footer>  -->
+
 </html>

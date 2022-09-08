@@ -1,31 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>답변된 청원 목록</title>
+    <title>l진행중인 청원 목록</title>
     <link rel="stylesheet" href="../css/defalt.css">
     <link rel="stylesheet" href="../css/petition_list.css">
 </head>
+
 <body>
     <div class="wrapper">
         <header style="padding-top: 40px; padding-bottom: 10px;">
             <ul class="topnav">
-    
-                <% if(login_state==null){ %>
-    
-                    <li class=" right"><a href="/login">로그인</a></li>
-                    <li><a href="/register">회원가입</a></li>
+
+                <% if(info==null){ %>
+
+                    <li class=" right"><a class="text" href="/login">로그인</a></li>
+                    <li><a class="text" href="/register">회원가입</a></li>
                     <% }else{ %>
-                        <li class=" right">로그인된 계정: <%= login_state %></a></li>
+                        <li class=" right"><a class="text">로그인된 계정: <%= info.name %></a></li>
+                        <li><a class="text" href="/logout">로그아웃</a></li>
     
                         <% } %>
-    
+
                             <li class="left">
                                 <h2 href="/">
                                     <div>
-                                        <img class="logo-image" src="../img/school_logo_1.png" alt="호치민시한국국제학교 로고">
+                                        <a href="/"><img class="logo-image" src="../img/school_logo_1.png"
+                                                alt="호치민시한국국제학교 로고"></a>
                                     </div>
                                 </h2>
                             </li>
@@ -38,328 +42,107 @@
                             </li>
             </ul>
         </header>
-    
+
         <body style="margin: 0px;">
             <div class=" mx-auto text-center" id='banner'>
                 <div>
                     <img src="../img/학물학답.png" id="banner-img">
                 </div>
             </div>
-    
-        <div class =" mx-auto text-center" id = 'banner'>
-            <div>
-                <img src="../img/답청.png" id = "banner-img"> 
-                <div class="bottom-left"></div>
-            </div>    
-        </div>
 
-        <div class ="sub-title mar_1" style="padding-top: 550px;">
-            <div class="vl"></div>
-            <div class="sub-title-text"  > <a> 답변된 청원</a> </div>  
-        </div>
-
-        <div class="main">
-            <div class="round_box mx-auto">
-                <div class="box_NoB">
-                    <div class="" style="font-size: 18px;"> <p> 학교매점 돌려내 </p></div>
-                    <div class="content" style="margin-left: 18px; width: fit-content;">
-                        <div class="circle" style="background-color: #E5ECFF;">
-                            <div class="in_box_content" style="padding: 34px;"> 
-                                청원 시작 
-                            </div>
-                        </div>
-                        <h3>
-                            22/07/19 
-                        </h3>
-                    </div>
-                    <div class="right_arrow"> </div>
-                    <div class="content" style="margin-left: 18px;">
-                        <div class="circle" style="background-color: #D5E0FF;">
-                            <div class="in_box_content" style="padding: 34px;"> 
-                                청원 마감 
-                            </div>
-                        </div>
-                        <h3>
-                            22/07/19 
-                        </h3>
-                    </div>
-                    <div class="right_arrow"> </div>
-                    <div class="content" style="margin-left: 18px;">
-                        <div class="circle" style="background-color: #AEC3FF;">
-                            <div class="in_box_content" style="padding: 34px;"> 
-                                참여 인원 
-                            </div>
-                        </div>
-                        <h3>
-                            376명 
-                        </h3>
-                    </div>
-                    <div class="right_arrow"> </div>
-                    <div class="content" style="margin-left: 18px;">
-                        <div class="circle" style="background-color: #6a92FF;">
-                            <div class="in_box_content" style="padding: 34px;"> 
-                                청원 답변 
-                            </div>
-                        </div>
-                        <h3>
-                            22/07/19 
-                        </h3>
-                    </div>    
-                </div>
-                <div class="vl_inBox fl" id="line_1"> </div>
-                <div class="box_NoB" href="#" id="reply">
-                    <p class="CNT">답변보기</p>
-                    <div class="content" style="margin-left: 18px;">
-                        <div class="circle" style="background-color: #264BB1;" id="SPE">
-                            <div class="right_arrow" id= "RA"> </div>
-
-                        </div>
-                    </div> 
+            <div class=" mx-auto text-center" id='banner'>
+                <div>
+                    <img src="../img/loadingPetition.png" id="banner-img">
+                    <div class="bottom-left"></div>
                 </div>
             </div>
-            <div class="round_box mx-auto">
-                <div class="box_NoB">
-                    <div class="" style="font-size: 18px;"> <p> 학교매점 돌려내 </p></div>
-                    <div class="content" style="margin-left: 18px; width: fit-content;">
-                        <div class="circle" style="background-color: #E5ECFF;">
-                            <div class="in_box_content" style="padding: 34px;"> 
-                                청원 시작 
-                            </div>
-                        </div>
-                        <h3>
-                            22/07/19 
-                        </h3>
-                    </div>
-                    <div class="right_arrow"> </div>
-                    <div class="content" style="margin-left: 18px;">
-                        <div class="circle" style="background-color: #D5E0FF;">
-                            <div class="in_box_content" style="padding: 34px;"> 
-                                청원 마감 
-                            </div>
-                        </div>
-                        <h3>
-                            22/07/19 
-                        </h3>
-                    </div>
-                    <div class="right_arrow"> </div>
-                    <div class="content" style="margin-left: 18px;">
-                        <div class="circle" style="background-color: #AEC3FF;">
-                            <div class="in_box_content" style="padding: 34px;"> 
-                                참여 인원 
-                            </div>
-                        </div>
-                        <h3>
-                            376명 
-                        </h3>
-                    </div>
-                    <div class="right_arrow"> </div>
-                    <div class="content" style="margin-left: 18px;">
-                        <div class="circle" style="background-color: #6a92FF;">
-                            <div class="in_box_content" style="padding: 34px;"> 
-                                청원 답변 
-                            </div>
-                        </div>
-                        <h3>
-                            22/07/19 
-                        </h3>
-                    </div>    
-                </div>
-                <div class="vl_inBox fl" id="line_1"> </div>
-                <div class="box_NoB" href="#" id="reply">
-                    <p class="CNT">답변보기</p>
-                    <div class="content" style="margin-left: 18px;">
-                        <div class="circle" style="background-color: #264BB1;" id="SPE">
-                            <div class="right_arrow" id= "RA"> </div>
 
-                        </div>
-                    </div> 
-                </div>
+            <div class="sub-title mar_1" style="padding-top: 550px;">
+                <div class="vl"></div>
+                <div class="sub-title-text"> <a>청원 목록</a> </div>
             </div>
-            <div class="round_box mx-auto">
-                <div class="box_NoB">
-                    <div class="" style="font-size: 18px;"> <p> 학교매점 돌려내 </p></div>
-                    <div class="content" style="margin-left: 18px; width: fit-content;">
-                        <div class="circle" style="background-color: #E5ECFF;">
-                            <div class="in_box_content" style="padding: 34px;"> 
-                                청원 시작 
+            <% for(var i=0; i< posts.length;i++){ %>
+                <div class="main">
+                    <div class="round_box mx-auto">
+                        <div class="box_NoB">
+                            <div class="" style="font-size: 18px;">
+                                <p>
+                                    <%= posts[i].청원제목 %>
+                                </p>
+                            </div>
+                            <div class="content" style="margin-left: 18px; width: fit-content;">
+                                <div class="circle" style="background-color: #E5ECFF;">
+                                    <div class="in_box_content" style="padding: 34px;">
+                                        청원 시작
+                                    </div>
+                                </div>
+                                <h3>
+                                    <%= posts[i].청원시작 %>
+                                </h3>
+                            </div>
+                            <div class="right_arrow"> </div>
+                            <div class="content" style="margin-left: 18px;">
+                                <div class="circle" style="background-color: #D5E0FF;">
+                                    <div class="in_box_content" style="padding: 34px;">
+                                        청원 마감
+                                    </div>
+                                </div>
+                                <h3>
+                                    <%= posts[i].청원마감 %>
+                                </h3>
+                            </div>
+                            <div class="right_arrow"> </div>
+                            <div class="content" style="margin-left: 18px;">
+                                <div class="circle" style="background-color: #AEC3FF;">
+                                    <div class="in_box_content" style="padding: 34px;">
+                                        참여 인원
+                                    </div>
+                                </div>
+                                <h3>
+                                    <%= posts[i].liked %>명
+                                </h3>
+                            </div>
+                            <div class="right_arrow"> </div>
+                            <div class="content" style="margin-left: 18px;">
+                                <div class="circle" style="background-color: #6a92FF;">
+                                    <div class="in_box_content" style="padding: 34px;">
+                                        청원 답변
+                                    </div>
+                                </div>
+                                <h3>
+                                    미정
+                                </h3>
                             </div>
                         </div>
-                        <h3>
-                            22/07/19 
-                        </h3>
-                    </div>
-                    <div class="right_arrow"> </div>
-                    <div class="content" style="margin-left: 18px;">
-                        <div class="circle" style="background-color: #D5E0FF;">
-                            <div class="in_box_content" style="padding: 34px;"> 
-                                청원 마감 
-                            </div>
-                        </div>
-                        <h3>
-                            22/07/19 
-                        </h3>
-                    </div>
-                    <div class="right_arrow"> </div>
-                    <div class="content" style="margin-left: 18px;">
-                        <div class="circle" style="background-color: #AEC3FF;">
-                            <div class="in_box_content" style="padding: 34px;"> 
-                                참여 인원 
-                            </div>
-                        </div>
-                        <h3>
-                            376명 
-                        </h3>
-                    </div>
-                    <div class="right_arrow"> </div>
-                    <div class="content" style="margin-left: 18px;">
-                        <div class="circle" style="background-color: #6a92FF;">
-                            <div class="in_box_content" style="padding: 34px;"> 
-                                청원 답변 
-                            </div>
-                        </div>
-                        <h3>
-                            22/07/19 
-                        </h3>
-                    </div>    
-                </div>
-                <div class="vl_inBox fl" id="line_1"> </div>
-                <div class="box_NoB" href="#" id="reply">
-                    <p class="CNT">답변보기</p>
-                    <div class="content" style="margin-left: 18px;">
-                        <div class="circle" style="background-color: #264BB1;" id="SPE">
-                            <div class="right_arrow" id= "RA"> </div>
+                        <div class="vl_inBox fl" id="line_1"> </div>
+                        <div class="box_NoB" href="#" id="reply">
+                            <p class="CNT">자세히 보기</p>
 
-                        </div>
-                    </div> 
-                </div>
-            </div>
-            <div class="round_box mx-auto">
-                <div class="box_NoB">
-                    <div class="" style="font-size: 18px;"> <p> 학교매점 돌려내 </p></div>
-                    <div class="content" style="margin-left: 18px; width: fit-content;">
-                        <div class="circle" style="background-color: #E5ECFF;">
-                            <div class="in_box_content" style="padding: 34px;"> 
-                                청원 시작 
-                            </div>
-                        </div>
-                        <h3>
-                            22/07/19 
-                        </h3>
-                    </div>
-                    <div class="right_arrow"> </div>
-                    <div class="content" style="margin-left: 18px;">
-                        <div class="circle" style="background-color: #D5E0FF;">
-                            <div class="in_box_content" style="padding: 34px;"> 
-                                청원 마감 
-                            </div>
-                        </div>
-                        <h3>
-                            22/07/19 
-                        </h3>
-                    </div>
-                    <div class="right_arrow"> </div>
-                    <div class="content" style="margin-left: 18px;">
-                        <div class="circle" style="background-color: #AEC3FF;">
-                            <div class="in_box_content" style="padding: 34px;"> 
-                                참여 인원 
-                            </div>
-                        </div>
-                        <h3>
-                            376명 
-                        </h3>
-                    </div>
-                    <div class="right_arrow"> </div>
-                    <div class="content" style="margin-left: 18px;">
-                        <div class="circle" style="background-color: #6a92FF;">
-                            <div class="in_box_content" style="padding: 34px;"> 
-                                청원 답변 
-                            </div>
-                        </div>
-                        <h3>
-                            22/07/19 
-                        </h3>
-                    </div>    
-                </div>
-                <div class="vl_inBox fl" id="line_1"> </div>
-                <div class="box_NoB" href="#" id="reply">
-                    <p class="CNT">답변보기</p>
-                    <div class="content" style="margin-left: 18px;">
-                        <div class="circle" style="background-color: #264BB1;" id="SPE">
-                            <div class="right_arrow" id= "RA"> </div>
+                            <div class="content" style="margin-bottom: 18px;">
+                                <a href="/detail/<%= posts[i]._id %>">
+                                    <div class="circle" style="background-color: #264BB1;" id="SPE">
+                                        <div class="right_arrow" id="RA"> </div>
 
+                                    </div>
+                            </div></a>
                         </div>
-                    </div> 
+                    </div>
+                    <%}%>
+                        <!-- <div class="mx-auto">
+                            <div class="">
+                                <a class="pge" href="#" id="previous2">&#8249;&#8249;</a>
+                                <a class="pge" href="#" id="previous2">&#8249;</a>
+                                <a class="pge" href="#" id="next2" style="background-color: #2962FF;">1</a>
+                                <a class="pge" href="#" id="next2">&#8250;</a>
+                                <a class="pge" href="#" id="next2">&#8250;&#8250;</a>
+                            </div>
+                        </div> -->
                 </div>
-            </div>
-            <div class="round_box mx-auto">
-                <div class="box_NoB">
-                    <div class="" style="font-size: 18px;"> <p> 학교매점 돌려내 </p></div>
-                    <div class="content" style="margin-left: 18px; width: fit-content;">
-                        <div class="circle" style="background-color: #E5ECFF;">
-                            <div class="in_box_content" style="padding: 34px;"> 
-                                청원 시작 
-                            </div>
-                        </div>
-                        <h3>
-                            22/07/19 
-                        </h3>
-                    </div>
-                    <div class="right_arrow"> </div>
-                    <div class="content" style="margin-left: 18px;">
-                        <div class="circle" style="background-color: #D5E0FF;">
-                            <div class="in_box_content" style="padding: 34px;"> 
-                                청원 마감 
-                            </div>
-                        </div>
-                        <h3>
-                            22/07/19 
-                        </h3>
-                    </div>
-                    <div class="right_arrow"> </div>
-                    <div class="content" style="margin-left: 18px;">
-                        <div class="circle" style="background-color: #AEC3FF;">
-                            <div class="in_box_content" style="padding: 34px;"> 
-                                참여 인원 
-                            </div>
-                        </div>
-                        <h3>
-                            376명 
-                        </h3>
-                    </div>
-                    <div class="right_arrow"> </div>
-                    <div class="content" style="margin-left: 18px;">
-                        <div class="circle" style="background-color: #6a92FF;">
-                            <div class="in_box_content" style="padding: 34px;"> 
-                                청원 답변 
-                            </div>
-                        </div>
-                        <h3>
-                            22/07/19 
-                        </h3>
-                    </div>    
-                </div>
-                <div class="vl_inBox fl" id="line_1"> </div>
-                <div class="box_NoB" href="#" id="reply">
-                    <p class="CNT">답변보기</p>
-                    <div class="content" style="margin-left: 18px;">
-                        <div class="circle" style="background-color: #264BB1;" id="SPE">
-                            <div class="right_arrow" id= "RA"> </div>
 
-                        </div>
-                    </div> 
-                </div>
-            </div>
-            <div class="mx-auto">
-                <div class="">
-                    <a class ="pge" href="#" id="previous2">&#8249;&#8249;</a>
-                    <a class ="pge" href="#" id="previous2">&#8249;</a>
-                    <a class ="pge" href="#" id="next2" style="background-color: #2962FF;">1</a>
-                    <a class ="pge" href="#" id="next2">&#8250;</a>
-                    <a class ="pge" href="#" id="next2">&#8250;&#8250;</a>
-                </div>
-        </div>
-        </div>
-        
     </div>
 </body>
+
+</div>
+
+
 </html>

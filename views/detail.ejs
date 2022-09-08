@@ -14,19 +14,21 @@
     <header style="padding-top: 40px; padding-bottom: 10px;">
         <ul class="topnav">
 
-            <% if(login_state==null){ %>
+            <% if(info==null){ %>
 
-                <li class=" right"><a href="/login">로그인</a></li>
-                <li><a href="/register">회원가입</a></li>
+                <li class=" right"><a class="text" href="/login">로그인</a></li>
+                <li><a class="text" href="/register">회원가입</a></li>
                 <% }else{ %>
-                    <li class=" right">로그인된 계정: <%= login_state %></a></li>
+                    <li class=" right"><a class="text">로그인된 계정: <%= info.name %></a></li>
+                    <li><a class="text" href="/logout">로그아웃</a></li>
 
                     <% } %>
 
                         <li class="left">
                             <h2 href="/">
                                 <div>
-                                    <img class="logo-image" src="../img/school_logo_1.png" alt="호치민시한국국제학교 로고">
+                                    <a href="/"><img class="logo-image" src="../img/school_logo_1.png"
+                                            alt="호치민시한국국제학교 로고"></a>
                                 </div>
                             </h2>
                         </li>
@@ -56,7 +58,7 @@
             </div>
             <div class="sub-title">
                 <div class="vl"></div>
-                <div class="sub-title-text"> <a> 답변된 청원</a> </div>
+                <div class="sub-title-text"> <a> 진행중인 청원</a> </div>
             </div>
             <div class="notion">
                 <div class="discript" style="display: table;">
@@ -85,7 +87,7 @@
                                 <%= data.liked %>명
                             </p>
                             <p>
-                                 <%= data. 청원기간 %>
+                                 <%= data. 청원시작 %>~<%= data. 청원마감 %>
                             </p>
                         </div>
                         <div class="box_NoB" id="mar2">
@@ -123,13 +125,13 @@
     </div>
 </div>
 <div class="frth-main mx-auto">
-    <div class="petition_waiting mx-auto" style="height: 530px; width:fit-content;">
+    <div class="petition_waiting mx-auto">
         <ul>
-            <li>
+            <!-- <li>
                 <p class="fl idk">청원동의 </p>
                 <pre class="blue idk fl" style="margin-top:34px;">   <%= data.liked %></pre>
                 <p class="fl idk">명</p>
-            </li>
+            </li> -->
             <li class="w1040 pad_t_b_30"></li>
         </ul>
         <!-- <ul class="boards">
@@ -154,13 +156,13 @@
         </ul> -->
 
     </div>
-    <div class="mx-auto" style="width: 300px">
+    <!-- <div class="mx-auto" style="width: 300px">
         <a class="pge" href="#" id="previous2">&#8249;&#8249;</a>
         <a class="pge" href="#" id="previous2">&#8249;</a>
         <a class="pge" href="#" id="next2" style="background-color: #2962FF;">1</a>
         <a class="pge" href="#" id="next2">&#8250;</a>
         <a class="pge" href="#" id="next2">&#8250;&#8250;</a>
-    </div>
+    </div> -->
 </div>
 </div>
 <div class="box_NoB">

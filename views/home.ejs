@@ -9,6 +9,7 @@
     <title>홈</title>
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="../css/defalt.css">
+    <meta name="viewport" content="width=device-width">
     <script>
         (function (d) {
             var config = {
@@ -30,20 +31,21 @@
     <header style="padding-top: 40px; padding-bottom: 10px;">
         <ul class="topnav">
 
-            <% if(login_state==null){ %>
+            <% if(info==null){ %>
 
-                <li class=" right"><a href="/login">로그인</a></li>
-                <li><a href="/register">회원가입</a></li>
+                <li class=" right"><a class="text" href="/login">로그인</a></li>
+                <li><a class="text" href="/register">회원가입</a></li>
                 <% }else{ %>
-                    <li class=" right"><a>로그인된 계정: <%= login_state %></a></li>
-                    <li><a href="/logout">로그아웃</a></li>
+                    <li class=" right"><a class="text">로그인된 계정: <%= info.name %></a></li>
+                    <li><a class="text" href="/logout">로그아웃</a></li>
 
                     <% } %>
 
                         <li class="left">
                             <h2 href="/">
                                 <div>
-                                    <img class="logo-image" src="../img/school_logo_1.png" alt="호치민시한국국제학교 로고">
+                                    <a href="/"><img class="logo-image" src="../img/school_logo_1.png"
+                                            alt="호치민시한국국제학교 로고"></a>
                                 </div>
                             </h2>
                         </li>
@@ -58,7 +60,7 @@
     </header>
 
     <body style="margin: 0px;">
-        <div class=" mx-auto text-center" id='banner'>
+        <div class=" mx-auto text-center oh" id='banner'>
             <div>
                 <img src="../img/mainBanner.png" id="banner-img">
             </div>
@@ -68,7 +70,7 @@
             <p class="bold title f38" style="margin-top: 5%; padding-top: 100px; ">
                 학생청원 절차
             </p>
-            <div class="flex-container">
+            <div class="flex-container" id="eee">
                 <div class="box fst-box">
                     <img src="../img/BAM-Free_Illustration_kit-V1.0/Computer.png"
                         style="width:280px; margin-bottom: 14px;" ;id="">
@@ -118,7 +120,7 @@
         <p class="title" style="color:#c4c4c4;font-size: 18px;margin-top: 0px;">
             사이트 이용 전 필독 하여 주십시오.
         </p>
-        <div class="discript">
+        <div class="discript jcun os">
             <div class="box_NoB f30 mar30">
                 <p style="padding-top:40px; font-size: 30px;">숨김 처리 및 삭제 사유 </p>
                 <div class="fl tl dis">
@@ -149,308 +151,212 @@
             <div class="vl"></div>
             <div class="sub-title-text"> <a> 답변된 청원</a> </div>
         </div>
-
-        
         <div class=scnd-main>
-            <div class="pad_t_b_15 flex-container">
-                <li class="scnd_box fst">
-                    학교 매점을 돌려주세요
-                    <hr id="line" style="width: 54%;">
-                    </hr>
-                    <div>
-                        <ul class="table_content" style="margin-top: 8px;">
-                            <li class="fl w70 f8 text_right">작성자</li>
-                            <li class="fl w70 f8 text_left">10628 홍길동</li>
-                        </ul>
-                        <ul class="table_content" style="margin-bottom: 16px;">
-                            <li class=" fl w70  f8 text_right">참여인원</li>
-                            <li class=" fl w70 f8 text_left">376명</li>
-                        </ul>
-                    </div>
-                    <div class="see-rply-btn" href="#">
-                        답변보기
-                    </div>
-                </li>
-                <li class="scnd_box scnd ">
-                    학교 매점을 돌려주세요
-                    <hr id="line" style="width: 54%;">
-                    </hr>
-                    <div>
-                        <ul class="table_content" style="margin-top: 8px;">
-                            <li class="fl w70 f8 text_right">작성자</li>
-                            <li class="fl w70 f8 text_left">10628 홍길동</li>
-                        </ul>
-                        <ul class="table_content" style="margin-bottom: 16px;">
-                            <li class=" fl w70  f8 text_right">참여인원</li>
-                            <li class=" fl w70 f8 text_left">376명</li>
-                        </ul>
-                    </div>
-                    <div class="see-rply-btn" href="#">
-                        답변보기
-                    </div>
-                </li>
-                <li class="scnd_box thd ">
-                    학교 매점을 돌려주세요
-                    <hr id="line" style="width: 54%;">
-                    </hr>
-                    <div>
-                        <ul class="table_content" style="margin-top: 8px;">
-                            <li class="fl w70 f8 text_right">작성자</li>
-                            <li class="fl w70 f8 text_left">10628 홍길동</li>
-                        </ul>
-                        <ul class="table_content" style="margin-bottom: 16px;">
-                            <li class=" fl w70  f8 text_right">참여인원</li>
-                            <li class=" fl w70 f8 text_left">376명</li>
-                        </ul>
-                    </div>
-                    <div class="see-rply-btn" href="#">
-                        답변보기
-                    </div>
-                </li>
-                <li class="scnd_box thd" id="to-see-all" href="#">
-                    더보기
-                </li>
+
+            <div class="pad_t_b_15 flex-container os jcun">
+                <% for(var i=0 ;i < replied.length; i++){ %>
+                    <li class="scnd_box fst">
+                        <%- replied[i].청원제목%>
+                            <hr id="line" style="width: 54%;">
+                            </hr>
+                            <div>
+                                <ul class="table_content" style="margin-top: 8px;">
+                                    <li class="fl w70 f8 text_right">작성자</li>
+                                    <li class="fl w70 f8 text_left">
+                                        <%- replied[i].author%>
+                                    </li>
+                                </ul>
+                                <ul class="table_content" style="margin-bottom: 16px;">
+                                    <li class=" fl w70  f8 text_right">참여인원</li>
+                                    <li class=" fl w70 f8 text_left">
+                                        <%- replied[i].liked%>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="see-rply-btn" href="/detail/<%- replied[i]._id%>">
+                                답변보기
+                            </div>
+                    </li>
+                    <% if(i==2) { %>
+                        <% break %>
+                            <%}%>
+                                <% } %>
+
+
+                                    </li>
+                                    <li style="list-style:none;"> <a href="/answered"><img id="to-see-all"
+                                                src="../img/see-all.png"></a>
+                                    </li>
             </div>
         </div>
-
-
         <div class="sub-title">
             <div class="vl"></div>
             <div class="sub-title-text"> <a> 최다 추천 청원</a> </div>
+
         </div>
-        <div class="thd-main">
-            <div class="thd_main">
+
+
+        <div class="check os">
+            <% for(var i=0 ;i < sortedPosts.length; i++){ %>
                 <li class="thd_box mx-auto fst">
                     <div class="box_NoB">
                         <div>
                             참여인원
                         </div>
                         <div>
-                            <p class="f60 m10" style="color: #2962FF;">138명</p>
+                            <p class="f60 m10" style="color: #2962FF;">
+                                <%= sortedPosts[i].liked %>명
+                            </p>
                         </div>
                         <div>
                             <ul class="table_content fon-707070" style="margin-top: 27px;">
                                 <li class="fl w70 f8 text_right">작성자</li>
-                                <li class="fl w70 f8 text_left">10628 홍길동</li>
+                                <li class="fl w70 f8 text_left">
+                                    <%= sortedPosts[i].author %>
+                                </li>
                             </ul>
                             <ul class="table_content fon-707070" style="margin-bottom: 16px;">
                                 <li class=" fl w70  f8 text_right">청원기간</li>
-                                <li class=" fl w70 f8 text_left">9월 16일 ~ 11월 16일</li>
+                                <li class=" fl w70 f8 text_left">
+                                    <%= sortedPosts[i].청원시작 %>~<%= sortedPosts[i].청원마감 %>
+                                </li>
                             </ul>
                         </div>
                     </div>
                     <div class="vl_inBox fl"> </div>
                     <div class="box_NoB fl" style="width: 347px;">
                         <h2>
-                            학교 급식메뉴를 개선해주세요
+                            <%= sortedPosts[i].청원제목 %>
                         </h2>
                         <hr id="line" style="width: 30%;">
                         </hr>
                         <P class="f8">
-                            최근 학교 급식 메뉴에 밀가루 음식이 대부분입니다.
+                            <%= sortedPosts[i].청원내용 %>
                         </P>
-                        <P class="f8">
-                            건강하고 맛있는 ..
 
-                        </P>
                         <div class="text_right" href="#" style="margin-top: 40px; width:385px;">
                             <a id="to-see-spe">자세히 보기 </a>
-                            <div class="fr"> <img href="/listpetition" src="./img/right-pointer.png"
-                                    class="w50 pointer">
+                            <div class="fr"> <a href="/detail/<%= sortedPosts[i]._id %> %>"><img
+                                        src="./img/right-pointer.png" class="w50 pointer"></a>
                             </div>
                         </div>
                     </div>
                 </li>
-                <li class="thd_box mx-auto fst">
-                    <div class="box_NoB">
-                        <div>
-                            참여인원
-                        </div>
-                        <div>
-                            <p class="f60 m10" style="color: #2962FF;">138명</p>
-                        </div>
-                        <div>
-                            <ul class="table_content fon-707070" style="margin-top: 27px;">
-                                <li class="fl w70 f8 text_right">작성자</li>
-                                <li class="fl w70 f8 text_left">10628 홍길동</li>
-                            </ul>
-                            <ul class="table_content fon-707070" style="margin-bottom: 16px;">
-                                <li class=" fl w70  f8 text_right">청원기간</li>
-                                <li class=" fl w70 f8 text_left">9월 16일 ~ 11월 16일</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="vl_inBox fl"> </div>
-                    <div class="box_NoB fl" style="width: 347px;">
-                        <h2>
-                            학교 급식메뉴를 개선해주세요
-                        </h2>
-                        <hr id="line" style="width: 30%;">
-                        </hr>
-                        <P class="f8">
-                            최근 학교 급식 메뉴에 밀가루 음식이 대부분입니다.
-                        </P>
-                        <P class="f8">
-                            건강하고 맛있는 ..
 
-                        </P>
-                        <div class="text_right" href="#" style="margin-top: 40px; width:385px;">
-                            <a id="to-see-spe">자세히 보기 </a>
-                            <div class="fr"> <img src="./img/right-pointer.png" class="w50 pointer">
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                <li class="thd_box mx-auto fst">
-                    <div class="box_NoB">
-                        <div>
-                            참여인원
-                        </div>
-                        <div>
-                            <p class="f60 m10" style="color: #2962FF;">138명</p>
-                        </div>
-                        <div>
-                            <ul class="table_content fon-707070" style="margin-top: 27px;">
-                                <li class="fl w70 f8 text_right">작성자</li>
-                                <li class="fl w70 f8 text_left">10628 홍길동</li>
-                            </ul>
-                            <ul class="table_content fon-707070" style="margin-bottom: 16px;">
-                                <li class=" fl w70  f8 text_right">청원기간</li>
-                                <li class=" fl w70 f8 text_left">9월 16일 ~ 11월 16일</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="vl_inBox fl"> </div>
-                    <div class="box_NoB fl" style="width: 347px;">
-                        <h2>
-                            학교 급식메뉴를 개선해주세요
-                        </h2>
-                        <hr id="line" style="width: 30%;">
-                        </hr>
-                        <P class="f8">
-                            최근 학교 급식 메뉴에 밀가루 음식이 대부분입니다.
-                        </P>
-                        <P class="f8">
-                            건강하고 맛있는 ..
-
-                        </P>
-                        <div class="text_right" href="#" style="margin-top: 40px; width:385px;">
-                            <a id="to-see-spe">자세히 보기 </a>
-                            <div class="fr"> <img src="./img/right-pointer.png" class="w50 pointer">
-                            </div>
-                        </div>
-                    </div>
-                </li>
-            </div>
+                <% if(i==2) { %>
+                    <% break %>
+                        <%}%>
+                            <% } %>
         </div>
+
         <div class="sub-title">
             <div class="vl"></div>
             <div class="sub-title-text"> <a> 답변 대기 중인 청원 </a> </div>
         </div>
-        <div class="frth-main mx-auto">
-            <div class="petition_waiting">
-                <ul class="board">
-                    <li class="pad_t_b_1 fl tc w70 title b_line">번호</li>
-                    <li class="pad_t_b_1 fl tc w120 title b_line">진행상태</li>
-                    <li class="pad_t_b_1 fl tc w500 title b_line">제목</li>
-                    <li class="pad_t_b_1 fl tc w100 title b_line">청원기간</li>
-                    <li class="pad_t_b_1 fl tc w100 title b_line">참여인원</li>
-                </ul>
-                <!--- 리스트 --->
-                <ul class="board">
-                    <li class="pad_t_b_24 fl tc w70 list lt_line">5</li>
-                    <li class="pad_t_b_24 fl tc w120 list lt_line blue">답변대기</li>
-                    <li class="pad_t_b_24 fl tc w500 list lt_line">제목</li>
-                    <li class="pad_t_b_24 fl tc w100 list lt_line">2019-02-11</li>
-                    <li class="pad_t_b_24 fl tc w100 list  lt_line blue">1</li>
-                </ul>
-                <ul class="board">
-                    <li class="pad_t_b_24 fl tc w70 list lt_line">4</li>
-                    <li class="pad_t_b_24 fl tc w120 list lt_line blue">답변대기</li>
-                    <li class="pad_t_b_24 fl tc w500 list lt_line">제목</li>
-                    <li class="pad_t_b_24 fl tc w100 list lt_line">2019-02-11</li>
-                    <li class="pad_t_b_24 fl tc w100 list  lt_line blue">1</li>
-                </ul>
-                <ul class="board">
-                    <li class="pad_t_b_24 fl tc w70 list lt_line">3</li>
-                    <li class="pad_t_b_24 fl tc w120 list lt_line blue">답변대기</li>
-                    <li class="pad_t_b_24 fl tc w500 list lt_line">제목</li>
-                    <li class="pad_t_b_24 fl tc w100 list lt_line">2019-02-11</li>
-                    <li class="pad_t_b_24 fl tc w100 list  lt_line blue">1</li>
-                </ul>
-                <ul class="board">
-                    <li class="pad_t_b_24 fl tc w70 list lt_line">2</li>
-                    <li class="pad_t_b_24 fl tc w120 list lt_line blue">답변대기</li>
-                    <li class="pad_t_b_24 fl tc w500 list lt_line">제목</li>
-                    <li class="pad_t_b_24 fl tc w100 list lt_line">2019-02-11</li>
-                    <li class="pad_t_b_24 fl tc w100 list  lt_line blue">1</li>
-                </ul>
-                <ul class="board">
-                    <li class="pad_t_b_24 fl tc w70 list b_line">1</li>
-                    <li class="pad_t_b_24 fl tc w120 list b_line blue">답변대기</li>
-                    <li class="pad_t_b_24 fl tc w500 list b_line">제목</li>
-                    <li class="pad_t_b_24 fl tc w100 list b_line">2019-02-11</li>
-                    <li class="pad_t_b_24 fl tc w100 list  b_line blue">1</li>
-                </ul>
-            </div>
-            <div class="l">
-                <!-- <a class="" href="#" id=""><img class='w30' src="./img/left-arrow.png"></a> -->
-                <a class="pge" href="#" id="next2" style="background-color: #2962FF;">더보기</a>
-                <!-- <a class="" href="#" id=""><img class='w30' src="./img/right-arrow.png"></a> -->
+        <div class="jcun">
+            <div class="frth-main mx-auto">
+                <div class="petition_waiting">
+                    <ul class="board">
+                        <li class="pad_t_b_1 fl tc w70 title b_line">번호</li>
+                        <li class="pad_t_b_1 fl tc w120 title b_line">진행상태</li>
+                        <li class="pad_t_b_1 fl tc w500 title b_line">제목</li>
+                        <li class="pad_t_b_1 fl tc w100 title b_line">청원기간</li>
+                        <li class="pad_t_b_1 fl tc w100 title b_line">참여인원</li>
+                    </ul>
+                    <!--- 리스트 --->
+
+
+
+                    <% for(var i=0 ;i < waiting.length; i++){ %>
+                        <ul class="board">
+                            <li class="pad_t_b_15 fl tc w70 list lt_line">
+                                <%= i+1 %>
+                            </li>
+                            <li class="pad_t_b_15 fl tc w120 list lt_line blue">답변대기</li>
+                            <li class="pad_t_b_15 fl tc w500 list lt_line">
+                                <a href="/detail/<%= posts[i]._id %>">
+                                    <%= waiting[i].청원제목%>
+                                </a>
+                            </li>
+
+                            <li class="pad_t_b_15 fl tc w100 list lt_line">
+                                <%= waiting[i].청원시작%>~<%= waiting[i].청원마감%>
+                            </li>
+                            <li class="pad_t_b_15 fl tc w100 list  lt_line blue">
+                                <%= waiting[i].liked%>
+                            </li>
+                        </ul>
+                        <% if(i==5) { %>
+                            <% break %>
+                                <%}%>
+                                    <% } %>
+                </div>
+                <div class="l">
+                    <!-- <a class="" href="#" id=""><img class='w30' src="./img/left-arrow.png"></a> -->
+                    <a class="pge" href="/waiting" id="next2" style="background-color: #2962FF;">더보기</a>
+                    <!-- <a class="" href="#" id=""><img class='w30' src="./img/right-arrow.png"></a> -->
+                </div>
             </div>
         </div>
         <div class="sub-title">
             <div class="vl"></div>
             <div class="sub-title-text"> <a> 청원 목록 </a> </div>
         </div>
-        <div class="frth-main mx-auto">
-            <div class="petition_waiting">
-                <ul class="board">
-                    <li class="pad_t_b_1 fl tc w70 title b_line">번호</li>
-                    <li class="pad_t_b_1 fl tc w120 title b_line">진행상태</li>
-                    <li class="pad_t_b_1 fl tc w500 title b_line">제목</li>
-                    <li class="pad_t_b_1 fl tc w100 title b_line">청원기간</li>
-                    <li class="pad_t_b_1 fl tc w100 title b_line">참여인원</li>
-                </ul>
-                <!--- 리스트 --->
-                <% for(var i=0 ;i < 5; i++){ %>
+        <div class="">
+            <div class="frth-main mx-auto">
+                <div class="petition_waiting">
                     <ul class="board">
-                        <li class="pad_t_b_15 fl tc w70 list lt_line">
-                            <%= i+1 %>
-                        </li>
-                        <li class="pad_t_b_15 fl tc w120 list lt_line blue">답변대기</li>
-                        <li class="pad_t_b_15 fl tc w500 list lt_line">
-                            <a href="/detail/<%= i+1 %>">
-                                <%= posts[i].청원제목%>
-                            </a>
-                        </li>
-
-                        <li class="pad_t_b_15 fl tc w100 list lt_line">
-                            <%= posts[i].청원기간%>
-                        </li>
-                        <li class="pad_t_b_15 fl tc w100 list  lt_line blue">
-                            <%= posts[i].liked%>
-                        </li>
+                        <li class="pad_t_b_1 fl tc w70 title b_line">번호</li>
+                        <li class="pad_t_b_1 fl tc w120 title b_line">진행상태</li>
+                        <li class="pad_t_b_1 fl tc w500 title b_line">제목</li>
+                        <li class="pad_t_b_1 fl tc w100 title b_line">청원기간</li>
+                        <li class="pad_t_b_1 fl tc w100 title b_line">참여인원</li>
                     </ul>
-                    <% } %>
+                    <!--- 리스트 --->
+                    <% for(var i=0 ;i < posts.length; i++){ %>
+                        <ul class="board">
+                            <li class="pad_t_b_15 fl tc w70 list lt_line">
+                                <%= i+1 %>
+                            </li>
+                            <li class="pad_t_b_15 fl tc w120 list lt_line blue">답변대기</li>
+                            <li class="pad_t_b_15 fl tc w500 list lt_line">
+                                <a href="/detail/<%= posts[i]._id %>">
+                                    <%= posts[i].청원제목%>
+                                </a>
+                            </li>
+
+                            <li class="pad_t_b_15 fl tc w100 list lt_line">
+                                <%= posts[i].청원시작%>~<%= posts[i].청원마감%>
+                            </li>
+                            <li class="pad_t_b_15 fl tc w100 list  lt_line blue">
+                                <%= posts[i].liked%>
+                            </li>
+                        </ul>
+                        <% if(i==5) { %>
+                            <% break %>
+                                <%}%>
+                                    <% } %>
+
+                </div>
+
+                <div class="l" style="margin-bottom: 180px; margin-top: 50px;">
+
+                    <a class="pge" href="/petitionlist" id="next2" style="background-color: #2962FF;">더보기</a>
+
+                </div>
 
             </div>
-            <div class="l" style="margin-bottom: 100px;">
-                
-                <a class="pge" href="/listpetition" id="next2" style="background-color: #2962FF;">더보기</a>
-                
-            </div>
-
         </div>
 </div>
 </body>
 </div>
- <footer>
-    <div class="fr f12 tr" style=" margin: 15px 30px 15px 15px;" >
-    <p>청원 시스템 제작 TF팀 </p>
-    <p class="fc4c4c4">이서현 이상효 장준혁 곽범준 </p>
-    <p class="fc4c4c4"> 차세연 최지철  </p>
 </div>
-  </footer> 
+<footer>
+    <div class="fr f12 tr" style=" margin: 15px 30px 15px 15px;">
+        <p>청원 시스템 제작 TF팀 </p>
+        <p class="fc4c4c4">이서현 이상효 장준혁 곽범준 </p>
+        <p class="fc4c4c4"> 차세연 최지철 </p>
+    </div>
+</footer>
 
 </html>

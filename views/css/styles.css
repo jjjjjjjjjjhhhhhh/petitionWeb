@@ -7,7 +7,10 @@
     width: 100%; 
     height: 100%;
 } */
-
+.check{
+    margin-top:177px;
+    position: relative;
+}
 .wrapper{
     height:auto; 
     min-height: 100%;
@@ -184,9 +187,10 @@ max-width: 350px;
 }
 
 #to-see-all{ 
-    width: 120px; 
+    width: 150px; 
     list-style: none; 
     margin-left: 30px;
+    margin-top: 35px;
 
 }
 #to-see-spe{ 
@@ -259,13 +263,29 @@ ul li {list-style:none; white-space: nowrap; }
     width: fit-content;
 }
 .petition_waiting{ 
-    height: 444px;
+    height: 375px;
 }
+@media (min-width:320px ) and (max-width:1050px)  { /* smartphones, portrait iPhone, portrait 480x320 phones (Android) */
 
+.os{
+    overflow: scroll;
+}
+.jcun{
+    justify-content: unset;
+}
+.board{
+    width:1000px;
+}
+}
 .l{ 
     margin-left: 494px; 
 }
-
+@media (min-width:320px) and (max-width: 1350px){
+    #eee{
+        overflow: auto;
+        justify-content:unset;
+    }
+}
 
 
 /*footer */ 

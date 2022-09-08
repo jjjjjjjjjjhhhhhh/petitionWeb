@@ -2,8 +2,15 @@
 .pointer{
   cursor:pointer;
 }
+body{
+  margin:0px;
+}
 .wrapper{
   overflow: hidden;
+}
+.wrapper {
+  height:auto;
+  min-height: 100%;
 }
 .ofh{overflow: hidden;}
 ul.topnav {
@@ -23,7 +30,7 @@ ul.topnav {
   letter-spacing: -0.4ch;
 }
   ul.topnav li {float: right;}
-  ul.topnav li a {
+  ul.topnav li a.text {
     display: block;
     color: black;
     text-align: center;
@@ -78,6 +85,7 @@ ul.topnav {
 .f8{ font-size: 8px;}
 .f12{ font-size: 12px;}
 .f20{font-size: 20px;}
+.oh{overflow: hidden;}
 footer {
   height: 131px;
   background: #4D4D4D;
@@ -151,6 +159,7 @@ footer {
   position: absolute;
   background-color: #000;
   background-position: center;
+  overflow: hidden;
 }
 .mx-auto{ 
   margin-right: auto!important; 

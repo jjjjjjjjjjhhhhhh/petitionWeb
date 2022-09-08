@@ -9,55 +9,60 @@
     <link rel="stylesheet" href="../css/login.css">
     <link rel="stylesheet" href="../css/defalt.css">
 </head>
-<header style="padding-top: 40px; padding-bottom: 10px; border-bottom: 1px solid;">
-    <ul class="topnav">
-        <li class="right"><a href="/register">회원가입</a></li><a href="/">
-            <li class="left">
+<div class="wrapper">
+    <form class="mx-1 mx-md-4" action="/login" method="POST">
+    <header style="padding-top: 40px; padding-bottom: 10px; border-bottom: 1px solid;">
+        <ul class="topnav">
+            <li class="right"><a class="text" href="/register">회원가입</a></li><a href="/">
+                <li class="left">
 
-                <div>
-                    <img class="logo-image" src="../img/school_logo_1.png" alt="호치민시한국국제학교 로고">
-                </div>
+                    <div>
+                        <img class="logo-image" src="../img/school_logo_1.png" alt="호치민시한국국제학교 로고">
+                    </div>
+                </li>
+            </a>
+            <li class="left" style="padding-left: 50px;  padding-top:20px;">
+                <div class="vl_inBox fl" style="height: 40px; margin:0px;"> </div>
             </li>
-        </a>
-        <li class="left" style="padding-left: 50px;  padding-top:20px;">
-            <div class="vl_inBox fl" style="height: 40px; margin:0px;"> </div>
-        </li>
-        <li class="left" style="padding-left: 35px; font-size: 25px; font-weight: 700; padding-top: 4px;">
-            <p>학생청원 2022</p>
-        </li>
-    </ul>
-</header>
+            <li class="left" style="padding-left: 35px; font-size: 25px; font-weight: 700; padding-top: 4px;">
+                <p>학생청원 2022</p>
+            </li>
+        </ul>
+    </header>
 
-<body>
-    <p class="mx-auto title" style="font-size: 18px; padding-top: 100px; font-weight: 550;">
-        로그인
-    </p>
-    <hr class="mx-auto" id="line" style="width: 400px;">
-    </hr>
+    <body>
+        <p class="mx-auto title" style="font-size: 18px; padding-top: 100px; font-weight: 550;">
+            로그인
+        </p>
+        <hr class="mx-auto" id="line" style="width: 400px;">
+        </hr>
 
-    <div class="round_box mx-auto dis_table log_in">
-        <div class="aa" style="padding-top: 35px;">
-            <form class="mx-1 mx-md-4" action="/login" method="POST">
-                <div class="wrapper">
-                    <label style="padding-left: 10px;">학교이메일</label>
-                    <div class="input-data">
-                        <input type="text" required="required" placeholder="@kshcm.net" name="loginmail">
+        <div class="round_box mx-auto dis_table log_in">
+            <div class="aa" style="padding-top: 35px;">
+                
+                    <div>
+                        <label style="padding-left: 10px;">학교이메일</label>
+                        <div class="input-data">
+                            <input type="text" required="required" placeholder="@kshcm.net" name="loginmail">
+                        </div>
                     </div>
-                </div>
 
-                <div class="wrapper" style="margin-top: 30px;">
-                    <label style="padding-left: 10px;">비밀번호</label>
-                    <div class="input-data">
-                        <input type="password" required="required" name="loginpassword">
+                    <div style="margin-top: 30px;">
+                        <label style="padding-left: 10px;">비밀번호</label>
+                        <div class="input-data">
+                            <input type="password" required="required" name="loginpassword">
+                        </div>
                     </div>
-                </div>
+                
+            </div>
         </div>
-
-    </div>
-    <div class="mx-auto text-center">
-        <button href="" class=btn style="margin-top: 80px;"> 로그인</button>
-    </div>
-</body>
+        <div class="mx-auto text-center">
+            
+            <button href="" class=btn style="margin-bottom: 300px; margin-top: 80px;"> 로그인</button>
+        </div>
+    </body>
+</form>
+</div>
 <footer>
     <div class="fr f12 tr" style=" margin: 15px 30px 15px 15px;" >
     <p>청원 시스템 제작 TF팀 </p>

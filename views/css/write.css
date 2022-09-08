@@ -16,6 +16,28 @@
     display: flex;
     justify-content: center;
 }
+
+.discript .box_NoB{
+    width:374px;
+    margin-left: 50px;
+}
+
+@media (min-width:320px) {
+    #aaa{
+        padding-left:0px;
+    }
+    #lns{
+        margin-left: 0px;
+    }
+}
+@media (min-width:801px)  { /* tablet, landscape iPad, lo-res laptops ands desktops */ 
+#aaa{
+    padding-left: 4.5cm;
+}
+#lns{
+    margin-left:200px;
+}
+}
 .list {
 	height: 40px;
 	line-height: 40px;
@@ -50,7 +72,6 @@ ul li {list-style:none; white-space: nowrap; }
 }
 
 #lns{
-    margin-left: 200px;
     float: none; 
     text-align: left;
     margin-top: 100px;

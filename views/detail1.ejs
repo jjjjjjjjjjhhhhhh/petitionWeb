@@ -18,14 +18,15 @@
     <header style="padding-top: 40px; padding-bottom: 10px;">
         <ul class="topnav">
 
-            <% if(login_state==null){ %>
+          <% if(info==null){ %>
 
-                <li class=" right"><a href="/login">로그인</a></li>
-                <li><a href="/register">회원가입</a></li>
-                <% }else{ %>
-                    <li class=" right">로그인된 계정: <%= login_state %></a></li>
+            <li class=" right"><a class="text" href="/login">로그인</a></li>
+            <li><a class="text" href="/register">회원가입</a></li>
+            <% }else{ %>
+                <li class=" right"><a class="text">로그인된 계정: <%= info.name %></a></li>
+                <li><a class="text" href="/logout">로그아웃</a></li>
 
-                    <% } %>
+                <% } %>
 
                         <li class="left">
                             <h2 href="/">
