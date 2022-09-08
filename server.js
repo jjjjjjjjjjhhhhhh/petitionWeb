@@ -58,7 +58,7 @@ app.get("/", (req, res) => {
 app.get('/myPage', loginStat, (req, res) => {
 
   db.collection('petitions').find({ author: req.user.name }).toArray((err, result) => {
-    res.render('delete', { info: req.user, posts: result })
+    res.render('myPage', { info: req.user, posts: result })
     console.log(result)
   })
 
@@ -66,7 +66,7 @@ app.get('/myPage', loginStat, (req, res) => {
 
 app.post('/delete/:id', (req, res) => {
   db.collection("petitions").deleteOne({ _id: parseInt(req.params.id) }, (err, result) => {
-    
+
   })
 })
 
