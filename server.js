@@ -5,6 +5,7 @@ const crypto = require("crypto");
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(express.static("views"));
+require('dotenv').config()
 
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
@@ -18,10 +19,7 @@ var bool = false;
 var login_states;
 var login_status = false;
 var login_mail;
-
 let localDate = new Date().toLocaleDateString();
-
-
 var arr = [];
 
 const MongoClient = require("mongodb").MongoClient;
@@ -29,12 +27,12 @@ const e = require("express");
 const { runInNewContext } = require("vm");
 var db;
 MongoClient.connect(
-  "mongodb+srv://Tfadmin:qwerty1111@tfteam.aqtsspy.mongodb.net/?retryWrites=true&w=majority",
+  process.env.DB_URL,
   (err, client) => {
     if (err) return console.log(err);
     db = client.db("petitionWeb");
 
-    app.listen(8080, () => {
+    app.listen(process.env.PORT, () => {
       console.log("http://localhost:8080");
     });
   }

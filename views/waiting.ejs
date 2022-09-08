@@ -15,15 +15,15 @@
         <header style="padding-top: 40px; padding-bottom: 10px;">
             <ul class="topnav">
 
-                 <% if(info==null){ %>
+                <% if(info==null){ %>
 
-                <li class=" right"><a class="text" href="/login">로그인</a></li>
-                <li><a class="text" href="/register">회원가입</a></li>
-                <% }else{ %>
-                    <li class=" right"><a class="text">로그인된 계정: <%= info.name %></a></li>
-                    <li><a class="text" href="/logout">로그아웃</a></li>
+                    <li class=" right"><a class="text" href="/login">로그인</a></li>
+                    <li><a class="text" href="/register">회원가입</a></li>
+                    <% }else{ %>
+                        <li class=" right"><a class="text">로그인된 계정: <%= info.name %></a></li>
+                        <li><a class="text" href="/logout">로그아웃</a></li>
 
-                    <% } %>
+                        <% } %>
 
                             <li class="left">
                                 <h2 href="/">
@@ -61,8 +61,9 @@
                 <div class="vl"></div>
                 <div class="sub-title-text"> <a>답변 대기중인 청원</a> </div>
             </div>
-            <% for(var i=0; i< posts.length;i++){ %>
-                <div class="main">
+            <div class="main">
+                < <% for(var i=0; i< posts.length;i++){ %>
+
                     <div class="round_box mx-auto">
                         <div class="box_NoB">
                             <div class="" style="font-size: 18px;">
@@ -137,7 +138,7 @@
                                 <a class="pge" href="#" id="next2">&#8250;&#8250;</a>
                             </div>
                         </div> -->
-                </div>
+            </div>
 
     </div>
 </body>

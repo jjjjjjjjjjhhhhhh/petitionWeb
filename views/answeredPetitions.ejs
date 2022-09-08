@@ -22,7 +22,7 @@
                     <% }else{ %>
                         <li class=" right"><a class="text">로그인된 계정: <%= info.name %></a></li>
                         <li><a class="text" href="/logout">로그아웃</a></li>
-    
+
                         <% } %>
 
                             <li class="left">
@@ -61,9 +61,9 @@
                 <div class="vl"></div>
                 <div class="sub-title-text"> <a>답변된 청원</a> </div>
             </div>
+            <div class="main">
+                <% for(var i=0; i< posts.length;i++){ %>
 
-            <% for(var i=0; i< posts.length;i++){ %>
-                <div class="main">
                     <div class="round_box mx-auto">
                         <div class="box_NoB">
                             <div class="" style="font-size: 18px;">
@@ -138,7 +138,7 @@
                                 <a class="pge" href="#" id="next2">&#8250;&#8250;</a>
                             </div>
                         </div> -->
-                </div>
+            </div>
 
     </div>
 </body>
