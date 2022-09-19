@@ -220,7 +220,7 @@ app.get("/waiting/:page", loginStat, (res, rep) => {
     .find()
     .toArray(function (err, result) {
       numOfResults = findWaiting(result).length;
-      result = findPage(findWaiting(result), page)
+      result = findPage(findWaiting(result), page);
       rep.render("waiting", {
         numOfResults: numOfResults,
         resultPerPage: resultPerPage,
@@ -346,96 +346,153 @@ let transporter = nodemailer.createTransport({
   },
 });
 
+app.post("/register", (req, rep) => {
+  db.collection("acc").findOne({ mail: req.body.mail }, (err, result) => {
+    if (result != null) {
+      rep.send(
+        '<script>alert("이미 존재하는 계정입니다");window.location="/"</script>'
+      );
+    } else {
+      db.collection("acc").findOne({ name: req.body.name }, (err, result) => {
+        if (result != null) {
+          rep.send(
+            '<script>alert("이미 존재하는 닉네임입니다");window.location="/"</script>'
+          );
+        } else {
+          rep.send(
+            '<script>alert("회원가입이 완료되었습니다");window.location="/"</script>'
+          );
+          db.collection("counter").findOne(
+            { name: "countacc" },
+            (err, result) => {
+              try {
+                var accNum = result.totalacc;
+                let hashedPass = crypto
+                  .createHash("sha256")
+                  .update(req.body.password)
+                  .digest("base64");
+                console.log(hashedPass);
+                console.log("mail:", req.body.mail);
+                console.log("password:", hashedPass);
+                db.collection("acc").insertOne(
+                  {
+                    _id: accNum + 1,
+                    name: req.body.name,
+                    mail: req.body.mail,
+                    pass: hashedPass,
+                    likedId: [0],
+                  },
+                  () => {
+                    db.collection("counter").updateOne(
+                      { name: "countacc" },
+                      { $inc: { totalacc: 1 } },
+                      (err, result) => {
+                        if (err) return console.log(error);
+                      }
+                    );
+                  }
+                );
+              } catch {
+                rep.redirect("/register");
+              }
+            }
+          );
+        }
+      });
+    }
+  });
+});
+
 // send mail with defined transport object
 
-app.post("/verifynum", (req, res) => {
-  let ps = req.cookies.verpass;
-  let ml = req.cookies.vermail;
-  let nm = req.cookies.vername;
+// app.post("/verifynum", (req, res) => {
+//   let ps = req.cookies.verpass;
+//   let ml = req.cookies.vermail;
+//   let nm = req.cookies.vername;
 
-  if (req.body.verify == random) {
-    res.send(
-      '<script>alert("회원가입이 완료되었습니다");window.location="/"</script>'
-    );
+//   if (req.body.verify == random) {
+//     res.send(
+//       '<script>alert("회원가입이 완료되었습니다");window.location="/"</script>'
+//     );
 
-    db.collection("counter").findOne({ name: "countacc" }, (err, result) => {
-      try {
-        var accNum = result.totalacc;
-        let hashedPass = crypto
-          .createHash("sha256")
-          .update(ps)
-          .digest("base64");
-        console.log(hashedPass);
-        console.log("mail:", ml);
-        console.log("password:", hashedPass);
+//     db.collection("counter").findOne({ name: "countacc" }, (err, result) => {
+//       try {
+//         var accNum = result.totalacc;
+//         let hashedPass = crypto
+//           .createHash("sha256")
+//           .update(ps)
+//           .digest("base64");
+//         console.log(hashedPass);
+//         console.log("mail:", ml);
+//         console.log("password:", hashedPass);
 
-        db.collection("acc").insertOne(
-          {
-            _id: accNum + 1,
-            name: nm,
-            mail: ml,
-            pass: hashedPass,
-            likedId: [0],
-          },
-          () => {
-            db.collection("counter").updateOne(
-              { name: "countacc" },
-              { $inc: { totalacc: 1 } },
-              (err, result) => {
-                if (err) return console.log(error);
-              }
-            );
-          }
-        );
-      } catch {
-        res.redirect("/register");
-      }
-    });
-  } else {
-    res.send(
-      '<script>alert("일치하지 않습니다");window.location="/verify"</script>'
-    );
-  }
-});
+//         db.collection("acc").insertOne(
+//           {
+//             _id: accNum + 1,
+//             name: nm,
+//             mail: ml,
+//             pass: hashedPass,
+//             likedId: [0],
+//           },
+//           () => {
+//             db.collection("counter").updateOne(
+//               { name: "countacc" },
+//               { $inc: { totalacc: 1 } },
+//               (err, result) => {
+//                 if (err) return console.log(error);
+//               }
+//             );
+//           }
+//         );
+//       } catch {
+//         res.redirect("/register");
+//       }
+//     });
+//   } else {
+//     res.send(
+//       '<script>alert("일치하지 않습니다");window.location="/verify"</script>'
+//     );
+//   }
+// });
 
-app.post("/register", (req, rep) => {
-  random = Math.floor(Math.random() * 100 + 54);
-  rep.cookie("Verifycookie", random);
-  if (req.body.password != req.body.passcheck) {
-    rep.send(
-      '<script>alert("비밀번호 확인이 일치하지 않습니다.");window.location="/register"</script>'
-    );
-  } else {
-    db.collection("acc").findOne({ mail: req.body.mail }, (err, result) => {
-      if (result != null) {
-        rep.send(
-          '<script>alert("이미 존재하는 계정입니다");window.location="/"</script>'
-        );
-      } else {
-        db.collection("acc").findOne({ name: req.body.name }, (err, result) => {
-          if (result != null) {
-            rep.send(
-              '<script>alert("이미 존재하는 닉네임입니다");window.location="/"</script>'
-            );
-          } else {
-            rep.cookie("vermail", req.body.mail);
-            rep.cookie("verpass", req.body.password);
-            rep.cookie("vername", req.body.name);
+// app.post("/register", (req, rep) => {
+//   random = Math.floor(Math.random() * 100 + 54);
+//   rep.cookie("Verifycookie", random);
+//   if (req.body.password != req.body.passcheck) {
+//     rep.send(
+//       '<script>alert("비밀번호 확인이 일치하지 않습니다.");window.location="/register"</script>'
+//     );
+//   } else {
+//     db.collection("acc").findOne({ mail: req.body.mail }, (err, result) => {
+//       if (result != null) {
+//         rep.send(
+//           '<script>alert("이미 존재하는 계정입니다");window.location="/"</script>'
+//         );
+//       } else {
+//         db.collection("acc").findOne({ name: req.body.name }, (err, result) => {
+//           if (result != null) {
+//             rep.send(
+//               '<script>alert("이미 존재하는 닉네임입니다");window.location="/"</script>'
+//             );
+//           } else {
+//             rep.cookie("vermail", req.body.mail);
+//             rep.cookie("verpass", req.body.password);
+//             rep.cookie("vername", req.body.name);
 
-            transporter.sendMail({
-              from: "noreplytfteamproject@gmail.com", // sender address
-              to: req.body.mail, // list of receivers
-              subject: "Kis 학생청원 인증번호 ✔", // Subject line
-              // text: "귀하의 인증번호는 : "+random+" 입니다.", // plain text body
-              html: "<b>귀하의 인증번호는 : " + random + " 입니다.</b>", // html body
-            });
-            rep.redirect("/verify");
-          }
-        });
-      }
-    });
-  }
-});
+//             transporter.sendMail({
+//               from: "noreplytfteamproject@gmail.com", // sender address
+//               to: req.body.mail, // list of receivers
+//               subject: "Kis 학생청원 인증번호 ✔", // Subject line
+//               // text: "귀하의 인증번호는 : "+random+" 입니다.", // plain text body
+//               html: "<b>귀하의 인증번호는 : " + random + " 입니다.</b>", // html body
+//             });
+//             rep.redirect("/verify");
+//           }
+//         });
+//       }
+//     });
+//   }
+// });
 
 function verifyMail(res) {
   res.redirect("/");
