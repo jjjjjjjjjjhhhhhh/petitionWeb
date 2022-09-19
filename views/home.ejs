@@ -174,7 +174,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <div class="see-rply-btn" href="/detail/<%- replied[i]._id%>">
+                            <div class="see-rply-btn" href="/detail/<% replied[i]._id%>">
                                 답변보기
                             </div>
                     </li>
@@ -237,7 +237,7 @@
 
                         <div class="text_right" href="#" style="margin-top: 40px; width:385px;">
                             <a id="to-see-spe">자세히 보기 </a>
-                            <div class="fr"> <a href="/detail/<%= sortedPosts[i]._id %> %>"><img
+                            <div class="fr"> <a href="/detail/<%= sortedPosts[i]._id %>"><img
                                         src="./img/right-pointer.png" class="w50 pointer"></a>
                             </div>
                         </div>
@@ -268,7 +268,7 @@
 
 
 
-                    <% for(var i=0 ;i < waiting.length; i++){ %>
+                    <% for(var i=0 ;i < findWaiting.length; i++){ %>
                         <ul class="board">
                             <li class="pad_t_b_15 fl tc w70 list lt_line">
                                 <%= i+1 %>
@@ -276,15 +276,15 @@
                             <li class="pad_t_b_15 fl tc w120 list lt_line blue">답변대기</li>
                             <li class="pad_t_b_15 fl tc w500 list lt_line">
                                 <a href="/detail/<%= posts[i]._id %>">
-                                    <%= waiting[i].청원제목%>
+                                    <%= findWaiting[i].청원제목%>
                                 </a>
                             </li>
 
                             <li class="pad_t_b_15 fl tc w100 list lt_line">
-                                <%= waiting[i].청원시작%>~<%= waiting[i].청원마감%>
+                                <%= findWaiting[i].청원시작%>~<%= findWaiting[i].청원마감%>
                             </li>
                             <li class="pad_t_b_15 fl tc w100 list  lt_line blue">
-                                <%= waiting[i].liked%>
+                                <%= findWaiting[i].liked%>
                             </li>
                         </ul>
                         <% if(i==5) { %>

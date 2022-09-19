@@ -51,7 +51,7 @@ app.get("/", (req, res) => {
       arr = [];
       res.render("home", {
         sortedPosts: highestVote(result),
-        waiting: findWaiting(result),
+        findWaiting: findWaiting(result),
         posts: result,
         info: req.user,
         replied: answered(result),
@@ -163,9 +163,9 @@ app.get("/petitionlist/:page", loginStat, (res, rep) => {
         {
           numOfResults: numOfResults,
           resultPerPage: resultPerPage,
-          pages : Math.ceil(numOfResults / resultPerPage),
+          pages: Math.ceil(numOfResults / resultPerPage),
           currentPage: page,
-          posts: result, 
+          posts: result,
           info: res.user
         });
     });
@@ -211,22 +211,22 @@ app.get("/waiting", loginStat, (res, rep) => {
 });
 
 app.post("/postanswer/:id", (req, res) => {
-  console.log(req.body.markdown)
-  console.log(req.params.id)
+  console.log("답변 : " + req.body.markdown)
+  console.log("_id : " + typeof req.body.markdown)
   db.collection("petitions").updateOne(
     { _id: parseInt(req.params.id) },
-    { $push: { reply: req.body.markdown } },
+    { $set: { "reply": req.body.markdown } }
+    ,
     (err, result) => {
       db.collection("petitions").updateOne(
         { _id: parseInt(req.params.id) },
-        { $push: { status: "answered" } }, (err, result) => {
+        { $set: { status: "answered" } },
+        (err, result) => {
           res.send(
             '<script>alert("답변되었습니다");window.location="/"</script>'
           );
         }
-      )
-
-
+      );
     }
   )
 })
