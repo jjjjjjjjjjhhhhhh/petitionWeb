@@ -62,13 +62,13 @@
                 <div class="sub-title-text"> <a>답변된 청원</a> </div>
             </div>
             <div class="smth">
-                <% for(var i=(currentPage -1) * 9; i< currentPage * 9;i++){ %>
+                <% posts.forEach((post) => { %>
                     <div class="main">
                         <div class="round_box mx-auto">
                             <div class="box_NoB">
                                 <div class="" style="font-size: 18px;">
                                     <p>
-
+                                        <%= post.청원제목 %>
                                     </p>
                                 </div>
                                 <div class="content" style="margin-left: 18px; width: fit-content;">
@@ -78,7 +78,7 @@
                                         </div>
                                     </div>
                                     <h3>
-
+                                        <%= post.청원시작 %>
                                     </h3>
                                 </div>
                                 <div class="right_arrow"> </div>
@@ -89,7 +89,7 @@
                                         </div>
                                     </div>
                                     <h3>
-
+                                        <%= post.청원마감 %>
                                     </h3>
                                 </div>
                                 <div class="right_arrow"> </div>
@@ -100,7 +100,7 @@
                                         </div>
                                     </div>
                                     <h3>
-
+                                        <%= post.liked %>명
                                     </h3>
                                 </div>
                                 <div class="right_arrow"> </div>
@@ -111,7 +111,7 @@
                                         </div>
                                     </div>
                                     <h3>
-
+                                        미정
                                     </h3>
                                 </div>
                             </div>
@@ -120,7 +120,7 @@
                                 <p class="CNT">자세히 보기</p>
 
                                 <div class="content" style="margin-bottom: 18px;">
-                                    <a href=>
+                                    <a href="/detail/<%= post._id %>">
                                         <div class="circle" style="background-color: #264BB1;" id="SPE">
                                             <div class="right_arrow" id="RA"> </div>
 
@@ -128,7 +128,7 @@
                                 </div></a>
                             </div>
                         </div>
-                        <%}%>
+                        <%})%>
                     </div>
                     <!-- SEARCH RESULTS | START -->
                     <div class="results">

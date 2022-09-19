@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>답변된 청원 목록</title>
+    <title>진행중인 청원 목록</title>
     <link rel="stylesheet" href="../css/defalt.css">
     <link rel="stylesheet" href="../css/petition_list.css">
 </head>
@@ -38,7 +38,7 @@
                             </li>
                             <li class="left"
                                 style="padding-left: 35px; font-size: 25px; font-weight: 700; padding-top: 4px;">
-                                <p>학생청원 2022</p>
+                                <p>2022 학생청원</p>
                             </li>
             </ul>
         </header>
@@ -52,7 +52,7 @@
 
             <div class=" mx-auto text-center" id='banner'>
                 <div>
-                    <img src="../img/답청.png" id="banner-img">
+                    <img src="../img/loadingPetition.png" id="banner-img">
                     <div class="bottom-left"></div>
                 </div>
             </div>
@@ -61,75 +61,122 @@
                 <div class="vl"></div>
                 <div class="sub-title-text"> <a>답변 대기중인 청원</a> </div>
             </div>
-            <div class="main">
-                < <% for(var i=0; i< posts.length;i++){ %>
+            <div class="smth">
+                <% posts.forEach((post) => { %>
+                    <div class="main">
+                        <div class="round_box mx-auto">
+                            <div class="box_NoB">
+                                <div class="" style="font-size: 18px;">
+                                    <p>
+                                        <%= post.청원제목 %>
+                                    </p>
+                                </div>
+                                <div class="content" style="margin-left: 18px; width: fit-content;">
+                                    <div class="circle" style="background-color: #E5ECFF;">
+                                        <div class="in_box_content" style="padding: 34px;">
+                                            청원 시작
+                                        </div>
+                                    </div>
+                                    <h3>
+                                        <%= post.청원시작 %>
+                                    </h3>
+                                </div>
+                                <div class="right_arrow"> </div>
+                                <div class="content" style="margin-left: 18px;">
+                                    <div class="circle" style="background-color: #D5E0FF;">
+                                        <div class="in_box_content" style="padding: 34px;">
+                                            청원 마감
+                                        </div>
+                                    </div>
+                                    <h3>
+                                        <%= post.청원마감 %>
+                                    </h3>
+                                </div>
+                                <div class="right_arrow"> </div>
+                                <div class="content" style="margin-left: 18px;">
+                                    <div class="circle" style="background-color: #AEC3FF;">
+                                        <div class="in_box_content" style="padding: 34px;">
+                                            참여 인원
+                                        </div>
+                                    </div>
+                                    <h3>
+                                        <%= post.liked %>명
+                                    </h3>
+                                </div>
+                                <div class="right_arrow"> </div>
+                                <div class="content" style="margin-left: 18px;">
+                                    <div class="circle" style="background-color: #6a92FF;">
+                                        <div class="in_box_content" style="padding: 34px;">
+                                            청원 답변
+                                        </div>
+                                    </div>
+                                    <h3>
+                                        미정
+                                    </h3>
+                                </div>
+                            </div>
+                            <div class="vl_inBox fl" id="line_1"> </div>
+                            <div class="box_NoB" href="#" id="reply">
+                                <p class="CNT">자세히 보기</p>
 
-                    <div class="round_box mx-auto">
-                        <div class="box_NoB">
-                            <div class="" style="font-size: 18px;">
-                                <p>
-                                    <%= posts[i].청원제목 %>
-                                </p>
-                            </div>
-                            <div class="content" style="margin-left: 18px; width: fit-content;">
-                                <div class="circle" style="background-color: #E5ECFF;">
-                                    <div class="in_box_content" style="padding: 34px;">
-                                        청원 시작
-                                    </div>
-                                </div>
-                                <h3>
-                                    <%= posts[i].청원시작 %>
-                                </h3>
-                            </div>
-                            <div class="right_arrow"> </div>
-                            <div class="content" style="margin-left: 18px;">
-                                <div class="circle" style="background-color: #D5E0FF;">
-                                    <div class="in_box_content" style="padding: 34px;">
-                                        청원 마감
-                                    </div>
-                                </div>
-                                <h3>
-                                    <%= posts[i].청원마감 %>
-                                </h3>
-                            </div>
-                            <div class="right_arrow"> </div>
-                            <div class="content" style="margin-left: 18px;">
-                                <div class="circle" style="background-color: #AEC3FF;">
-                                    <div class="in_box_content" style="padding: 34px;">
-                                        참여 인원
-                                    </div>
-                                </div>
-                                <h3>
-                                    <%= posts[i].liked %>명
-                                </h3>
-                            </div>
-                            <div class="right_arrow"> </div>
-                            <div class="content" style="margin-left: 18px;">
-                                <div class="circle" style="background-color: #6a92FF;">
-                                    <div class="in_box_content" style="padding: 34px;">
-                                        청원 답변
-                                    </div>
-                                </div>
-                                <h3>
-                                    미정
-                                </h3>
+                                <div class="content" style="margin-bottom: 18px;">
+                                    <a href="/detail/<%= post._id %>">
+                                        <div class="circle" style="background-color: #264BB1;" id="SPE">
+                                            <div class="right_arrow" id="RA"> </div>
+
+                                        </div>
+                                </div></a>
                             </div>
                         </div>
-                        <div class="vl_inBox fl" id="line_1"> </div>
-                        <div class="box_NoB" href="#" id="reply">
-                            <p class="CNT">자세히 보기</p>
-
-                            <div class="content" style="margin-bottom: 18px;">
-                                <a href="/detail/<%= posts[i]._id %>">
-                                    <div class="circle" style="background-color: #264BB1;" id="SPE">
-                                        <div class="right_arrow" id="RA"> </div>
-
-                                    </div>
-                            </div></a>
-                        </div>
+                        <%})%>
                     </div>
-                    <%}%>
-                        <!-- <div class="mx-auto">
+                    <!-- SEARCH RESULTS | START -->
+                    <div class="results">
+                        <h4>Displaying Total <span>
+                                <%= numOfResults %>
+                            </span> Results</h4>
+                        <h4>
+                            Page
+                            <span>
+                                <%= currentPage %>
+                            </span>
+                            of
+                            <span>
+                                <%= pages %>
+                            </span>
+                        </h4>
+                    </div>
+
+            </div>
+            <!-- PAGINATION -->
+            <div class="shop-pagination">
+                <div class="pagination">
+                    <% if (currentPage==1 && pages> 1) { %>
+                        <a href="/answered/<%= parseInt(currentPage) + 1 %>" <span>
+                            Page <%= parseInt(currentPage) + 1 %>
+                                <i class="icon ion-ios-arrow-forward"></i>
+                                </span>
+                        </a>
+                        <% } else if (currentPage < pages) { %>
+                            <a href="/answered/<%= parseInt(currentPage) - 1 %>"><span>
+                                    <i class="icon ion-ios-arrow-back"></i>
+                                    Page <%= parseInt(currentPage) - 1 %>
+                                </span>
+                            </a>
+                            <a href="/answered/<%= parseInt(currentPage) + 1 %>"><span>
+                                    Page <%= parseInt(currentPage) + 1 %>
+                                        <i class="icon ion-ios-arrow-forward"></i>
+                                </span>
+                            </a>
+                            <% } else if (currentPage==pages && pages> 1) { %>
+                                <a href="/answered/<%= parseInt(currentPage) - 1 %>"><span>
+                                        <i class="icon ion-ios-arrow-back"></i>Page
+                                        <%=parseInt(currentPage) - 1 %>
+                                    </span>
+                                </a>
+                                <% } %>
+                </div>
+                <!-- <div class="mx-auto">
                             <div class="">
                                 <a class="pge" href="#" id="previous2">&#8249;&#8249;</a>
                                 <a class="pge" href="#" id="previous2">&#8249;</a>
@@ -144,6 +191,5 @@
 </body>
 
 </div>
-
 
 </html>

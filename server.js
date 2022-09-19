@@ -5,16 +5,18 @@ const crypto = require("crypto");
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
 app.use(express.static("views"));
-require('dotenv').config()
+require("dotenv").config();
 
-const passport = require('passport');
-const LocalStrategy = require('passport-local').Strategy;
-const session = require('express-session');
-const cookieParser = require('cookie-parser');
+const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
+const session = require("express-session");
+const cookieParser = require("cookie-parser");
 const nodemailer = require("nodemailer");
 
-app.use(cookieParser())
-app.use(session({ secret: 'secretcode', resave: true, saveUninitialized: false }));
+app.use(cookieParser());
+app.use(
+  session({ secret: "secretcode", resave: true, saveUninitialized: false })
+);
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -57,22 +59,24 @@ app.get("/", (req, res) => {
     });
 });
 
-app.get('/myPage', loginStat, (req, res) => {
+app.get("/myPage", loginStat, (req, res) => {
+  db.collection("petitions")
+    .find({ author: req.user.name })
+    .toArray((err, result) => {
+      res.render("myPage", { info: req.user, posts: result });
+      console.log(result);
+    });
+});
 
-  db.collection('petitions').find({ author: req.user.name }).toArray((err, result) => {
-    res.render('myPage', { info: req.user, posts: result })
-    console.log(result)
-  })
-
-})
-
-app.post('/delete/:id', (req, res) => {
-  db.collection("petitions").deleteOne({ _id: parseInt(req.params.id) }, (err, result) => {
-  })
+app.post("/delete/:id", (req, res) => {
+  db.collection("petitions").deleteOne(
+    { _id: parseInt(req.params.id) },
+    (err, result) => {}
+  );
   res.send(
     '<script>alert("청원이 삭제 되었습니다");window.location="/myPage"</script>'
-  )
-})
+  );
+});
 
 app.get("/ansed/:id", (req, res) => {
   res.render("ansed", { info: req.user });
@@ -80,7 +84,7 @@ app.get("/ansed/:id", (req, res) => {
     { _id: parseInt(req.params.id) },
     (err, result) => {
       if (result.대답 == true) {
-        res.render("ansed", { data: result, info: req.user, });
+        res.render("ansed", { data: result, info: req.user });
       } else {
         redirect("/");
       }
@@ -98,49 +102,50 @@ app.get("/write", loginStat, (req, res) => {
   // }
 });
 
-app.post("/done",
-  (req, res) => {
-    db.collection("counter").findOne({ name: "postNum" }, (err, result) => {
-      var totalPetitions = result.totalPost;
-      var author;
-      if (req.body.anonymous == null) {
-        author = req.user.mail
+app.post("/done", (req, res) => {
+  db.collection("counter").findOne({ name: "postNum" }, (err, result) => {
+    var totalPetitions = result.totalPost;
+    var author;
+    if (req.body.anonymous == null) {
+      author = req.user.mail;
+    } else {
+      author = req.user.name;
+    }
+    console.log(req.body.anonymous);
+    console.log(req.user);
+    console.log(author);
+    db.collection("petitions").insertOne(
+      {
+        _id: totalPetitions + 1,
+        청원제목: req.body.title,
+        청원내용: req.body.markdown,
+        status: "start",
+        청원시작: localDate,
+        청원마감: changeDate(
+          parseInt(localDate.substring(4)),
+          parseInt(localDate.substring(0, 2)),
+          parseInt(localDate.substring(2))
+        ),
+        liked: 0,
+        author: author,
+        reply: "",
+      },
+      () => {
+        console.log("저장완료");
+        db.collection("counter").updateOne(
+          { name: "postNum" },
+          { $inc: { totalPost: 1 } },
+          (err, result) => {
+            if (err) return console.log(error);
+            res.render("done", { info: req.user });
+          }
+        );
       }
-      else {
-        author = req.user.name
-      }
-      console.log(req.body.anonymous)
-      console.log(req.user)
-      console.log(author)
-      db.collection("petitions").insertOne(
-        {
-          _id: totalPetitions + 1,
-          청원제목: req.body.title,
-          청원내용: req.body.markdown,
-          status: "start",
-          청원시작: localDate,
-          청원마감: changeDate(parseInt(localDate.substring(4,)), parseInt(localDate.substring(0, 2)), parseInt(localDate.substring(2,))),
-          liked: 0,
-          author: author,
-          reply: "",
-        },
-        () => {
-          console.log("저장완료");
-          db.collection("counter").updateOne(
-            { name: "postNum" },
-            { $inc: { totalPost: 1 } },
-            (err, result) => {
-              if (err) return console.log(error);
-              res.render("done", { info: req.user });
-            }
-          );
-        }
-      );
-    });
+    );
   });
+});
 
 app.get("/detail/:id", loginStat, (req, res) => {
-
   db.collection("petitions").findOne(
     { _id: parseInt(req.params.id) },
     (err, result) => {
@@ -156,18 +161,18 @@ app.get("/petitionlist/:page", loginStat, (res, rep) => {
   db.collection("petitions")
     .find()
     .toArray(function (err, result) {
-      numOfResults = (result.length)
-      rep.render("petition_list",
-        {
-          numOfResults: numOfResults,
-          resultPerPage: resultPerPage,
-          pages: Math.ceil(numOfResults / resultPerPage),
-          currentPage: page,
-          posts: result,
-          info: res.user
-        });
+      numOfResults = result.length;
+      result = findPage(result, page);
+      console.log(result);
+      rep.render("petition_list", {
+        numOfResults: numOfResults,
+        resultPerPage: resultPerPage,
+        pages: Math.ceil(numOfResults / resultPerPage),
+        currentPage: page,
+        posts: result,
+        info: res.user,
+      });
     });
-
 });
 
 app.get("/answered/:page", loginStat, (res, rep) => {
@@ -176,20 +181,19 @@ app.get("/answered/:page", loginStat, (res, rep) => {
   db.collection("petitions")
     .find()
     .toArray(function (err, result) {
-      numOfResults = (answered(result).length)
-      console.log("numOfResults : " + numOfResults)
-      console.log(answered(result))
-      rep.render("answeredPetitions",
-        {
-          numOfResults: numOfResults,
-          resultPerPage: resultPerPage,
-          pages: Math.ceil(numOfResults / resultPerPage),
-          currentPage: page,
-          posts: answered(result),
-          info: res.user
-        });
+      numOfResults = answered(result).length;
+      result = findPage(answered(result), page);
+      console.log("numOfResults : " + numOfResults);
+      console.log(answered(result));
+      rep.render("answeredPetitions", {
+        numOfResults: numOfResults,
+        resultPerPage: resultPerPage,
+        pages: Math.ceil(numOfResults / resultPerPage),
+        currentPage: page,
+        posts: result,
+        info: res.user,
+      });
     });
-
 });
 
 app.get("/answerpetition/:id", loginStat, (req, res) => {
@@ -198,7 +202,6 @@ app.get("/answerpetition/:id", loginStat, (req, res) => {
       db.collection("petitions").findOne(
         { _id: parseInt(req.params.id) },
         (err, result) => {
-
           res.render("answerpetition", { data: result, info: req.user });
         }
       );
@@ -207,27 +210,34 @@ app.get("/answerpetition/:id", loginStat, (req, res) => {
         '<script>alert("승인되지 않은 접근입니다.");window.location="/"</script>'
       );
     }
-  })
-
-
+  });
 });
 
-app.get("/waiting", loginStat, (res, rep) => {
+app.get("/waiting/:page", loginStat, (res, rep) => {
+  const resultPerPage = 9;
+  const page = res.params.page || 1;
   db.collection("petitions")
     .find()
     .toArray(function (err, result) {
-      rep.render("waiting", { posts: findWaiting(result), info: res.user });
+      numOfResults = findWaiting(result).length;
+      result = findPage(findWaiting(result), page)
+      rep.render("waiting", {
+        numOfResults: numOfResults,
+        resultPerPage: resultPerPage,
+        pages: Math.ceil(numOfResults / resultPerPage),
+        currentPage: page,
+        posts: result,
+        info: res.user,
+      });
     });
-
 });
 
 app.post("/postanswer/:id", (req, res) => {
-  console.log("답변 : " + req.body.markdown)
-  console.log("_id : " + typeof req.body.markdown)
+  console.log("답변 : " + req.body.markdown);
+  console.log("_id : " + typeof req.body.markdown);
   db.collection("petitions").updateOne(
     { _id: parseInt(req.params.id) },
-    { $set: { "reply": req.body.markdown } }
-    ,
+    { $set: { reply: req.body.markdown } },
     (err, result) => {
       db.collection("petitions").updateOne(
         { _id: parseInt(req.params.id) },
@@ -239,13 +249,11 @@ app.post("/postanswer/:id", (req, res) => {
         }
       );
     }
-  )
-})
+  );
+});
 
 app.post("/vote/:id", loginStat, (req, res) => {
-
   db.collection("acc").findOne({ mail: req.user.mail }, (err, result) => {
-
     for (var object = 0; object <= result.likedId.length; object++) {
       if (result.likedId[object] == req.params.id) {
         res.send(
@@ -288,8 +296,8 @@ app.post("/vote/:id", loginStat, (req, res) => {
 });
 
 app.get("/fail", (req, res) => {
-  res.render('login_error', { info: req.user })
-})
+  res.render("login_error", { info: req.user });
+});
 app.get("/answer", (req, rep) => {
   db.collection("acc").findOne({ name: req.user.name }, (err, result) => {
     if (result.dev != null) {
@@ -300,7 +308,6 @@ app.get("/answer", (req, rep) => {
           rep.render("answer", {
             posts: findWaiting(result),
             info: req.user,
-
           });
         });
     } else {
@@ -308,8 +315,8 @@ app.get("/answer", (req, rep) => {
         '<script>alert("승인되지 않은 접근입니다");window.location="/"</script>'
       );
     }
-  })
-})
+  });
+});
 app.get("/login", (req, rep) => {
   rep.render("login", { info: req.user });
 });
@@ -323,12 +330,11 @@ app.get("/done", (req, res) => {
   res.render("done", { info: req.user });
 });
 app.get("/fail", (req, res) => {
-  res.render('fail')
-})
+  res.render("fail");
+});
 app.get("/verify", (req, res) => {
-  res.render("registerVerify")
-})
-
+  res.render("registerVerify");
+});
 
 let transporter = nodemailer.createTransport({
   host: "smtp.gmail.com",
@@ -337,78 +343,68 @@ let transporter = nodemailer.createTransport({
   auth: {
     user: "noreplytfteamproject@gmail.com",
     pass: "jsurhkeglubqeuoj", // generated ethereal password
-  }
+  },
 });
 
 // send mail with defined transport object
 
-
 app.post("/verifynum", (req, res) => {
-
-  let ps = req.cookies.verpass
-  let ml = req.cookies.vermail
-  let nm = req.cookies.vername
-
+  let ps = req.cookies.verpass;
+  let ml = req.cookies.vermail;
+  let nm = req.cookies.vername;
 
   if (req.body.verify == random) {
-
-
-
     res.send(
       '<script>alert("회원가입이 완료되었습니다");window.location="/"</script>'
     );
 
-    db.collection("counter").findOne(
-      { name: "countacc" },
-      (err, result) => {
-        try {
-          var accNum = result.totalacc;
-          let hashedPass = crypto
-            .createHash("sha256")
-            .update(ps)
-            .digest("base64");
-          console.log(hashedPass);
-          console.log("mail:", ml);
-          console.log("password:", hashedPass);
+    db.collection("counter").findOne({ name: "countacc" }, (err, result) => {
+      try {
+        var accNum = result.totalacc;
+        let hashedPass = crypto
+          .createHash("sha256")
+          .update(ps)
+          .digest("base64");
+        console.log(hashedPass);
+        console.log("mail:", ml);
+        console.log("password:", hashedPass);
 
-          db.collection("acc").insertOne(
-            {
-              _id: accNum + 1,
-              name: nm,
-              mail: ml,
-              pass: hashedPass,
-              likedId: [0],
-            },
-            () => {
-              db.collection("counter").updateOne(
-                { name: "countacc" },
-                { $inc: { totalacc: 1 } },
-                (err, result) => {
-                  if (err) return console.log(error);
-                }
-              );
-            }
-          );
-        } catch {
-          res.redirect("/register");
-        }
+        db.collection("acc").insertOne(
+          {
+            _id: accNum + 1,
+            name: nm,
+            mail: ml,
+            pass: hashedPass,
+            likedId: [0],
+          },
+          () => {
+            db.collection("counter").updateOne(
+              { name: "countacc" },
+              { $inc: { totalacc: 1 } },
+              (err, result) => {
+                if (err) return console.log(error);
+              }
+            );
+          }
+        );
+      } catch {
+        res.redirect("/register");
       }
-    );
+    });
   } else {
     res.send(
       '<script>alert("일치하지 않습니다");window.location="/verify"</script>'
     );
-
   }
-})
+});
 
 app.post("/register", (req, rep) => {
-  random = Math.floor((Math.random() * 100) + 54)
-  rep.cookie('Verifycookie', random)
+  random = Math.floor(Math.random() * 100 + 54);
+  rep.cookie("Verifycookie", random);
   if (req.body.password != req.body.passcheck) {
     rep.send(
       '<script>alert("비밀번호 확인이 일치하지 않습니다.");window.location="/register"</script>'
-    )
+    );
   } else {
     db.collection("acc").findOne({ mail: req.body.mail }, (err, result) => {
       if (result != null) {
@@ -422,18 +418,18 @@ app.post("/register", (req, rep) => {
               '<script>alert("이미 존재하는 닉네임입니다");window.location="/"</script>'
             );
           } else {
-            rep.cookie("vermail", req.body.mail)
-            rep.cookie("verpass", req.body.password)
-            rep.cookie("vername", req.body.name)
+            rep.cookie("vermail", req.body.mail);
+            rep.cookie("verpass", req.body.password);
+            rep.cookie("vername", req.body.name);
 
             transporter.sendMail({
-              from: 'noreplytfteamproject@gmail.com', // sender address
+              from: "noreplytfteamproject@gmail.com", // sender address
               to: req.body.mail, // list of receivers
               subject: "Kis 학생청원 인증번호 ✔", // Subject line
               // text: "귀하의 인증번호는 : "+random+" 입니다.", // plain text body
               html: "<b>귀하의 인증번호는 : " + random + " 입니다.</b>", // html body
-            })
-            rep.redirect('/verify')
+            });
+            rep.redirect("/verify");
           }
         });
       }
@@ -442,13 +438,10 @@ app.post("/register", (req, rep) => {
 });
 
 function verifyMail(res) {
-  res.redirect('/')
-
+  res.redirect("/");
 }
 
-function confirmedRegister(req, rep) {
-
-}
+function confirmedRegister(req, rep) {}
 
 // app.post("/login", (req, rep) => {
 //   db.collection("counter").findOne({ name: "countacc" }, (err, result) => {
@@ -496,49 +489,57 @@ function confirmedRegister(req, rep) {
 //   });
 // });
 
-app.post('/login', passport.authenticate('local', {
-  failureRedirect: "/fail"
-}), function (req, rep) {
-  rep.redirect('/')
-})
+app.post(
+  "/login",
+  passport.authenticate("local", {
+    failureRedirect: "/fail",
+  }),
+  function (req, rep) {
+    rep.redirect("/");
+  }
+);
 
-passport.use(new LocalStrategy({
-  usernameField: 'loginmail',
-  passwordField: 'loginpassword',
-  session: true,
-  passReqToCallback: false,
-}, function (inpid, inppass, done) {
-  console.log(inpid, inppass)
+passport.use(
+  new LocalStrategy(
+    {
+      usernameField: "loginmail",
+      passwordField: "loginpassword",
+      session: true,
+      passReqToCallback: false,
+    },
+    function (inpid, inppass, done) {
+      console.log(inpid, inppass);
 
-  //console.log(입력한아이디, 입력한비번);
-  db.collection('acc').findOne({ mail: inpid }, (err, res) => {
-    if (err) return done(err)
+      //console.log(입력한아이디, 입력한비번);
+      db.collection("acc").findOne({ mail: inpid }, (err, res) => {
+        if (err) return done(err);
 
-    if (!res) return done(null, false, console.log('wrong mail'))
+        if (!res) return done(null, false, console.log("wrong mail"));
 
-    let inputPass = crypto
-      .createHash("sha256")
-      .update(inppass)
-      .digest("base64");
-    if (inputPass == res.pass) {
-      console.log('logged in successfully')
-      return done(null, res)
-
-    } else {
-      return done(null, false, { message: '비번틀렸어요' })
+        let inputPass = crypto
+          .createHash("sha256")
+          .update(inppass)
+          .digest("base64");
+        if (inputPass == res.pass) {
+          console.log("logged in successfully");
+          return done(null, res);
+        } else {
+          return done(null, false, { message: "비번틀렸어요" });
+        }
+      });
     }
-  })
-}));
+  )
+);
 
 passport.serializeUser(function (user, done) {
-  done(null, user.mail)
-})
+  done(null, user.mail);
+});
 
 passport.deserializeUser(function (id, done) {
-  db.collection('acc').findOne({ mail: id }, (err, res) => {
-    done(null, res)
-  })
-})
+  db.collection("acc").findOne({ mail: id }, (err, res) => {
+    done(null, res);
+  });
+});
 
 app.get("/logout", (req, res) => {
   res.clearCookie("connect.sid");
@@ -551,7 +552,7 @@ app.get("/test", (rep, req) => {
 
 function loginStat(req, rep, next) {
   if (req.user) {
-    next()
+    next();
   } else {
     rep.send(
       '<script>alert("로그인 이후 사용해 주세요");window.location="/"</script>'
@@ -560,15 +561,15 @@ function loginStat(req, rep, next) {
 }
 
 function loginStatforteacher(req, rep, next) {
-  if (req.user == (("김대선" || "우선하" || "강원구" || "손성호"))) {
-    next()
+  if (req.user == ("김대선" || "우선하" || "강원구" || "손성호")) {
+    next();
   } else {
     rep.send(
       '<script>alert("진입 할 수 없습니다");window.location="/"</script>'
     );
   }
 }
-var testDate = "9/5/2022"
+var testDate = "9/5/2022";
 //함수
 
 function changeDate(year, month, date) {
@@ -610,7 +611,7 @@ function changeDate(year, month, date) {
 }
 
 function answered(list) {
-  arr = []
+  arr = [];
   for (var object in list) {
     if (list[object].status == "answered") {
       var obj = list[object];
@@ -620,8 +621,8 @@ function answered(list) {
   return arr;
 }
 
-
 function findWaiting(list) {
+  arr = [];
   for (var object in list) {
     if (list[object].status == "waiting") {
       var obj = list[object];
@@ -638,3 +639,14 @@ function highestVote(list) {
   return array;
 }
 
+function findPage(list, page) {
+  arr = [];
+  for (var i = (page - 1) * 9; i < page * 9; i++) {
+    if (list[i] == null) {
+      break;
+    }
+    arr.push(list[i]);
+  }
+  console.log(arr);
+  return arr;
+}
