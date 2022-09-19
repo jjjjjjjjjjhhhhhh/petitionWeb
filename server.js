@@ -46,8 +46,6 @@ app.get("/", (req, res) => {
   db.collection("petitions")
     .find()
     .toArray(function (err, result) {
-      console.log(login_status);
-      console.log(findWaiting(result));
       arr = [];
       res.render("home", {
         sortedPosts: highestVote(result),
@@ -172,11 +170,24 @@ app.get("/petitionlist/:page", loginStat, (res, rep) => {
 
 });
 
-app.get("/answered", loginStat, (res, rep) => {
+app.get("/answered/:page", loginStat, (res, rep) => {
+  const resultPerPage = 9;
+  const page = res.params.page || 1;
   db.collection("petitions")
     .find()
     .toArray(function (err, result) {
-      rep.render("answeredPetitions", { posts: answered(result), info: res.user });
+      numOfResults = (answered(result).length)
+      console.log("numOfResults : " + numOfResults)
+      console.log(answered(result))
+      rep.render("answeredPetitions",
+        {
+          numOfResults: numOfResults,
+          resultPerPage: resultPerPage,
+          pages: Math.ceil(numOfResults / resultPerPage),
+          currentPage: page,
+          posts: answered(result),
+          info: res.user
+        });
     });
 
 });
@@ -599,6 +610,7 @@ function changeDate(year, month, date) {
 }
 
 function answered(list) {
+  arr = []
   for (var object in list) {
     if (list[object].status == "answered") {
       var obj = list[object];
