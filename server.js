@@ -10,22 +10,26 @@ require('dotenv').config()
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const nodemailer = require("nodemailer");
 
+app.use(cookieParser())
 app.use(session({ secret: 'secretcode', resave: true, saveUninitialized: false }));
 app.use(passport.initialize());
 app.use(passport.session());
 
 var bool = false;
-var login_states;
 var login_status = false;
-var login_mail;
+
 let localDate = new Date().toLocaleDateString();
 var arr = [];
 
+var random = 0;
 const MongoClient = require("mongodb").MongoClient;
 const e = require("express");
 const { runInNewContext } = require("vm");
 var db;
+
 MongoClient.connect(
   "mongodb+srv://Tfadmin:qwerty1111@tfteam.aqtsspy.mongodb.net/?retryWrites=true&w=majority",
   (err, client) => {
@@ -67,6 +71,9 @@ app.get('/myPage', loginStat, (req, res) => {
 app.post('/delete/:id', (req, res) => {
   db.collection("petitions").deleteOne({ _id: parseInt(req.params.id) }, (err, result) => {
   })
+  res.send(
+    '<script>alert("청원이 삭제 되었습니다");window.location="/myPage"</script>'
+  )
 })
 
 app.get("/ansed/:id", (req, res) => {
@@ -115,9 +122,9 @@ app.post("/done",
           status: "start",
           청원시작: localDate,
           청원마감: changeDate(parseInt(localDate.substring(4,)), parseInt(localDate.substring(0, 2)), parseInt(localDate.substring(2,))),
-          익명여부: req.body.anonymous,
           liked: 0,
           author: author,
+          reply: "",
         },
         () => {
           console.log("저장완료");
@@ -145,12 +152,22 @@ app.get("/detail/:id", loginStat, (req, res) => {
   );
 });
 
-app.get("/petitionlist", loginStat, (res, rep) => {
+app.get("/petitionlist/:page", loginStat, (res, rep) => {
+  const resultPerPage = 9;
+  const page = res.params.page || 1;
   db.collection("petitions")
     .find()
     .toArray(function (err, result) {
-      console.log(result)
-      rep.render("petition_list", { posts: result, info: res.user });
+      numOfResults = (result.length)
+      rep.render("petition_list",
+        {
+          numOfResults: numOfResults,
+          resultPerPage: resultPerPage,
+          pages : Math.ceil(numOfResults / resultPerPage),
+          currentPage: page,
+          posts: result, 
+          info: res.user
+        });
     });
 
 });
@@ -164,6 +181,26 @@ app.get("/answered", loginStat, (res, rep) => {
 
 });
 
+app.get("/answerpetition/:id", loginStat, (req, res) => {
+  db.collection("acc").findOne({ name: req.user.name }, (err, result) => {
+    if (result.dev != null) {
+      db.collection("petitions").findOne(
+        { _id: parseInt(req.params.id) },
+        (err, result) => {
+
+          res.render("answerpetition", { data: result, info: req.user });
+        }
+      );
+    } else {
+      res.send(
+        '<script>alert("승인되지 않은 접근입니다.");window.location="/"</script>'
+      );
+    }
+  })
+
+
+});
+
 app.get("/waiting", loginStat, (res, rep) => {
   db.collection("petitions")
     .find()
@@ -172,6 +209,27 @@ app.get("/waiting", loginStat, (res, rep) => {
     });
 
 });
+
+app.post("/postanswer/:id", (req, res) => {
+  console.log(req.body.markdown)
+  console.log(req.params.id)
+  db.collection("petitions").updateOne(
+    { _id: parseInt(req.params.id) },
+    { $push: { reply: req.body.markdown } },
+    (err, result) => {
+      db.collection("petitions").updateOne(
+        { _id: parseInt(req.params.id) },
+        { $push: { status: "answered" } }, (err, result) => {
+          res.send(
+            '<script>alert("답변되었습니다");window.location="/"</script>'
+          );
+        }
+      )
+
+
+    }
+  )
+})
 
 app.post("/vote/:id", loginStat, (req, res) => {
 
@@ -218,6 +276,29 @@ app.post("/vote/:id", loginStat, (req, res) => {
   });
 });
 
+app.get("/fail", (req, res) => {
+  res.render('login_error', { info: req.user })
+})
+app.get("/answer", (req, rep) => {
+  db.collection("acc").findOne({ name: req.user.name }, (err, result) => {
+    if (result.dev != null) {
+      db.collection("petitions")
+        .find()
+        .toArray(function (err, result) {
+          arr = [];
+          rep.render("answer", {
+            posts: findWaiting(result),
+            info: req.user,
+
+          });
+        });
+    } else {
+      rep.send(
+        '<script>alert("승인되지 않은 접근입니다");window.location="/"</script>'
+      );
+    }
+  })
+})
 app.get("/login", (req, rep) => {
   rep.render("login", { info: req.user });
 });
@@ -233,63 +314,130 @@ app.get("/done", (req, res) => {
 app.get("/fail", (req, res) => {
   res.render('fail')
 })
-app.post("/register", (req, rep) => {
-  db.collection("acc").findOne({ mail: req.body.mail }, (err, result) => {
-    if (result != null) {
-      rep.send(
-        '<script>alert("이미 존재하는 계정입니다");window.location="/"</script>'
-      );
-    } else {
-      db.collection("acc").findOne({ name: req.body.name }, (err, result) => {
-        if (result != null) {
-          rep.send(
-            '<script>alert("이미 존재하는 닉네임입니다");window.location="/"</script>'
-          );
-        } else {
-          rep.send(
-            '<script>alert("회원가입이 완료되었습니다");window.location="/"</script>'
-          );
-          db.collection("counter").findOne(
-            { name: "countacc" },
-            (err, result) => {
-              try {
-                var accNum = result.totalacc;
-                let hashedPass = crypto
-                  .createHash("sha256")
-                  .update(req.body.password)
-                  .digest("base64");
-                console.log(hashedPass);
-                console.log("mail:", req.body.mail);
-                console.log("password:", hashedPass);
+app.get("/verify", (req, res) => {
+  res.render("registerVerify")
+})
 
-                db.collection("acc").insertOne(
-                  {
-                    _id: accNum + 1,
-                    name: req.body.name,
-                    mail: req.body.mail,
-                    pass: hashedPass,
-                    likedId: [0],
-                  },
-                  () => {
-                    db.collection("counter").updateOne(
-                      { name: "countacc" },
-                      { $inc: { totalacc: 1 } },
-                      (err, result) => {
-                        if (err) return console.log(error);
-                      }
-                    );
-                  }
-                );
-              } catch {
-                rep.redirect("/register");
-              }
+
+let transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false,
+  auth: {
+    user: "noreplytfteamproject@gmail.com",
+    pass: "jsurhkeglubqeuoj", // generated ethereal password
+  }
+});
+
+// send mail with defined transport object
+
+
+app.post("/verifynum", (req, res) => {
+
+  let ps = req.cookies.verpass
+  let ml = req.cookies.vermail
+  let nm = req.cookies.vername
+
+
+  if (req.body.verify == random) {
+
+
+
+    res.send(
+      '<script>alert("회원가입이 완료되었습니다");window.location="/"</script>'
+    );
+
+    db.collection("counter").findOne(
+      { name: "countacc" },
+      (err, result) => {
+        try {
+          var accNum = result.totalacc;
+          let hashedPass = crypto
+            .createHash("sha256")
+            .update(ps)
+            .digest("base64");
+          console.log(hashedPass);
+          console.log("mail:", ml);
+          console.log("password:", hashedPass);
+
+          db.collection("acc").insertOne(
+            {
+              _id: accNum + 1,
+              name: nm,
+              mail: ml,
+              pass: hashedPass,
+              likedId: [0],
+            },
+            () => {
+              db.collection("counter").updateOne(
+                { name: "countacc" },
+                { $inc: { totalacc: 1 } },
+                (err, result) => {
+                  if (err) return console.log(error);
+                }
+              );
             }
           );
+        } catch {
+          res.redirect("/register");
         }
-      });
-    }
-  });
+      }
+    );
+  } else {
+    res.send(
+      '<script>alert("일치하지 않습니다");window.location="/verify"</script>'
+    );
+
+  }
+})
+
+app.post("/register", (req, rep) => {
+  random = Math.floor((Math.random() * 100) + 54)
+  rep.cookie('Verifycookie', random)
+  if (req.body.password != req.body.passcheck) {
+    rep.send(
+      '<script>alert("비밀번호 확인이 일치하지 않습니다.");window.location="/register"</script>'
+    )
+  } else {
+    db.collection("acc").findOne({ mail: req.body.mail }, (err, result) => {
+      if (result != null) {
+        rep.send(
+          '<script>alert("이미 존재하는 계정입니다");window.location="/"</script>'
+        );
+      } else {
+        db.collection("acc").findOne({ name: req.body.name }, (err, result) => {
+          if (result != null) {
+            rep.send(
+              '<script>alert("이미 존재하는 닉네임입니다");window.location="/"</script>'
+            );
+          } else {
+            rep.cookie("vermail", req.body.mail)
+            rep.cookie("verpass", req.body.password)
+            rep.cookie("vername", req.body.name)
+
+            transporter.sendMail({
+              from: 'noreplytfteamproject@gmail.com', // sender address
+              to: req.body.mail, // list of receivers
+              subject: "Kis 학생청원 인증번호 ✔", // Subject line
+              // text: "귀하의 인증번호는 : "+random+" 입니다.", // plain text body
+              html: "<b>귀하의 인증번호는 : " + random + " 입니다.</b>", // html body
+            })
+            rep.redirect('/verify')
+          }
+        });
+      }
+    });
+  }
 });
+
+function verifyMail(res) {
+  res.redirect('/')
+
+}
+
+function confirmedRegister(req, rep) {
+
+}
 
 // app.post("/login", (req, rep) => {
 //   db.collection("counter").findOne({ name: "countacc" }, (err, result) => {
@@ -382,16 +530,12 @@ passport.deserializeUser(function (id, done) {
 })
 
 app.get("/logout", (req, res) => {
-  // login_states = null;
-  // login_status = false;
-  req.user = null;
-
+  res.clearCookie("connect.sid");
   res.redirect("/");
 });
 
 app.get("/test", (rep, req) => {
-  req.render("test");
-  console.log(changeDate(localDate));
+  verifyMail(req);
 });
 
 function loginStat(req, rep, next) {
@@ -400,6 +544,16 @@ function loginStat(req, rep, next) {
   } else {
     rep.send(
       '<script>alert("로그인 이후 사용해 주세요");window.location="/"</script>'
+    );
+  }
+}
+
+function loginStatforteacher(req, rep, next) {
+  if (req.user == (("김대선" || "우선하" || "강원구" || "손성호"))) {
+    next()
+  } else {
+    rep.send(
+      '<script>alert("진입 할 수 없습니다");window.location="/"</script>'
     );
   }
 }

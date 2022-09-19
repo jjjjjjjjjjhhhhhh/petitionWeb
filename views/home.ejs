@@ -36,14 +36,15 @@
                 <li class=" right"><a class="text" href="/login">로그인</a></li>
                 <li><a class="text" href="/register">회원가입</a></li>
                 <% }else{ %>
-                    <li class=" right"><a href="/myPage" class="text">로그인된 계정: <%= info.name %></a></li>
+                    <li class=" right"><a href="/myPage" class="text">My Page </a></li>
+                    <li><a class="text">로그인된 계정: <%= info.name %></a></li>
                     <li><a class="text" href="/logout">로그아웃</a></li>
 
                     <% } %>
 
                         <li class="left">
                             <h2 href="/">
-                                <div>
+                                <div href="'/">
                                     <a href="/"><img class="logo-image" src="../img/school_logo_1.png"
                                             alt="호치민시한국국제학교 로고"></a>
                                 </div>
@@ -345,7 +346,7 @@
 
                 <div class="l" style="margin-bottom: 180px; margin-top: 50px;">
 
-                    <a class="pge" href="/petitionlist" id="next2" style="background-color: #2962FF;">더보기</a>
+                    <a class="pge" href="/petitionlist/1" id="next2" style="background-color: #2962FF;">더보기</a>
 
                 </div>
 
@@ -356,10 +357,21 @@
 </div>
 </div>
 <footer>
-    <div class="fr f12 tr" style=" margin: 15px 30px 15px 15px;">
-        <p>청원 시스템 제작 TF팀 </p>
-        <p class="fc4c4c4">이서현 이상효 장준혁 곽범준 </p>
-        <p class="fc4c4c4"> 차세연 최지철 </p>
+    <div class=" f17 tr" style="margin: 15px 30px 15px 15px; text-align: center;">
+        <div style="text-align:center">
+            <p class="fl bold" style="margin-right:30px; margin-top:55px;  margin-left: 28%;">청원 시스템 제작 TF팀 </p>
+            <!-- <p class="fc4c4c4 fl" style="margin-right:30px;">이서현 이상효 장준혁 곽범준 </p>
+        <p class="fc4c4c4 fl" style="margin-right:30px;"> 차세연 최지철 </p> -->
+            <p class="fl a" style="margin-top:55px;">이서현</p>
+            <p class="fl a" style="margin-top:55px;">이상효</p>
+            <p class="fl a" style="margin-top:55px;">장준혁</p>
+            <p class="fl a" style="margin-top:55px;">곽범준</p>
+            <p class="fl a" style="margin-top:55px;">차세연</p>
+            <p class="fl a" style="margin-top:55px;">김민재</p>
+            <p class="fl a" style="margin-top:55px;">최지철</p>
+
+
+        </div>
     </div>
 </footer>
 

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>진행중인 청원</title>
+    <link rel="stylesheet" href="../css/defalt.css">
+    <link rel="stylesheet" href="../css/in_progress.css">
+
+</head>
+<div class="wrapper">
+    <header style="padding-top: 40px; padding-bottom: 10px;">
+        <ul class="topnav">
+
+            <% if(info==null){ %>
+
+                <li class=" right"><a class="text" href="/login">로그인</a></li>
+                <li><a class="text" href="/register">회원가입</a></li>
+                <% }else{ %>
+                    <li class=" right"><a class="text">로그인된 계정: <%= info.name %></a></li>
+                    <li><a class="text" href="/logout">로그아웃</a></li>
+
+                    <% } %>
+
+                        <li class="left">
+                            <h2 href="/">
+                                <div>
+                                    <a href="/"><img class="logo-image" src="../img/school_logo_1.png"
+                                            alt="호치민시한국국제학교 로고"></a>
+                                </div>
+                            </h2>
+                        </li>
+                        <li class="left" style="padding-left: 50px;  padding-top:20px;">
+                            <div class="vl_inBox fl" style="height: 40px;"> </div>
+                        </li>
+                        <li class="left"
+                            style="padding-left: 35px; font-size: 25px; font-weight: 700; padding-top: 4px;">
+                            <p>학생청원 2022</p>
+                        </li>
+        </ul>
+    </header>
+
+    <body style="margin: 0px;">
+        <div class=" mx-auto text-center" id='banner'>
+            <div>
+                <img src="../img/mainBanner.png" id="banner-img">
+            </div>
+        </div>
+
+
+        <body style="margin:0px; ">
+            <div class=" mx-auto text-center" id='banner'>
+                <div>
+                    <img src="../img/loadingPetition.png" id="banner-img">
+                </div>
+            </div>
+            <div class="sub-title">
+                <div class="vl"></div>
+                <div class="sub-title-text"> <a> 진행중인 청원</a> </div>
+            </div>
+            <div class="notion">
+                <div class="discript" style="display: table;">
+                    <div class="box_NoB">
+                        <p><button class="btn pad" style="height: 33px;"> 진행중</button></p>
+                    </div>
+                    <div class="box_NoB">
+                        <p class="f38 bold" style="padding-bottom: 50px;">
+                            <%- data.청원제목 %>
+                        </p>
+                    </div>
+                    <div class="round_box mx-auto" style="margin-bottom: 100px;">
+                        <div class="box_NoB fl" id="content">
+                            <p>작성자 </p>
+                            <p>참여인원 </p>
+                            <p>청원기간 </p>
+                        </div>
+                        <div class="vl_inBox fl" id="line_1"> </div>
+                        <div class="box_NoB">
+                        </div>
+                        <div class="box_NoB fl" id="content1">
+                            <p>
+                                <%= data.author %>
+                            </p>
+                            <p>
+                                <%= data.liked %>명
+                            </p>
+                            <p>
+                                 <%= data. 청원시작 %>~<%= data. 청원마감 %>
+                            </p>
+                        </div>
+                        <div class="box_NoB" id="mar2">
+                            <div class="content" style="margin-left: 150px; width: fit-content;">
+
+                            </div>
+
+
+                            <div class="content" style="margin-left: 18px;">
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+</div>
+<div>
+    <div>
+        <p class="title" style="margin-top: 100px;" id="subtitle"> 청원내용
+        </p>
+    </div>
+    <div class="mx-auto middle">
+        <div class="box_NoB" id="tl" style="padding: 30px 50px 30px 50px; width:100%; margin:0px;">
+            <pre> <%- data.청원내용 %>
+
+                </pre>
+        </div>
+    </div>
+    <form action="/postanswer/<%- data._id %>" method="POST">
+        <div class=" title" style="font-size: 38px; margin-top:100px; margin-bottom: 70px;">
+            청원 응답하기
+        </div>
+        
+
+            <ul class="boards">
+                <li class="pad_t_b_70 fl w200 mid_line" style="padding-left: 10px;"> 답변 내용</li>
+                <li class="pad_t_b_10 fl w1040 mid_line">
+                    <div class="input-data">
+                        <textarea required name="markdown" id="markdown" placeholder="답변 내용을 입력해주세요."> </textarea>
+                    </div>
+                </li>
+            </ul>
+
+
+        
+        <div class="mx-auto text-center">
+
+            <a href="/"><button type="button" class=btn style="margin-top: 80px;"> 작성 최소</button></a>
+
+            <a href="/done"><button type="submit" class=btns style="margin-top: 80px;"> 답변
+                    등록하기</button></a>
+        </div>
+</div>
+</form>
+</div>
+<div class="frth-main mx-auto">
+    <div class="petition_waiting mx-auto">
+        <ul>
+            <!-- <li>
+                <p class="fl idk">청원동의 </p>
+                <pre class="blue idk fl" style="margin-top:34px;">   <%= data.liked %></pre>
+                <p class="fl idk">명</p>
+            </li> -->
+            <li class="w1040 pad_t_b_30"></li>
+        </ul>
+        <!-- <ul class="boards">
+            <li class="pad_t_b_30 back fl w250 titles mid_line" style="padding-left: 35px;"> 학교급식사랑 </li>
+            <li class="pad_t_b_30 back fl w1040 titles mid_line"> 동의합니다.</li>
+        </ul>
+        <ul class="boards">
+            <li class="pad_t_b_30 back fl w250 mid_line" style="padding-left: 35px;"> 학교급식사랑 </li>
+            <li class="pad_t_b_30 back fl w1040 mid_line"> 동의합니다.</li>
+        </ul>
+        <ul class="boards">
+            <li class="pad_t_b_30 back fl w250 mid_line" style="padding-left: 35px;"> 학교급식사랑 </li>
+            <li class="pad_t_b_30 back fl w1040 mid_line"> 동의합니다.</li>
+        </ul>
+        <ul class="boards">
+            <li class="pad_t_b_30 back fl w250 mid_line" style="padding-left: 35px;"> 학교급식사랑 </li>
+            <li class="pad_t_b_30 back fl w1040 mid_line"> 동의합니다.</li>
+        </ul>
+        <ul class="boards">
+            <li class="pad_t_b_30 back fl w250 mid_line" style="padding-left: 35px;"> 학교급식사랑 </li>
+            <li class="pad_t_b_30 back fl w1040 mid_line"> 동의합니다.</li>
+        </ul> -->
+
+    </div>
+    <!-- <div class="mx-auto" style="width: 300px">
+        <a class="pge" href="#" id="previous2">&#8249;&#8249;</a>
+        <a class="pge" href="#" id="previous2">&#8249;</a>
+        <a class="pge" href="#" id="next2" style="background-color: #2962FF;">1</a>
+        <a class="pge" href="#" id="next2">&#8250;</a>
+        <a class="pge" href="#" id="next2">&#8250;&#8250;</a>
+    </div> -->
+</div>
+</div>
+<div class="box_NoB">
+    <p style="margin-top: 50px;"><a href="/"><button class="btn pad" id="to-main">목록으로</button></a></p>
+</div>
+</body>
+</div>
+<footer>
+    <div class="fr f12 tr" style=" margin: 15px 30px 15px 15px;" >
+    <p>청원 시스템 제작 TF팀 </p>
+    <p class="fc4c4c4">이서현 이상효 장준혁 곽범준 </p>
+    <p class="fc4c4c4"> 차세연 최지철  </p>
+</div>
+  </footer> 
+</html>
