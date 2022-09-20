@@ -40,7 +40,7 @@
 
 .flex-container{ 
     display: flex;
-    margin-top: 130px; 
+    margin-top: 56px; 
     justify-content: center;
     /* justify-content: center; */
 
@@ -104,12 +104,12 @@ max-width: 350px;
 
 
 .btn{ 
-    font-size: 38px; 
+    font-size: 27px; 
     font-weight: 600;
     background: #2962FF;
     padding: 15px;
     height: 80px; 
-    width: 472px;   
+    width: 357px;   
     text-align: center; 
     text-decoration: none; 
     color:#fff; 
@@ -134,8 +134,8 @@ max-width: 350px;
 }
 
 .fst-box{
-    width:428px; 
-    height:546px; 
+    width:284px; 
+    height:414px; 
     background-color: #f4f4f4;
     border: #fff;
     box-shadow: 1px 1px 1px 1px #fff;
@@ -143,7 +143,7 @@ max-width: 350px;
 .discript{
     width:100%; 
     background-color: #f4f4f4;
-    height: 556px;
+    height: 409px;
     display: flex;
     justify-content: center;
 }
